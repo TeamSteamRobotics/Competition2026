@@ -90,6 +90,10 @@ public class EstimatorSubsystem extends SubsystemBase {
       m_drive.addVisionMeasurement(robotPose, Timer.getFPGATimestamp(), robotPoseStdDev);
     } else {
       estimatePose = estimator.estimateLowestAmbiguityPose(m_vision.latestResult().get());
+      if(estimatePose.isPresent()){
+        robotPose = estimatePose.get().estimatedPose.toPose2d();
+      m_drive.addVisionMeasurement(robotPose, Timer.getFPGATimestamp(), robotPoseStdDev);
+      }
     }
     // addVisionMeasurement.apply(new Pose2d()).apply(Timer.getFPGATimestamp()).accept(robotPoseStdDev);
     
