@@ -16,4 +16,76 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+  public class drive {
+    public class FrontLeft{
+      public static final int driveId = 1;
+      public static final int steerId = 2;
+      public static final int encoderId = 3;
+    }
+      
+    public class FrontRight{
+      public static final int driveId = 4;
+      public static final int steerId = 5;
+      public static final int encoderId = 6;
+    }
+
+    public class BackLeft {
+      public static final int driveId = 7;
+      public static final int steerId = 8;
+      public static final int encoderId = 9;
+    }
+      
+    public class BackRight {
+      public static final int driveId = 10;
+      public static final int steerId = 11;
+      public static final int encoderId = 12;
+    }
+
+  } 
+
+  public class shooter {
+    public static final int shooterLeftId = 13;
+    public static final int shooterRightId = 14;
+    public static final int greenRollerId = 15;
+  }
 }
+
+
+
+/**
+ *   public class DriveMotors {
+    public class FrontLeft {
+      public static final int driveId = 1;
+      public static final int steerId = 2;
+      public static final int encoderId = 3;
+
+    }
+    public class FrontRight {
+      public static final int driveId = 4;
+      public static final int steerId = 5;
+      public static final int encoderId = 6;
+    }
+    public class BackLeft {
+      public static final int driveId = 7;
+      public static final int steerId = 8;
+      public static final int encoderId = 9;
+    }
+    public class BackRight {
+      public static final int driveId = 10;
+      public static final int steerId = 11;
+      public static final int encoderId = 12;
+      }
+  }
+
+
+
+
+  public class Shooter{ 
+    public static final int greenRollerId = 19;
+    public static final int frontRollerId = 20;
+    public static final int backRollerId = 21;
+    public static final double defaultSpeed = 0.40;
+    public static final double vomitSpeed = -0.1;
+    public static final double rollerSpeed = 0.40;
+    public static final double speedIncrement = 0.0;
+ */
