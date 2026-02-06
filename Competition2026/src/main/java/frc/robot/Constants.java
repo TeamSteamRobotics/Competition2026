@@ -44,9 +44,17 @@ public final class Constants {
   } 
 
   public class shooter {
-    public static final int shooterLeftId = 13;
-    public static final int shooterRightId = 14;
-    public static final int greenRollerId = 15;
+    public static final int shooterLeftId = 14;
+    public static final int shooterRightId = 15;
+    public static final int feedRollersId = 16;
+    public static final double defaultSpeed = 0.40;
+
+    public class ShooterPid{
+      public static final double kP = 0.08;
+      public static final double kI = 0.001;
+      public static final double kD = 3.0;
+      public static final double tolerance = 0.1;     
+    }
   }
 }
 
