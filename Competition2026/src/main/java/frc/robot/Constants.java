@@ -16,4 +16,11 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+  public static class HoodConstants {
+    public static final int hoodElevateMotorID = 99; //TODO: Change to actual value
+    /**
+     * SAFE maximum/minimum encoder value
+     */
+    public static final double hoodMaxEncoderValue = 1.0;
+  }
 }
