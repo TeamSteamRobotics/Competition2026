@@ -37,9 +37,13 @@ public final class Constants {
      * y Standard Deviation: 0.0026839152279527845
      * theta Standard Deviation: 7.633268305608407E-4
      */
+
     public class FieldPositions {
       public static final double fieldLength = 0;
       public static final double fieldWidth = 0;
+      /**
+       * TODO: Update for actual field positions
+       */
       public static final ChainList<AprilTag> aprilTagList = new ChainList<AprilTag>()
         .chainAdd(new AprilTag(1, 
           new Pose3d(new Translation3d(16.697198, 0.65532, 1.4859), 
@@ -107,6 +111,20 @@ public final class Constants {
         .chainAdd(new AprilTag(22, 
           new Pose3d(new Translation3d(4.904739999999999, 3.3063179999999996, 0.308102), 
           new Rotation3d(new Quaternion(-0.8660254037844387, 0, 0, 0.49999999999999994)))));
+    }
+  }
+  public static class HoodConstants {
+    public static final int hoodElevateMotorID = 99; //TODO: Change to actual value
+    /**
+     * SAFE maximum/minimum encoder value
+     */
+    public static final double hoodMaxEncoderValue = 1.0;
+    public static final double angleInterval = 3; //TODO: Replace with actual value
+    public static final double defaultAngleIntervalue = 3; //TODO: Replace with actual value
+    public static class PIDValues{
+      public static final double kP = 0.1;
+      public static final double kI = 0.1;
+      public static final double kD = 0.1;
     }
   }
 }
