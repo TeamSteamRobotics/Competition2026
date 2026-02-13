@@ -85,19 +85,19 @@ public class SparkMaxMotor extends SubsystemBase implements GenericMotor {
 
     @Override
     public void set(double output) {
-        if(isPid) { sparkPid.setReference(0, ControlType.kDutyCycle); }
+        if(isPid) { sparkPid.setSetpoint(0, ControlType.kDutyCycle); }
         motor.set(output);
     }
 
     @Override
     public void setVoltage(double voltage) {
-        sparkPid.setReference(0, ControlType.kVoltage);
+        sparkPid.setSetpoint(0, ControlType.kVoltage);
         motor.setVoltage(voltage);
     }
 
     @Override
     public void setPosition(double rotations) {
-        sparkPid.setReference(rotations, ControlType.kPosition);
+        sparkPid.setSetpoint(rotations, ControlType.kPosition);
         // Use the internal PID to move to position
     }
 
