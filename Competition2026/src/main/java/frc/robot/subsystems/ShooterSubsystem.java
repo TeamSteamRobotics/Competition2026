@@ -19,24 +19,20 @@ import java.util.TreeMap;
 
 
 public class ShooterSubsystem extends SubsystemBase {
-  /** Creates a new ShooterSubsystem. */
- GenericMotor shooterLeftMotor = new TalonFXMotor(Constants.shooter.shooterLeftId, "rio");
- GenericMotor shooterRightMotor = new TalonFXMotor(Constants.shooter.shooterRightId, "rio");
- GenericMotor kickMotor = new TalonFXMotor(Constants.shooter.feedRollersId, "rio");
-
- PIDController topShooterPid = new PIDController(ShooterPid.kP, ShooterPid.kI, ShooterPid.kD);
- PIDController bottomShooterPid = new PIDController(ShooterPid.kP, ShooterPid.kI, ShooterPid.kD);
- PIDController greenShooterPid = new PIDController(ShooterPid.kP, ShooterPid.kI, ShooterPid.kD);
-
- AbsoluteEncoder shooterLeftEncoder;
- AbsoluteEncoder shooterRightEncoder;
-
- TreeMap<Double, Double> speedLookupTable = new TreeMap<Double, Double>();
-
- double m_targetSpeed;
- double m_dist;
-
- // insert Pid code
+    /** Creates a new ShooterSubsystem. */
+   GenericMotor shooterLeftMotor = new TalonFXMotor(Constants.shooter.shooterLeftId, "rio");
+   GenericMotor shooterRightMotor = new TalonFXMotor(Constants.shooter.shooterRightId, "rio");
+   GenericMotor kickMotor = new TalonFXMotor(Constants.shooter.feedRollersId, "rio");
+  
+   AbsoluteEncoder shooterLeftEncoder;
+   AbsoluteEncoder shooterRightEncoder;
+  
+   TreeMap<Double, Double> speedLookupTable = new TreeMap<Double, Double>(); //make speed table
+  
+   double m_targetSpeed;
+   double m_dist;
+   double m_defaultSpeed;
+   double m_kickSpeed; 
 
  public void StopMotor() {
     shooterLeftMotor.set(0);  //stop left shooter wheels
@@ -45,45 +41,40 @@ public class ShooterSubsystem extends SubsystemBase {
  }
 
  public boolean beamBroken() {
-    //insert beamBreak code
-    return true;
+   return !beamBreak.get();
  }
  
- public void primeShooter(Double speed) {
-    shooterLeftMotor.set(speed);
-    shooterRightMotor.set(-speed);
+
+ public void primeShooter(Double m_defaultSpeed) {
+    shooterLeftMotor.set(m_defaultSpeed);
+    shooterRightMotor.set(-m_defaultSpeed);
  }
  
  public void runKick() {
-    kickMotor.set(0.20);
+    kickMotor.set(m_kickSpeed);
  }
+  
  
- public void vomit(Double speed) {
-    shooterLeftMotor.set(-speed);
-    shooterRightMotor.set(speed);
-    kickMotor.set(-speed);
- }
- 
- // need to add PIDControllers
-  public boolean Shoot(double targetSpeed) {
-    m_targetSpeed = targetSpeed;
-    if (SmartDashboard.getBoolean("Use Test Shooter Speed", false)) {
-      m_targetSpeed = SmartDashboard.getNumber("Shooter Speed",targetSpeed);
-    }
-    // Calculate how much to adjust the motor speed to reach the target.
-    double pidOutputFront = topShooterPid.calculate(shooterLeftMotor.getVelocity(), m_targetSpeed);
-    //FIXME: MAY BE THE OTHER WAY
-    double pidOutputBack = bottomShooterPid.calculate(shooterRightMotor.getVelocity(), -m_targetSpeed);
 
-    double pidGreenOutput = topShooterPid.calculate(kickMotor.getVelocity(), m_targetSpeed);
+  // public boolean Shoot(double targetSpeed) {
+  //   m_targetSpeed = targetSpeed;
+  //   if (SmartDashboard.getBoolean("Use Test Shooter Speed", false)) {
+  //     m_targetSpeed = SmartDashboard.getNumber("Shooter Speed",targetSpeed);
+  //   }
+  //   // Calculate how much to adjust the motor speed to reach the target.
+  //   double pidOutputFront = topShooterPid.calculate(shooterLeftMotor.getVelocity(), m_targetSpeed);
+  //   //FIXME: MAY BE THE OTHER WAY
+  //   double pidOutputBack = bottomShooterPid.calculate(shooterRightMotor.getVelocity(), -m_targetSpeed);
 
-    // Set the motors to the calculated speeds.
-    shooterLeftMotor.set(-m_targetSpeed);
-    shooterRightMotor.set(-m_targetSpeed);
+  //   double pidGreenOutput = topShooterPid.calculate(kickMotor.getVelocity(), m_targetSpeed);
 
-    // Check if both motors have reached the desired speed.
-    return (topShooterPid.atSetpoint() && bottomShooterPid.atSetpoint());
-  }
+  //   // Set the motors to the calculated speeds.
+  //   shooterLeftMotor.set(-m_targetSpeed);
+  //   shooterRightMotor.set(-m_targetSpeed);
+
+  //   // Check if both motors have reached the desired speed.
+  //   return (topShooterPid.atSetpoint() && bottomShooterPid.atSetpoint());
+  // }
  
   public double lookupShotSpeed(double dist){
     if(SmartDashboard.getBoolean("Use Test Distance", false)){
