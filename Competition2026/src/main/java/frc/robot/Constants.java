@@ -5,10 +5,12 @@
 package frc.robot;
 
 import edu.wpi.first.apriltag.AprilTag;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Quaternion;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 
 /**
@@ -41,6 +43,8 @@ public final class Constants {
     public class FieldPositions {
       public static final double fieldLength = 0;
       public static final double fieldWidth = 0;
+
+      public static final Translation2d hubPose = new Translation2d(0, 0);
       /**
        * TODO: Update for actual field positions
        */
@@ -119,12 +123,17 @@ public final class Constants {
      * SAFE maximum/minimum encoder value
      */
     public static final double hoodMaxEncoderValue = 1.0;
-    public static final double angleInterval = 3; //TODO: Replace with actual value
-    public static final double defaultAngleIntervalue = 3; //TODO: Replace with actual value
+    public static final double angleInterval = 0.1; //TODO: Replace with actual value
+    //public static final double defaultAngleInterval = 3; //TODO: Replace with actual value
+    public static final double hoodMinEncoderValue = 0; // TODO: Replace with actual value
     public static class PIDValues{
       public static final double kP = 0.1;
       public static final double kI = 0.1;
       public static final double kD = 0.1;
     }
+  }
+  public class FieldPositions {
+
+    public static Translation2d hubPose;
   }
 }
