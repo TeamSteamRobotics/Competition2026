@@ -8,6 +8,7 @@ import com.revrobotics.AbsoluteEncoder;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.shooter;
@@ -40,9 +41,18 @@ public class ShooterSubsystem extends SubsystemBase {
     kickMotor.set(0);  //stop feed roller wheels 
  }
 
- public boolean beamBroken() {
-   return !beamBreak.get();
- }
+  DigitalInput BeamBreak = new DigitalInput(0);//To Do find channel for beambreak 
+
+  int BeamCounter = 0; 
+    public boolean Breambroken(){
+    if (BeamBreak.get()){
+      BeamCounter ++;
+      return true;
+    }
+    return false;
+
+
+}
  
 
  public void primeShooter(Double m_defaultSpeed) {
@@ -63,7 +73,7 @@ public class ShooterSubsystem extends SubsystemBase {
   //   }
   //   // Calculate how much to adjust the motor speed to reach the target.
   //   double pidOutputFront = topShooterPid.calculate(shooterLeftMotor.getVelocity(), m_targetSpeed);
-  //   //FIXME: MAY BE THE OTHER WAY
+  //   //FIX ME: MAY BE THE OTHER WAY
   //   double pidOutputBack = bottomShooterPid.calculate(shooterRightMotor.getVelocity(), -m_targetSpeed);
 
   //   double pidGreenOutput = topShooterPid.calculate(kickMotor.getVelocity(), m_targetSpeed);
