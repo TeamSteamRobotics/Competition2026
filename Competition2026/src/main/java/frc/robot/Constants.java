@@ -118,11 +118,11 @@ public final class Constants {
     }
   }
   public static class HoodConstants {
-    public static final int hoodElevateMotorID = 99; //TODO: Change to actual value
+    public static final int hoodElevateMotorID = 17;
     /**
      * SAFE maximum/minimum encoder value
      */
-    public static final double hoodMaxEncoderValue = 1.0;
+    public static final double hoodMaxEncoderValue = 1.0;  //TODO: Replace with actual value
     public static final double angleInterval = 0.1; //TODO: Replace with actual value
     //public static final double defaultAngleInterval = 3; //TODO: Replace with actual value
     public static final double hoodMinEncoderValue = 0; // TODO: Replace with actual value
