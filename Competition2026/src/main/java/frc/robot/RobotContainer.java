@@ -7,6 +7,9 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.Climb.RaiseClimb;
+import frc.robot.commands.Climb.RetractClimb;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -19,15 +22,21 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
+  //Subsystems
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final ClimbSubsystem m_climbsubsystem;
+  
+  // Controllers
+  private final CommandXboxController m_driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  private final CommandXboxController m_operatorController = new CommandXboxController(OperatorConstants.kOperatorControllerPort);
 
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  private final Trigger RaiseClimb = m_operatorController.leftBumper();
+  private final Trigger RetractClimb = m_operatorController.rightBumper();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    m_climbsubsystem = new ClimbSubsystem();
+    
     // Configure the trigger bindings
     configureBindings();
   }
@@ -49,6 +58,12 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+
+    //Raise Climb
+    RaiseClimb.whileTrue(new RaiseClimb(m_climbsubsystem));
+    //Retract Climb
+    RetractClimb.whileTrue(new RetractClimb(m_climbsubsystem));
+
   }
 
   /**
