@@ -93,7 +93,8 @@ public class RobotContainer {
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-        angleHoodUp.whileTrue(new AngleHood(m_hood, drivetrain)) //TODO: Finish this and do one for angleHoodDown
+        angleHoodUp.whileTrue(new AngleHood(m_hood, 1));
+        angleHoodDown.whileTrue(new AngleHood(m_hood, -1));
     }
 
     public Command getAutonomousCommand() {
