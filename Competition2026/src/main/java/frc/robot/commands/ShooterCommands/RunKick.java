@@ -31,19 +31,23 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
 
   }
 
-  public RunKick(ShooterSubsystem shooter, double speed, String type) {
+  public RunKick(ShooterSubsystem shooter, double speed) { //string type (needed?)
     m_Shooter = shooter;
+    double m_speed = speed;
 
     /*
      * if type is shoot
-     * then inputSpeed = Shooter Speed from smartdashboard
-     * else inputSpeed = speed
+     * then inputSpeed = kickspeed from constants
      */
 
      hasDistanceSupplier = false;
   }
 
-  // Called when the command is initially scheduled.
+//   public RunKick(ShooterSubsystem m_shooter2) {
+//     //TODO Auto-generated constructor stub
+// }
+
+// Called when the command is initially scheduled.
   @Override
   public void initialize() {}
 
@@ -55,7 +59,7 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
 
     //Command the shooter subsystem to run at the calculated speed.
     
-    //m_Shooter.Shoot(speed); //add Shoot function to ShooterSubsystem
+    m_Shooter.runKick(speed);
   }
 
   // Called once the command ends or is interrupted.

@@ -100,8 +100,8 @@ public class RobotContainer{
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
-    primeShooter.whileTrue(new PrimeShooter(m_shooter));
-    runKick.whileTrue(new RunKick(m_shooter));
+    primeShooter.whileTrue(new PrimeShooter(m_shooter, Constants.shooter.defaultSpeed));
+    runKick.whileTrue(new RunKick(m_shooter, Constants.shooter.kickSpeed));
   }
     
 

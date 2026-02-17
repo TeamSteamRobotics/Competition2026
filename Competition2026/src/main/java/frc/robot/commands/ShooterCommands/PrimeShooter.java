@@ -20,33 +20,33 @@ private double inputSpeed; //A fixed speed provided directly.
 private Supplier<Double> distanceSupplier = () -> null; //A function that gives the distance to the target.
 private boolean hasDistanceSupplier; //Indicates whether distance-based speed calculation is used.
 
-  /** Creates a new RevFlyWheel. */
-  public PrimeShooter(ShooterSubsystem shooter, Supplier<Double> distancSupplier) {
-    // Use addRequirements() here to declare subsystem dependencies.
+  // /** Creates a new RevFlyWheel. */
+  // public PrimeShooter(ShooterSubsystem shooter, double defaultspeed) {
+  //   // Use addRequirements() here to declare subsystem dependencies.
 
-    //initialize shooter, distanceSupplier
+  //   //initialize shooter, distanceSupplier
 
-    /*
-    TODO: Tues Feb 3rd: 
+  //   /*
+  //   TODO: Tues Feb 3rd: 
 
-    Write psuedo code for the PrimeShooter Command
+  //   Write psuedo code for the PrimeShooter Command
 
-    look at: 
-      Cheif Delfi, and last year's PrimeShooter code
-      you will need to use a speed variable to start the shooter wheel motors to rev up the wheels in order to shoot fuel
-      What has been written in THIS years ShooterSubsystem
+  //   look at: 
+  //     Cheif Delfi, and last year's PrimeShooter code
+  //     you will need to use a speed variable to start the shooter wheel motors to rev up the wheels in order to shoot fuel
+  //     What has been written in THIS years ShooterSubsystem
 
-      All in 2025 develop-but-autos:
-        lines 82-94 on PrimeShooter code
-        StopMotors code, explain why this code is inportant
-        RollGreen code, explain what each line does
-        Intake's: Pivot and Roll codes, explain what each line does
+  //     All in 2025 develop-but-autos:
+  //       lines 82-94 on PrimeShooter code
+  //       StopMotors code, explain why this code is inportant
+  //       RollGreen code, explain what each line does
+  //       Intake's: Pivot and Roll codes, explain what each line does
       
-      Reserch what PID values are, h what they do, cheif Delphi, ask if questions
-    */
-  }
+  //     Reserch what PID values are, h what they do, cheif Delphi, ask if questions
+  //   */
+  // }
 
-  public PrimeShooter(ShooterSubsystem shooter, double speed, String type) {
+  public PrimeShooter(ShooterSubsystem shooter, double speed) {
     m_Shooter = shooter;
 
     /*
@@ -56,6 +56,10 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
      */
 
      hasDistanceSupplier = false;
+  }
+
+  public PrimeShooter(ShooterSubsystem m_shooter2) {
+    //TODO Auto-generated constructor stub
   }
 
   // Called when the command is initially scheduled.

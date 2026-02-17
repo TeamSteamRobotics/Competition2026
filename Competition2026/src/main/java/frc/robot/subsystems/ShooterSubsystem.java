@@ -59,7 +59,7 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterRightMotor.set(-m_defaultSpeed);
  }
  
- public void runKick() {
+ public void runKick(double m_kickSpeed) {
     kickMotor.set(m_kickSpeed);
  }
   
