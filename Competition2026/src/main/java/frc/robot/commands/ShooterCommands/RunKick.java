@@ -55,7 +55,7 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
 
     //Command the shooter subsystem to run at the calculated speed.
     
-    m_Shooter.Shoot(speed); //add Shoot function to ShooterSubsystem
+    //m_Shooter.Shoot(speed); //add Shoot function to ShooterSubsystem
   }
 
   // Called once the command ends or is interrupted.

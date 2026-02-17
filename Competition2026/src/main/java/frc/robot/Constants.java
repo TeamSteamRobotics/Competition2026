@@ -15,6 +15,8 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+    public static final int kOperatorControllerPort = 1;
+    public static final int kBluetoothControllerPort = 2;
   }
   public class drive {
     public class FrontLeft{
@@ -54,7 +56,8 @@ public final class Constants {
       public static final double kP = 0.08;
       public static final double kI = 0.001;
       public static final double kD = 3.0;
-      public static final double tolerance = 0.1;     
+      public static final double tolerance = 0.1;   
+    
     }
   }
 }

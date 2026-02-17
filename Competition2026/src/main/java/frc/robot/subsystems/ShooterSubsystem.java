@@ -50,8 +50,7 @@ public class ShooterSubsystem extends SubsystemBase {
       return true;
     }
     return false;
-
-
+ //if (  > BeamCounter)
 }
  
 
