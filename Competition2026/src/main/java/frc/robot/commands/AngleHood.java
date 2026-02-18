@@ -20,6 +20,7 @@ public class AngleHood extends Command {
   public HoodSubsystem m_hood;
   private int m_sign;
   public CommandSwerveDrivetrain m_drive;
+  private boolean operatingOnDistance;
   //private Supplier<Double> m_distance;
 
   /** Creates a new HoodManualAngle. */
@@ -28,12 +29,14 @@ public class AngleHood extends Command {
     m_hood = hood;
     m_sign = sign;
     addRequirements(m_hood);
+    operatingOnDistance = false;
   }
   public AngleHood(HoodSubsystem hood, CommandSwerveDrivetrain drive){
     m_hood = hood;
     m_drive = drive;
     //m_distance = distance;
     addRequirements(m_hood);
+    operatingOnDistance = true;
   }
 
   public double findDistanceToHub(){
@@ -51,7 +54,11 @@ public class AngleHood extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_hood.moveByInterval(m_sign);
+    if(!operatingOnDistance){
+      m_hood.moveByInterval(m_sign);
+      return;
+    }
+    m_hood.setTargetAngle(m_hood.lookupHoodAngle(findDistanceToHub()));
   }
 
   // Called once the command ends or is interrupted.

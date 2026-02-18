@@ -24,20 +24,6 @@ import frc.robot.Constants;
 
 public class HoodSubsystem extends SubsystemBase {
   private SparkMax elevateHoodMotor;
-  private SparkMaxConfig config;
-  /** Creates a new HoodSubsystem. */
-  public HoodSubsystem() {
-    elevateHoodMotor = new SparkMax(Constants.HoodConstants.hoodElevateMotorID, MotorType.kBrushless);
-    
-    //elevateHoodMotor.configure(new SparkMaxConfig().idleMode(IdleMode.kBrake), null, null);
-  }
-  @Override
-  public void periodic() {
-    if(elevateHoodMotor.getAbsoluteEncoder().getPosition() >= Constants.HoodConstants.hoodMaxEncoderValue){
-      elevateHoodMotor.set(0);
-      
-    }
-    // This method will be called once per scheduler run
   private SparkMaxConfig config = new SparkMaxConfig();
   private double targetAngle;
   private SparkClosedLoopController hoodPIDMotor;
