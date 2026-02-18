@@ -40,6 +40,9 @@ public final class Constants {
       public static final double kI = 0.1;
       public static final double kD = 0.1;
     }
+    public static class HoodAngles {
+      
+    }
   }
     public class Vision{
     /**
