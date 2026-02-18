@@ -41,7 +41,10 @@ public class VisionSubsystem extends SubsystemBase {
     //PhotonPipelineResult test = new PhotonPipelineResult();
 
     for(int i = 0; i < numCameras; i++){
-      seenTargets.addAll(cameras[i].getAllUnreadResults().stream().map((e) -> e.hasTargets() ? e.getTargets() : null).flatMap(List::stream).toList());
+      seenTargets.addAll(cameras[i].getAllUnreadResults().stream()
+        .filter(PhotonPipelineResult::hasTargets)
+        .flatMap(e -> e.getTargets().stream())
+        .toList());
       /* We have an array of cameras. We iterate over every camera, and add seen targets to the list
        * getAllUnreadResults() returns a list of PhotonPipelineResults. stream() converts it into
        * a Stream, which one can use map() on. map() applies the lambda expression to every element
@@ -56,7 +59,10 @@ public class VisionSubsystem extends SubsystemBase {
     //PhotonPipelineResult test = new PhotonPipelineResult();
 
     
-    seenTargets.addAll(cameras[cameraId].getAllUnreadResults().stream().map((e) -> e.hasTargets() ? e.getTargets() : null).flatMap(List::stream).toList());
+    seenTargets.addAll(cameras[cameraId].getAllUnreadResults().stream()
+      .filter(PhotonPipelineResult::hasTargets)
+      .flatMap(e -> e.getTargets().stream())
+      .toList());
     /* We have an array of cameras. We iterate over every camera, and add seen targets to the list
       * getAllUnreadResults() returns a list of PhotonPipelineResults. stream() converts it into
       * a Stream, which one can use map() on. map() applies the lambda expression to every element
