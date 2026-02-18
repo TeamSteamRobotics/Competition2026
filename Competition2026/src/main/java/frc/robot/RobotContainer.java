@@ -28,10 +28,9 @@ public class RobotContainer {
   
   // Controllers
   private final CommandXboxController m_driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
-  private final CommandXboxController m_operatorController = new CommandXboxController(OperatorConstants.kOperatorControllerPort);
 
-  private final Trigger RaiseClimb = m_operatorController.leftBumper();
-  private final Trigger RetractClimb = m_operatorController.rightBumper();
+  private final Trigger RaiseClimb = m_driverController.leftBumper();
+  private final Trigger RetractClimb = m_driverController.rightBumper();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

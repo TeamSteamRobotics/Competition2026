@@ -18,12 +18,12 @@ public class ClimbSubsystem extends SubsystemBase {
 
   public void raiseClimb() {
     climbMotorLeft.set(ClimbMotors.climbSpeed); //make sure is SLOW, don't bend metal
-    climbMotorRight.set(ClimbMotors.climbSpeed); //Move opposite to left motor
+    climbMotorRight.set(ClimbMotors.climbSpeed); //Move with left motor
   }
 
   public void retractClimb() {
     climbMotorLeft.set(-retractClimbSpeed); //Slowly increase speed
-    climbMotorRight.set(-retractClimbSpeed); //Move opposite to left motor
+    climbMotorRight.set(-retractClimbSpeed); //Move with left motor
     
     if (retractClimbSpeed <= 1) {
       retractClimbSpeed = Math.min(retractClimbSpeed + 0.004, 1); // placeholder
@@ -36,5 +36,15 @@ public class ClimbSubsystem extends SubsystemBase {
     climbMotorLeft.set(0);
     climbMotorRight.set(0);
     retractClimbSpeed = ClimbMotors.climbSpeed;
+  }
+
+  public boolean isRetracted() {
+    // returns true if the left motor turned past the minimum turns
+    return climbMotorLeft.getAbsolutePosition() <= ClimbMotors.minClimbRotations;
+  }
+
+  public boolean isRaised() {
+    // returns true if the left motor turned past the maximum turns
+    return climbMotorLeft.getAbsolutePosition() >= ClimbMotors.maxClimbRotations;
   }
 }
