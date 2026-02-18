@@ -24,6 +24,7 @@ public class VisionSubsystem extends SubsystemBase {
   public VisionSubsystem(String[] cameraNames) {
     numCameras = cameraNames.length;
     cameras = new PhotonCamera[numCameras];
+    results = new ArrayList<>();
     for(int i = 0; i < numCameras; i++){
       cameras[i] = new PhotonCamera(cameraNames[i]);
     }
@@ -146,5 +147,4 @@ public class VisionSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     results = allUnreadResults();
   }
-
 }
