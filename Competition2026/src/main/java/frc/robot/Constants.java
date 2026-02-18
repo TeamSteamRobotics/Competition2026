@@ -27,11 +27,20 @@ public final class Constants {
     public static final int kOperatorControllerPort = 1;
   }
   public static class HoodConstants {
-    public static final int hoodElevateMotorID = 99; //TODO: Change to actual value
+    public static final int hoodElevateMotorID = 17;
     /**
      * SAFE maximum/minimum encoder value
      */
-    public static final double hoodMaxEncoderValue = 1.0;
+    public static final double hoodMaxEncoderValue = 1.0;  //TODO: Replace with actual value
+    public static final double angleInterval = 0.1; //TODO: Replace with actual value
+    //public static final double defaultAngleInterval = 3; //TODO: Replace with actual value
+    public static final double hoodMinEncoderValue = 0; // TODO: Replace with actual value
+    public static class PIDValues{
+      public static final double kP = 0.1;
+      public static final double kI = 0.1;
+      public static final double kD = 0.1;
+    }
+  }
     public class Vision{
     /**
      * Transformation from robot space to camera space, or from center of robot oriented forward to camera forward
@@ -124,23 +133,9 @@ public final class Constants {
           new Rotation3d(new Quaternion(-0.8660254037844387, 0, 0, 0.49999999999999994)))));
     }
   }
-  public static class HoodConstants {
-    public static final int hoodElevateMotorID = 17;
-    /**
-     * SAFE maximum/minimum encoder value
-     */
-    public static final double hoodMaxEncoderValue = 1.0;  //TODO: Replace with actual value
-    public static final double angleInterval = 0.1; //TODO: Replace with actual value
-    //public static final double defaultAngleInterval = 3; //TODO: Replace with actual value
-    public static final double hoodMinEncoderValue = 0; // TODO: Replace with actual value
-    public static class PIDValues{
-      public static final double kP = 0.1;
-      public static final double kI = 0.1;
-      public static final double kD = 0.1;
-    }
-  }
   public class FieldPositions {
 
     public static Translation2d hubPose;
   }
 }
+
