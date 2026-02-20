@@ -20,13 +20,14 @@ private double inputSpeed; //A fixed speed provided directly.
 private Supplier<Double> distanceSupplier = () -> null; //A function that gives the distance to the target.
 private boolean hasDistanceSupplier; //Indicates whether distance-based speed calculation is used.
 
-  /** Creates a new RevFlyWheel. */
+  /** Creates a new RevFlyWheel. 
   public VomitShooter(ShooterSubsystem shooter, Supplier<Double> distancSupplier) {
     // Use addRequirements() here to declare subsystem dependencies.
 
     //initialize shooter, distanceSupplier
 
   }
+  */
 
   public VomitShooter(ShooterSubsystem shooter, double speed, String type) {
     m_Shooter = shooter;
@@ -70,7 +71,7 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
     // The command also ends if the distance supplier provides a null value.
     // -This handles casese where the distance sensor might fail or is unavailable,
     // ensuring the command terminates safely.
-    
+    m_Shooter.StopMotor();
     return (hasDistanceSupplier && (distanceSupplier.get() == null || distanceSupplier == null));
     //return false;
   }

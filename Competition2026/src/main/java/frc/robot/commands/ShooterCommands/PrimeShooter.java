@@ -9,6 +9,7 @@ import java.util.function.Supplier;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.subsystems.Motors.*;
 import frc.robot.subsystems.ShooterSubsystem;
 
 
@@ -58,7 +59,7 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
      hasDistanceSupplier = false;
   }
 
-  public PrimeShooter(ShooterSubsystem m_shooter2) {
+  public PrimeShooter(ShooterSubsystem m_shooter) {
     //TODO Auto-generated constructor stub
   }
 
@@ -92,7 +93,7 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
     // The command also ends if the distance supplier provides a null value.
     // -This handles casese where the distance sensor might fail or is unavailable,
     // ensuring the command terminates safely.
-    
+    m_Shooter.StopMotor();
     return (hasDistanceSupplier && (distanceSupplier.get() == null || distanceSupplier == null));
     //return false;
   }

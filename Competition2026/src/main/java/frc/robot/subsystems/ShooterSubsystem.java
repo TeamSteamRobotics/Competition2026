@@ -35,15 +35,16 @@ public class ShooterSubsystem extends SubsystemBase {
    double m_defaultSpeed;
    double m_kickSpeed; 
 
- public void StopMotor() {
+  public void StopMotor() {
     shooterLeftMotor.set(0);  //stop left shooter wheels
     shooterRightMotor.set(0); //stop right shooter wheels
     kickMotor.set(0);  //stop feed roller wheels 
- }
+  }
 
   DigitalInput BeamBreak = new DigitalInput(0);//To Do find channel for beambreak 
 
-  int BeamCounter = 0; 
+  int BeamCounter = 0;
+public boolean overrideDefault; 
     public boolean Breambroken(){
     if (BeamBreak.get()){
       BeamCounter ++;

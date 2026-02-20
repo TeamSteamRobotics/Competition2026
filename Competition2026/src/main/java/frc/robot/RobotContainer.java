@@ -71,6 +71,7 @@ public class RobotContainer{
   //operator controls
   private final Trigger primeShooter = m_operatoroController.rightTrigger();
   private final Trigger runKick = m_operatoroController.b();
+  private final Trigger VomitShooter = m_operatoroController.x();
 //private final Trigger vomitShooter = m_operatoroController.b();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -102,8 +103,8 @@ public class RobotContainer{
 
     primeShooter.whileTrue(new PrimeShooter(m_shooter, Constants.shooter.defaultSpeed));
     runKick.whileTrue(new RunKick(m_shooter, Constants.shooter.kickSpeed));
+    VomitShooter.whileTrue(new VomitShooter(m_shooter, Constants.shooter.vomitSpeed, null));
   }
-    
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
