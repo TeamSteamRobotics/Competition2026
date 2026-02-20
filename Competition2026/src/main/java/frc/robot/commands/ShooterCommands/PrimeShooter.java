@@ -70,8 +70,9 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    m_Shooter.primeShooter(inputSpeed);
     // Determine the speed: calculate it from distance or use the fixed input speed.
-    speed = (hasDistanceSupplier ? speedFromDistance(distanceSupplier.get()) : inputSpeed);
+    //speed = (hasDistanceSupplier ? speedFromDistance(distanceSupplier.get()) : inputSpeed);
 
     //Command the shooter subsystem to run at the calculated speed.
     
@@ -80,10 +81,13 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
 
-  // if interrupted
-  // then stop motor
+    // if interrupted
+    // then stop motor
+    m_Shooter.StopMotor();
+  }
+
 
   // Returns true when the command should end.
   @Override
