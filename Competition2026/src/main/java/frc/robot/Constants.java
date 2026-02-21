@@ -17,9 +17,8 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
   public static class IndexerConstants {
-    public static final int leftIndexerId = 0;
-    public static final int rightIndexerId = 0;
-    public static final int speed = 0;
+    public static final int indexerMotorId = 25;
+    public static final int speed = 1;
   }
 }
 
