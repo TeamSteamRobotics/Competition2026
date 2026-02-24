@@ -69,7 +69,7 @@ public class RobotContainer{
   //private final CommandXboxController m_bluetoothController = new CommandXboxController(OperatorConstants.kBluetoothControllerPort);
 
   //operator controls
-  private final Trigger primeShooter = m_operatoroController.rightTrigger();
+  private final Trigger primeShooter = m_operatoroController.a();
   private final Trigger runKick = m_operatoroController.b();
   private final Trigger VomitShooter = m_operatoroController.x();
 //private final Trigger vomitShooter = m_operatoroController.b();
