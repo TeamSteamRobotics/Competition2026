@@ -49,8 +49,6 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
 
   public PrimeShooter(ShooterSubsystem shooter, double speed) {
     m_Shooter = shooter;
-    inputSpeed = speed;
-    //System.out.println("We initialize up in this :3");
 
     /*
      * if type is shoot
@@ -72,7 +70,6 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //System.out.println("We got to command execute :3");
     m_Shooter.primeShooter(inputSpeed);
     // Determine the speed: calculate it from distance or use the fixed input speed.
     //speed = (hasDistanceSupplier ? speedFromDistance(distanceSupplier.get()) : inputSpeed);
@@ -100,9 +97,8 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
     // The command also ends if the distance supplier provides a null value.
     // -This handles casese where the distance sensor might fail or is unavailable,
     // ensuring the command terminates safely.
-    // m_Shooter.StopMotor();
-    // return (hasDistanceSupplier && (distanceSupplier.get() == null || distanceSupplier == null));
-    return false;
+    m_Shooter.StopMotor();
+    return (hasDistanceSupplier && (distanceSupplier.get() == null || distanceSupplier == null));
     //return false;
   }
 

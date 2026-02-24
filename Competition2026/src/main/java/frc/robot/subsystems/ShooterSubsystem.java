@@ -4,16 +4,7 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.hardware.TalonFX;
 import com.revrobotics.AbsoluteEncoder;
-import com.revrobotics.spark.SparkClosedLoopController;
-import com.revrobotics.spark.SparkFlex;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.config.SparkFlexConfig;
-import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -30,13 +21,9 @@ import java.util.TreeMap;
 
 public class ShooterSubsystem extends SubsystemBase {
     /** Creates a new ShooterSubsystem. */
-   TalonFX shooterLeftMotor = new TalonFX(Constants.shooter.shooterLeftId, "rio");
-   TalonFX shooterRightMotor = new TalonFX(Constants.shooter.shooterRightId, "rio");
-   SparkFlex kickMotor = new SparkFlex(Constants.shooter.feedRollersId, MotorType.kBrushless); //TODO: CanID might be wrong?
-   TalonFXConfiguration config = new TalonFXConfiguration();
-   SparkFlexConfig sconfig = new SparkFlexConfig();
-   //
-   SparkClosedLoopController kickLoop;
+   GenericMotor shooterLeftMotor = new TalonFXMotor(Constants.shooter.shooterLeftId, "rio");
+   GenericMotor shooterRightMotor = new TalonFXMotor(Constants.shooter.shooterRightId, "rio");
+   GenericMotor kickMotor = new TalonFXMotor(Constants.shooter.feedRollersId, "rio");
   
    AbsoluteEncoder shooterLeftEncoder;
    AbsoluteEncoder shooterRightEncoder;
@@ -48,12 +35,10 @@ public class ShooterSubsystem extends SubsystemBase {
    double m_defaultSpeed;
    double m_kickSpeed; 
 
-
   public void StopMotor() {
     shooterLeftMotor.set(0);  //stop left shooter wheels
     shooterRightMotor.set(0); //stop right shooter wheels
     kickMotor.set(0);  //stop feed roller wheels 
-    m_defaultSpeed = Constants.shooter.defaultSpeed;
   }
 
   DigitalInput BeamBreak = new DigitalInput(0);//To Do find channel for beambreak 
@@ -70,19 +55,12 @@ public boolean overrideDefault;
 }
  
 
- public void primeShooter() {
-    shooterLeftMotor.set(-m_defaultSpeed);
-    shooterRightMotor.set(m_defaultSpeed);
-    //System.out.println("We got here :3");
+ public void primeShooter(Double m_defaultSpeed) {
+    shooterLeftMotor.set(m_defaultSpeed);
+    shooterRightMotor.set(-m_defaultSpeed);
  }
- public void primeShooter(double inputSpeed) {
-  shooterLeftMotor.set(-inputSpeed);
-  shooterRightMotor.set(inputSpeed);
-  //System.out.println("We got here :3" + inputSpeed);
-}
  
  public void runKick(double m_kickSpeed) {
-  System.out.println("yahoo2");
     kickMotor.set(m_kickSpeed);
  }
   
@@ -130,13 +108,7 @@ public boolean overrideDefault;
   }
  
  
- public ShooterSubsystem() {
-  shooterLeftMotor.getConfigurator().apply(config);
-  shooterRightMotor.getConfigurator().apply(config);
-  kickMotor.configure(sconfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
-  //kickLoop = kickMotor.getClosedLoopController();
-  
- }
+ public ShooterSubsystem() {}
 
  @Override
  public void periodic() {
