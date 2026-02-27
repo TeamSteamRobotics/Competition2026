@@ -28,9 +28,10 @@ public class RobotContainer {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  private final CommandXboxController m_operatorController = new CommandXboxController(OperatorConstants.kOperatorControllerPort);
 
-  private final Trigger ReverseIndexer = m_driverController.leftBumper();
-  private final Trigger RunIndexer = m_driverController.rightBumper();
+  private final Trigger ReverseIndexer = m_operatorController.leftBumper();
+  private final Trigger RunIndexer = m_operatorController.rightBumper();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
