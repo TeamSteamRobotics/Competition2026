@@ -4,17 +4,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants.ClimbMotors;
+import frc.robot.subsystems.Motors.GenericMotor;
 import frc.robot.subsystems.Motors.SparkMaxMotor;
 
 public class ClimbSubsystem extends SubsystemBase {
-  private SparkMaxMotor climbMotorLeft;
-  private SparkMaxMotor climbMotorRight;
-  double retractClimbSpeed = ClimbMotors.climbSpeed;
+  GenericMotor climbMotorLeft = new SparkMaxMotor(ClimbMotors.climbLeft);;
+  GenericMotor climbMotorRight = new SparkMaxMotor(ClimbMotors.climbRight);
   
-  public ClimbSubsystem(){
-    climbMotorLeft = new SparkMaxMotor(ClimbMotors.climbLeft);
-    climbMotorRight = new SparkMaxMotor(ClimbMotors.climbRight);
-  }
+  double retractClimbSpeed = ClimbMotors.climbSpeed;
 
   public void raiseClimb() {
     climbMotorLeft.set(ClimbMotors.climbSpeed); //make sure is SLOW, don't bend metal
