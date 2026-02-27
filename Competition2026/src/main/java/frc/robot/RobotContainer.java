@@ -14,6 +14,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -68,9 +69,9 @@ public class RobotContainer {
             point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
         ));
 
-        // joystick.x().whileTrue(drivetrain.applyRequest(
-        //     () -> 
-        // ));
+        joystick.x().whileTrue(drivetrain.applyRequest(
+            () -> point.withModuleDirection(doorGunnerPivot(drivetrain))
+        ));
 
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
@@ -107,20 +108,47 @@ public class RobotContainer {
     /**
      * Figures out what way to point the robot, based on the speed and position of the robot.
      */
-    // public Rotation2d doorGunnerPivot(CommandSwerveDrivetrain drivetrain){
-    //     Optional<Pose2d> robotPose = drivetrain.samplePoseAt(Utils.getSystemTimeSeconds()); //TODO: Determing if correct timestamp method is used
-    //     if(robotPose.isEmpty()){
-    //         //Uh oh!
-    //         return new Rotation2d(0);
-    //     }
-    //     Pose2d position = robotPose.get();
+    public Rotation2d doorGunnerPivot(CommandSwerveDrivetrain drivetrain){
+        double dT = 0.01;
+        Optional<Pose2d> robotPose = drivetrain.samplePoseAt(Utils.getSystemTimeSeconds()); //TODO: Determing if correct timestamp method is used
+        if(robotPose.isEmpty()){
+            //Uh oh!
+            return new Rotation2d(0);
+        }
+        Pose2d position = robotPose.get();
 
-    //     Optional<Pose2d> priorRobotPose = drivetrain.samplePoseAt(Utils.getSystemTimeSeconds()); //TODO: Determing if correct timestamp method is used
-    //     if(priorRobotPose.isEmpty()){
-    //         //Uh oh!
-    //         return new Rotation2d(0);
-    //     }
-    //     Pose2d priorPosition = priorRobotPose.get();
+        Optional<Pose2d> priorRobotPose = drivetrain.samplePoseAt(Utils.getSystemTimeSeconds()-dT); //TODO: Determing if correct timestamp method is used
+        if(priorRobotPose.isEmpty()){
+            //Uh oh!
+            return new Rotation2d(0);
+        }
+        Pose2d priorPosition = priorRobotPose.get();
 
-    // }
+        double dX = position.getX() - priorPosition.getX();
+        double dY = position.getY() - priorPosition.getY();
+
+        double hoodAngle = 0; //TODO: When merging hood in, add the actual method to get the hood angle
+
+        double ballVel = 0; //TODO: Set this to something in constants when shooter merged in
+
+        Pose2d hubPosition = new Pose2d(new Translation2d(0, 0), new Rotation2d(1)); //TODO: Merge in hood, set this to the actual pose2d in hood constants for field
+
+        double angleToHub = Math.atan(
+            (position.getX() - hubPosition.getX()) /
+            (position.getY() - hubPosition.getY())
+        ); // I think this should work, we may have to reciprocal
+
+
+
+        double horizontalVelBase = ballVel * Math.cos(hoodAngle*2*Math.PI); //Multiply by 2pi converts rotations to radians
+
+        double finalVelX = (Math.sin(angleToHub) * ballVel) + (dX/dT);
+        double finalVelY = (Math.cos(angleToHub) * ballVel) + (dY/dT);
+
+        double finalAngleToHub = Math.atan(
+            finalVelX / finalVelY
+        );
+
+        return new Rotation2d(finalAngleToHub);
+    }
 }
