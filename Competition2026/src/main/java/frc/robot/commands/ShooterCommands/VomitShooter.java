@@ -52,13 +52,16 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
     speed = (hasDistanceSupplier ? speedFromDistance(distanceSupplier.get()) : inputSpeed);
 
     //Command the shooter subsystem to run at the calculated speed.
-    
+    m_Shooter.reverseIndexer();
     //m_Shooter.Shoot(-speed); //add Shoot function to ShooterSubsystem
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_Shooter.stopIndexer();
+    m_Shooter.StopMotor();
+  }
 
   // if interrupted
   // then stop motor
@@ -71,6 +74,7 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
     // The command also ends if the distance supplier provides a null value.
     // -This handles casese where the distance sensor might fail or is unavailable,
     // ensuring the command terminates safely.
+    m_Shooter.stopIndexer();
     m_Shooter.StopMotor();
     return (hasDistanceSupplier && (distanceSupplier.get() == null || distanceSupplier == null));
     //return false;

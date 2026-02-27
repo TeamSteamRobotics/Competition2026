@@ -31,7 +31,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.commands.ShooterCommands.PrimeShooter;
-import frc.robot.commands.ShooterCommands.RunKick;
+import frc.robot.commands.ShooterCommands.Shoot;
 import frc.robot.commands.ShooterCommands.VomitShooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -70,7 +70,7 @@ public class RobotContainer{
 
   //operator controls
   private final Trigger primeShooter = m_operatoroController.rightTrigger();
-  private final Trigger runKick = m_operatoroController.b();
+  private final Trigger Shoot = m_operatoroController.b();
   private final Trigger VomitShooter = m_operatoroController.x();
 //private final Trigger vomitShooter = m_operatoroController.b();
 
@@ -99,10 +99,10 @@ public class RobotContainer{
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
     primeShooter.whileTrue(new PrimeShooter(m_shooter, Constants.shooter.defaultSpeed));
-    runKick.whileTrue(new RunKick(m_shooter, Constants.shooter.kickSpeed));
+    Shoot.whileTrue(new Shoot(m_shooter, Constants.shooter.kickSpeed));
     VomitShooter.whileTrue(new VomitShooter(m_shooter, Constants.shooter.vomitSpeed, null));
   }
 
