@@ -9,6 +9,7 @@ import java.util.function.Supplier;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.subsystems.Motors.*;
 import frc.robot.subsystems.ShooterSubsystem;
 
 
@@ -58,7 +59,7 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
      hasDistanceSupplier = false;
   }
 
-  public PrimeShooter(ShooterSubsystem m_shooter2) {
+  public PrimeShooter(ShooterSubsystem m_shooter) {
     //TODO Auto-generated constructor stub
   }
 
@@ -69,8 +70,9 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    m_Shooter.primeShooter(inputSpeed);
     // Determine the speed: calculate it from distance or use the fixed input speed.
-    speed = (hasDistanceSupplier ? speedFromDistance(distanceSupplier.get()) : inputSpeed);
+    //speed = (hasDistanceSupplier ? speedFromDistance(distanceSupplier.get()) : inputSpeed);
 
     //Command the shooter subsystem to run at the calculated speed.
     
@@ -79,10 +81,13 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
 
-  // if interrupted
-  // then stop motor
+    // if interrupted
+    // then stop motor
+    m_Shooter.StopMotor();
+  }
+
 
   // Returns true when the command should end.
   @Override
@@ -92,7 +97,7 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
     // The command also ends if the distance supplier provides a null value.
     // -This handles casese where the distance sensor might fail or is unavailable,
     // ensuring the command terminates safely.
-    
+    m_Shooter.StopMotor();
     return (hasDistanceSupplier && (distanceSupplier.get() == null || distanceSupplier == null));
     //return false;
   }

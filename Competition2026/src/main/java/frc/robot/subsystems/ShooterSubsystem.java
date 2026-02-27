@@ -15,6 +15,8 @@ import frc.robot.Constants.shooter;
 import frc.robot.Constants.shooter.ShooterPid;
 import frc.robot.subsystems.Motors.TalonFXMotor;
 import frc.robot.subsystems.Motors.GenericMotor;
+import frc.robot.subsystems.Motors.SparkMaxMotor;
+
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
@@ -24,7 +26,7 @@ public class ShooterSubsystem extends SubsystemBase {
    GenericMotor shooterLeftMotor = new TalonFXMotor(Constants.shooter.shooterLeftId, "rio");
    GenericMotor shooterRightMotor = new TalonFXMotor(Constants.shooter.shooterRightId, "rio");
    GenericMotor kickMotor = new TalonFXMotor(Constants.shooter.feedRollersId, "rio");
-  
+   GenericMotor indexerMotor = new SparkMaxMotor(Constants.shooter.indexerMotorId);
    AbsoluteEncoder shooterLeftEncoder;
    AbsoluteEncoder shooterRightEncoder;
   
@@ -35,15 +37,17 @@ public class ShooterSubsystem extends SubsystemBase {
    double m_defaultSpeed;
    double m_kickSpeed; 
 
- public void StopMotor() {
+  public void StopMotor() {
     shooterLeftMotor.set(0);  //stop left shooter wheels
     shooterRightMotor.set(0); //stop right shooter wheels
     kickMotor.set(0);  //stop feed roller wheels 
- }
+    indexerMotor.set(0); //stop indexer motor
+  }
 
   DigitalInput BeamBreak = new DigitalInput(0);//To Do find channel for beambreak 
 
-  int BeamCounter = 0; 
+  int BeamCounter = 0;
+public boolean overrideDefault; 
     public boolean Breambroken(){
     if (BeamBreak.get()){
       BeamCounter ++;
@@ -63,7 +67,18 @@ public class ShooterSubsystem extends SubsystemBase {
     kickMotor.set(m_kickSpeed);
  }
   
- 
+   public void runIndexer() {
+    indexerMotor.set(-Constants.shooter.speed);
+  } 
+
+  public void reverseIndexer() {
+    indexerMotor.set(Constants.shooter.speed);
+  } 
+  
+  //!The motor id's and speed values need to be set in the constants file!
+  public void stopIndexer() {
+    indexerMotor.set(0.0);
+  }
 
   // public boolean Shoot(double targetSpeed) {
   //   m_targetSpeed = targetSpeed;
