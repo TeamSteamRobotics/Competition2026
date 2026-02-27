@@ -6,9 +6,13 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
+import java.util.Optional;
+
+import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -64,6 +68,10 @@ public class RobotContainer {
             point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
         ));
 
+        // joystick.x().whileTrue(drivetrain.applyRequest(
+        //     () -> 
+        // ));
+
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
         joystick.back().and(joystick.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
@@ -95,4 +103,24 @@ public class RobotContainer {
             drivetrain.applyRequest(() -> idle)
         );
     }
+
+    /**
+     * Figures out what way to point the robot, based on the speed and position of the robot.
+     */
+    // public Rotation2d doorGunnerPivot(CommandSwerveDrivetrain drivetrain){
+    //     Optional<Pose2d> robotPose = drivetrain.samplePoseAt(Utils.getSystemTimeSeconds()); //TODO: Determing if correct timestamp method is used
+    //     if(robotPose.isEmpty()){
+    //         //Uh oh!
+    //         return new Rotation2d(0);
+    //     }
+    //     Pose2d position = robotPose.get();
+
+    //     Optional<Pose2d> priorRobotPose = drivetrain.samplePoseAt(Utils.getSystemTimeSeconds()); //TODO: Determing if correct timestamp method is used
+    //     if(priorRobotPose.isEmpty()){
+    //         //Uh oh!
+    //         return new Rotation2d(0);
+    //     }
+    //     Pose2d priorPosition = priorRobotPose.get();
+
+    // }
 }
