@@ -27,10 +27,10 @@ public class RobotContainer {
   private final ClimbSubsystem m_climbsubsystem;
   
   // Controllers
-  private final CommandXboxController m_driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  private final CommandXboxController m_kOperatorController = new CommandXboxController(OperatorConstants.kOperatorControllerPort);
 
-  private final Trigger RaiseClimb = m_driverController.leftBumper();
-  private final Trigger RetractClimb = m_driverController.rightBumper();
+  private final Trigger RaiseClimb = m_kOperatorController.leftBumper();
+  private final Trigger RetractClimb = m_kOperatorController.rightBumper();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -56,7 +56,7 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    //m_kOperatorController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
     //Raise Climb
     RaiseClimb.whileTrue(new RaiseClimb(m_climbsubsystem));
