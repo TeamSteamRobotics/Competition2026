@@ -38,8 +38,8 @@ public class ShooterSubsystem extends SubsystemBase {
    double m_kickSpeed; 
 
   public void StopMotor() {
-    shooterLeftMotor.set(0);  //stop left shooter wheels
-    shooterRightMotor.set(0); //stop right shooter wheels
+    //shooterLeftMotor.set(0);  //stop left shooter wheels
+    //shooterRightMotor.set(0); //stop right shooter wheels
     kickMotor.set(0);  //stop feed roller wheels 
     indexerMotor.set(0); //stop indexer motor
   }
