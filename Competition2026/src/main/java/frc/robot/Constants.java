@@ -19,7 +19,7 @@ public final class Constants {
   }
   public static class ClimbMotors {
     public static final int climbLeft = 24;
-    public static final int climbRight = 25;
+    public static final int climbRight = 23;
     public static final double maxClimbRotations = 3; // placeholder 
     public static final double minClimbRotations = 0; // placeholder 
     public static final double climbSpeed = 0.05; // placeholder 
