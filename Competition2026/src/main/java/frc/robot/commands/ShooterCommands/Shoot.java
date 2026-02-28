@@ -54,8 +54,6 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // Determine the speed: calculate it from distance or use the fixed input speed.
-    speed = (hasDistanceSupplier ? speedFromDistance(distanceSupplier.get()) : inputSpeed);
 
     //Command the shooter subsystem to run at the calculated speed.
     m_Shooter.runIndexer();
@@ -75,24 +73,11 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-
-    // If a distance supplier is being used (indicated by hasDistanceSupplier being true),
-    // The command also ends if the distance supplier provides a null value.
-    // -This handles casese where the distance sensor might fail or is unavailable,
-    // ensuring the command terminates safely.
-    //m_Shooter.stopIndexer();
-    //m_Shooter.StopMotor();
-    return (hasDistanceSupplier && (distanceSupplier.get() == null || distanceSupplier == null));
-    //return false;
+    return false;
   }
 
   /*
    * calculates the motor required based on the distance to the target.
    * further distances might require higher speeds.
    */
-  private double speedFromDistance(double distance) {
-    double f_speed = m_Shooter.lookupShotSpeed(distance); //Add lookupShotSpeed function to ShooterSubsystem
-    // calculate the speed from distance
-    return f_speed;
-  }
 }

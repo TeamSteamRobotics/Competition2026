@@ -65,22 +65,22 @@ public boolean overrideDefault;
 }
  
 
- public void primeShooter(Double m_defaultSpeed) {
-    shooterLeftMotor.set(-Constants.shooter.defaultSpeed);
-    shooterRightMotor.set(Constants.shooter.defaultSpeed);
+ public void primeShooter(double speed) {
+    shooterLeftMotor.set(-speed);
+    shooterRightMotor.set(speed);
  }
  
- public void runKick(double m_kickSpeed) {
+ public void runKick(double kickSpeed) {
   //System.out.println("yullo there");
-    kickMotor.set(-Constants.shooter.kickSpeed);
+    kickMotor.set(-kickSpeed);
  }
   
    public void runIndexer() {
-    indexerMotor.set(-Constants.shooter.speed);
+    indexerMotor.set(Constants.shooter.speed);
   } 
 
   public void reverseIndexer() {
-    indexerMotor.set(Constants.shooter.speed);
+    indexerMotor.set(-Constants.shooter.speed);
   } 
   
   //!The motor id's and speed values need to be set in the constants file!
