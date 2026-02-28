@@ -12,6 +12,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ShooterCommands.PrimeShooter;
 import frc.robot.commands.ShooterCommands.Shoot;
 import frc.robot.commands.ShooterCommands.VomitShooter;
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -41,9 +43,18 @@ public class RobotContainer {
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
-    private final ShooterSubsystem m_shooter;
+    private final ShooterSubsystem m_shooter = new ShooterSubsystem();
 
     private final CommandXboxController joystick = new CommandXboxController(0);
+
+    private final CommandXboxController m_driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
+    private final CommandXboxController m_operatorController = new CommandXboxController(OperatorConstants.kOperatorControllerPort);
+    //private final CommandXboxController m_bluetoothController = new CommandXboxController(OperatorConstants.kBluetoothControllerPort);
+
+    //operator controls
+    private final Trigger primeShooter = m_operatorController.rightTrigger();
+    private final Trigger Shoot = m_operatorController.b();
+    private final Trigger VomitShooter = m_operatorController.x();
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser();
@@ -63,8 +74,6 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.

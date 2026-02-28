@@ -5,6 +5,10 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.AbsoluteEncoder;
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkFlexConfig;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -25,10 +29,13 @@ public class ShooterSubsystem extends SubsystemBase {
     /** Creates a new ShooterSubsystem. */
    GenericMotor shooterLeftMotor = new TalonFXMotor(Constants.shooter.shooterLeftId, "rio");
    GenericMotor shooterRightMotor = new TalonFXMotor(Constants.shooter.shooterRightId, "rio");
-   GenericMotor kickMotor = new TalonFXMotor(Constants.shooter.feedRollersId, "rio");
+   SparkFlex kickMotor = new SparkFlex(Constants.shooter.feedRollersId, SparkFlex.MotorType.kBrushless);
    GenericMotor indexerMotor = new SparkMaxMotor(Constants.shooter.indexerMotorId);
-   AbsoluteEncoder shooterLeftEncoder;
-   AbsoluteEncoder shooterRightEncoder;
+   SparkFlexConfig kickConfig = new SparkFlexConfig();
+
+   
+
+   
   
    TreeMap<Double, Double> speedLookupTable = new TreeMap<Double, Double>(); //make speed table
   
@@ -59,12 +66,13 @@ public boolean overrideDefault;
  
 
  public void primeShooter(Double m_defaultSpeed) {
-    shooterLeftMotor.set(m_defaultSpeed);
-    shooterRightMotor.set(-m_defaultSpeed);
+    shooterLeftMotor.set(-Constants.shooter.defaultSpeed);
+    shooterRightMotor.set(Constants.shooter.defaultSpeed);
  }
  
  public void runKick(double m_kickSpeed) {
-    kickMotor.set(m_kickSpeed);
+  //System.out.println("yullo there");
+    kickMotor.set(-Constants.shooter.kickSpeed);
  }
   
    public void runIndexer() {
