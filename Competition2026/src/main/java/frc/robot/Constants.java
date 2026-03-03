@@ -72,8 +72,8 @@ public final class Constants {
           new Pose3d(new Translation3d(12.519177399999998, 4.0346376, 1.12395), 
           new Rotation3d(new Quaternion(1, 0, 0, 0)))))
         .chainAdd(new AprilTag(11, 
-          new Pose3d(new Translation3d(12.643358, 3.3063179999999996, 0.308102), 
-          new Rotation3d(new Quaternion(-0.4999999999999998, 0, 0, 0.8660254037844387)))))
+          new Pose3d(new Translation3d(12.2710194, 4.638039999999999, 1.12395), 
+          new Rotation3d(new Quaternion(0.7071067811865476, 0, 0, 0.7071067811865476)))))
         .chainAdd(new AprilTag(12, 
           new Pose3d(new Translation3d(0.8511540, 0.65532, 1.4859), 
           new Rotation3d(new Quaternion(0.8910065241883679, 0, 0, 0.45399049973954675)))))
