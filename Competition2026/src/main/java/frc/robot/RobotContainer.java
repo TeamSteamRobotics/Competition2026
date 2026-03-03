@@ -30,7 +30,7 @@ public class RobotContainer {
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
-    private final HoodSubsystem m_hood;
+    private final HoodSubsystem m_hood = new HoodSubsystem();
 
     private final CommandXboxController m_driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
     private final CommandXboxController m_operatorController = new CommandXboxController(OperatorConstants.kOperatorControllerPort);
@@ -53,7 +53,7 @@ public class RobotContainer {
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
     public RobotContainer() {
-        m_hood = new HoodSubsystem();
+        
 
         configureBindings();
     }
@@ -94,8 +94,8 @@ public class RobotContainer {
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-        angleHoodUp.whileTrue(new AngleHood(m_hood, 1, OperatingMode.INTERVAL));
-        angleHoodDown.whileTrue(new AngleHood(m_hood, -1, OperatingMode.INTERVAL));
+        angleHoodUp.onTrue(new AngleHood(m_hood, 1, OperatingMode.INTERVAL));
+        angleHoodDown.onTrue(new AngleHood(m_hood, -1, OperatingMode.INTERVAL));
     }
 
     public Command getAutonomousCommand() {

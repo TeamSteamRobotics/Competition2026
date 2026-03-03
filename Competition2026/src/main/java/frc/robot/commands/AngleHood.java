@@ -74,10 +74,15 @@ public class AngleHood extends Command {
       m_hood.moveByIntervalVariable(m_sign);
       return;
     }
-    if(mode == OperatingMode.INTERVAL && !didOneIntervalMove){
+    if(mode == OperatingMode.INTERVAL){
+      if(didOneIntervalMove){
+        return;
+      }
       m_hood.moveByIntervalTrue(m_sign);
       didOneIntervalMove = true;
+      return;
     }
+    
     m_hood.setTargetAngle(m_hood.lookupHoodAngle(findDistanceToHub()));
   }
 
