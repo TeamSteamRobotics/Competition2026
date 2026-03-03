@@ -4,32 +4,41 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+import com.revrobotics.PersistMode;
+import com.revrobotics.ResetMode;
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+
 public class IndexerSubsystem extends SubsystemBase {
   /** Creates a new IndexerSubsystem. */
-  public IndexerSubsystem() {}
+  public IndexerSubsystem() {
+    m_indexerMotor = new SparkMax(Constants.IndexerConstants.indexerMotorId, MotorType.kBrushless);
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
   
-  private final Spark m_indxerMotor = new
-  Spark(Constants.IndexerConstants.indexerMotorId);
+  private SparkMax m_indexerMotor;
   
   public void runIndexer() {
-    m_indxerMotor.set(-Constants.IndexerConstants.speed);
+    m_indexerMotor.set(-Constants.IndexerConstants.speed);
   } 
 
   public void reverseIndexer() {
-    m_indxerMotor.set(Constants.IndexerConstants.speed);
+    m_indexerMotor.set(Constants.IndexerConstants.speed);
   } 
   
   //!The motor id's and speed values need to be set in the constants file!
   public void stopIndexer() {
-    m_indxerMotor.set(0.0);
+    m_indexerMotor.set(0.0);
   }
 }

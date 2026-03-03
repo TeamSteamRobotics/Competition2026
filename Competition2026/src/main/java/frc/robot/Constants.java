@@ -18,7 +18,7 @@ public final class Constants {
     public static final int kOperatorControllerPort = 1;
   }
   public static class IndexerConstants {
-    public static final int indexerMotorId = 25;
+    public static final int indexerMotorId = 30;
     public static final double speed = 0.25;
   }
 }
