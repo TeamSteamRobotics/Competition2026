@@ -24,6 +24,7 @@ import frc.robot.Constants.OperatorConstants;
 
 import frc.robot.subsystems.HoodSubsystem;
 import frc.robot.commands.AngleHood;
+import frc.robot.commands.AngleHood.OperatingMode;
 
 public class RobotContainer {
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -93,8 +94,8 @@ public class RobotContainer {
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-        angleHoodUp.whileTrue(new AngleHood(m_hood, 1));
-        angleHoodDown.whileTrue(new AngleHood(m_hood, -1));
+        angleHoodUp.whileTrue(new AngleHood(m_hood, 1, OperatingMode.INTERVAL));
+        angleHoodDown.whileTrue(new AngleHood(m_hood, -1, OperatingMode.INTERVAL));
     }
 
     public Command getAutonomousCommand() {

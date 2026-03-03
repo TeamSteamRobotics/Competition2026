@@ -27,12 +27,13 @@ public final class Constants {
     public static final int kOperatorControllerPort = 1;
   }
   public static class HoodConstants {
-    public static final int hoodElevateMotorID = 17;
+    public static final int hoodElevateMotorID = 30;
     /**
      * SAFE maximum/minimum encoder value
      */
     public static final double hoodMaxEncoderValue = 1.0;  //TODO: Replace with actual value
     public static final double angleInterval = 0.1; //TODO: Replace with actual value
+    public static final double largeAngleInterval = 0.5; //TODO: Replace with actual value
     //public static final double defaultAngleInterval = 3; //TODO: Replace with actual value
     public static final double hoodMinEncoderValue = 0; // TODO: Replace with actual value
     public static class PIDValues{

@@ -81,7 +81,7 @@ public class HoodSubsystem extends SubsystemBase {
    * @return
    * If targetAngle was changed
    */
-  public boolean moveByInterval(int sign) {
+  public boolean moveByIntervalVariable(int sign) {
     if(targetAngle >= Constants.HoodConstants.hoodMaxEncoderValue || targetAngle <= Constants.HoodConstants.hoodMinEncoderValue){
       return false;
     }
@@ -90,6 +90,23 @@ public class HoodSubsystem extends SubsystemBase {
     }
     else if (sign <= 0) {
       targetAngle -= Constants.HoodConstants.angleInterval;
+    }
+    return true;
+  }
+  /**
+   * Moves by a large interval
+   * @param sign
+   * @return
+   */
+  public boolean moveByIntervalTrue(int sign) {
+    if(targetAngle >= Constants.HoodConstants.hoodMaxEncoderValue || targetAngle <= Constants.HoodConstants.hoodMinEncoderValue){
+      return false;
+    }
+    if (sign > 0) {
+      targetAngle += Constants.HoodConstants.largeAngleInterval;
+    }
+    else if (sign <= 0) {
+      targetAngle -= Constants.HoodConstants.largeAngleInterval;
     }
     return true;
   }

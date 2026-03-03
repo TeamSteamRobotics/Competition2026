@@ -21,15 +21,29 @@ public class AngleHood extends Command {
   private int m_sign;
   public CommandSwerveDrivetrain m_drive;
   private boolean operatingOnDistance;
+  private boolean didOneIntervalMove;
+  public enum OperatingMode {
+    DISTANCE,
+    VARIABLE,
+    INTERVAL
+  }
+  private OperatingMode mode;
   //private Supplier<Double> m_distance;
 
-  /** Creates a new HoodManualAngle. */
-  public AngleHood(HoodSubsystem hood, int sign) {
-    // Use addRequirements() here to declare subsystem dependencies.
+  /** Creates a new HoodManualAngle. 
+     * @throws Exception
+     * when using wrong enum */
+  public AngleHood(HoodSubsystem hood, int sign, OperatingMode fmode){
+    if(fmode == OperatingMode.DISTANCE){
+      System.out.println("Ah, you used the wrong enum, it ain't gonna work");
+    }
     m_hood = hood;
     m_sign = sign;
     addRequirements(m_hood);
     operatingOnDistance = false;
+    mode = fmode;
+    didOneIntervalMove = false;
+    // Use addRequirements() here to declare subsystem dependencies.
   }
   public AngleHood(HoodSubsystem hood, CommandSwerveDrivetrain drive){
     m_hood = hood;
@@ -37,6 +51,8 @@ public class AngleHood extends Command {
     //m_distance = distance;
     addRequirements(m_hood);
     operatingOnDistance = true;
+    mode = OperatingMode.DISTANCE;
+    didOneIntervalMove = false;
   }
 
   public double findDistanceToHub(){
@@ -54,9 +70,13 @@ public class AngleHood extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(!operatingOnDistance){
-      m_hood.moveByInterval(m_sign);
+    if(mode == OperatingMode.VARIABLE){
+      m_hood.moveByIntervalVariable(m_sign);
       return;
+    }
+    if(mode == OperatingMode.INTERVAL && !didOneIntervalMove){
+      m_hood.moveByIntervalTrue(m_sign);
+      didOneIntervalMove = true;
     }
     m_hood.setTargetAngle(m_hood.lookupHoodAngle(findDistanceToHub()));
   }
@@ -64,11 +84,12 @@ public class AngleHood extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return didOneIntervalMove;
   }
 }
