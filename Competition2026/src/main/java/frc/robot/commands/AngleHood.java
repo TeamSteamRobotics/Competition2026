@@ -95,6 +95,9 @@ public class AngleHood extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return didOneIntervalMove;
+    if(didOneIntervalMove){
+      return m_hood.hoodAtSetpoint();
+    }
+    return false;
   }
 }

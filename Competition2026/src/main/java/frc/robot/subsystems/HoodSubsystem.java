@@ -54,6 +54,10 @@ public class HoodSubsystem extends SubsystemBase {
   public double getTargetAngle(){
     return targetAngle;
   }
+
+  public boolean hoodAtSetpoint(){
+    return hoodPIDMotor.isAtSetpoint();
+  }
   /**
    * Sets targetAngle, clamping value if necessary.
    * @param value
