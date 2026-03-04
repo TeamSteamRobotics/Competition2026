@@ -27,7 +27,7 @@ public final class Constants {
     /**
      * Transformation from robot space to camera space, or from center of robot oriented forward to camera forward
      */
-    public static final Transform3d robotToCam = new Transform3d(new Translation3d(0.5, 0.0, 0.5), new Rotation3d(0, 0, 0));
+    public static final Transform3d robotToCam = new Transform3d(new Translation3d(0.5, 0.0, 0.5), new Rotation3d(0, 0, 0)); //TODO: do later :3
     /**
      * List of standard deviations, 0 is x in meters, 1 is y in meters, 2 is heading in radians
      */
