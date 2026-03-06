@@ -18,7 +18,7 @@ public class ClimbSubsystem extends SubsystemBase {
   
   double retractClimbSpeed = ClimbMotors.climbSpeed;
 
-  
+  int counter;
 
   public void raiseClimb() {
     climbMotorBack.set(ClimbMotors.climbSpeed); //make sure is SLOW, don't bend metal
@@ -51,7 +51,10 @@ public class ClimbSubsystem extends SubsystemBase {
   public boolean isRaised() {
     // returns true if the left motor turned past the maximum turns
     //return climbMotorBack.getEncoder().getPosition() >= ClimbMotors.maxClimbRotations;
-    System.out.println(climbMotorBack.getEncoder().getPosition());
+    if(counter == 20){
+      System.out.println(climbMotorBack.getEncoder().getPosition());
+    }
+    counter++;
     return false;
   }
 }
