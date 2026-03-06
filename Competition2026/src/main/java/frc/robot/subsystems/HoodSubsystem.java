@@ -10,7 +10,9 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import com.revrobotics.PersistMode;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.ResetMode;
+import com.revrobotics.encoder.DetachedEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
@@ -28,6 +30,8 @@ public class HoodSubsystem extends SubsystemBase {
   private double targetAngle;
   private SparkClosedLoopController hoodPIDMotor;
   private double m_dist;
+
+  //TODO: How to throughbore?
 
   TreeMap<Double, Double> angleLookupTable = new TreeMap<Double, Double>();
 
@@ -103,16 +107,15 @@ public class HoodSubsystem extends SubsystemBase {
    * @return
    */
   public boolean moveByIntervalTrue(int sign) {
-    if(targetAngle >= Constants.HoodConstants.hoodMaxEncoderValue || targetAngle <= Constants.HoodConstants.hoodMinEncoderValue){
-      return false;
-    }
-    if (sign > 0) {
+    if (sign > 0 && !(targetAngle >= Constants.HoodConstants.hoodMaxEncoderValue)) {
       targetAngle += Constants.HoodConstants.largeAngleInterval;
+      return true;
     }
-    else if (sign <= 0) {
+    else if (sign <= 0 && !(targetAngle <= Constants.HoodConstants.hoodMinEncoderValue)) {
       targetAngle -= Constants.HoodConstants.largeAngleInterval;
+      return true;
     }
-    return true;
+    return false;
   }
 
     //Moves motor position to angle given in the function

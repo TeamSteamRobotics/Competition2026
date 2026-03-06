@@ -89,7 +89,7 @@ public class AngleHood extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    
+    //TODO: Make it return hood pos to zero.
   }
 
   // Returns true when the command should end.
