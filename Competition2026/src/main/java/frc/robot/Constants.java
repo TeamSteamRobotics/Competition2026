@@ -18,6 +18,13 @@ public final class Constants {
     public static final int kOperatorControllerPort = 1;
     public static final int kBluetoothControllerPort = 2;
   }
+  public class ClimbMotors {
+    public static final int climbBack = 24;
+    public static final int climbFront = 23;
+    public static final double maxClimbRotations = 3; //fix later
+    public static double minClimbRotations = -1; //placeholder
+    public static double climbSpeed = 0.05; //placeholder
+  }
   public class drive {
     public class FrontLeft{
       public static final int driveId = 1;
