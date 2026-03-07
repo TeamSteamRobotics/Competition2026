@@ -5,8 +5,7 @@
 package StopShooter;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.ShooterSubsystem;
-
+import frc.robot.subsystems.ShooterSubsytem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
@@ -22,6 +21,6 @@ public class StopShooter extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_shooter.stopShooter();
+    m_shooter.PrimeShooter(0.0);
   }
 }
