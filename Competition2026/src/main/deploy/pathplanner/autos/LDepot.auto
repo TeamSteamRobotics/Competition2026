@@ -24,12 +24,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "RunIntake"
-          }
-        },
-        {
           "type": "wait",
           "data": {
             "waitTime": 1.0
@@ -56,6 +50,12 @@
                 "data": {
                   "name": "RetractIntake"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "StartShooter"
+                }
               }
             ]
           }
@@ -76,6 +76,12 @@
           "type": "named",
           "data": {
             "name": "StopKick"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopShooter"
           }
         },
         {

@@ -11,44 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "LStart-LNeut"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "DeployIntake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "StopIntake"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "LNeut-LShoot"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "RetractIntake"
+                  "pathName": "MShoot"
                 }
               },
               {
@@ -91,7 +54,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "LShoot-LClimb"
+                  "pathName": "MShoot-cllimb"
                 }
               },
               {

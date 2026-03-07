@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "LStart-LNeut"
+                  "pathName": "RNeutral"
                 }
               },
               {
@@ -42,7 +42,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "LNeut-LShoot"
+                  "pathName": "RNuetral-shoot"
                 }
               },
               {
@@ -91,7 +91,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "LShoot-LClimb"
+                  "pathName": "Rshoot-Rclimb"
                 }
               },
               {

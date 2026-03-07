@@ -63,6 +63,12 @@
         {
           "type": "named",
           "data": {
+            "name": "StartShooter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "RunKick"
           }
         },
@@ -76,6 +82,12 @@
           "type": "named",
           "data": {
             "name": "StopKick"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopShooter"
           }
         },
         {
