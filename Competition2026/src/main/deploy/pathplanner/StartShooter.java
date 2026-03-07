@@ -5,16 +5,23 @@
 package StartShooter;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.Constants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class StartShooter extends InstantCommand {
-  public StartShooter() {
+  ShooterSubsystem m_shooter;
+  public StartShooter(ShooterSubsystem shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_shooter = shooter;
+    addRequirements(shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_shooter.primeShooter(Constants.shooter.speed);
+  }
 }
