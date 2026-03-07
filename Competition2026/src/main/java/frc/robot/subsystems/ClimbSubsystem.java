@@ -51,10 +51,13 @@ public class ClimbSubsystem extends SubsystemBase {
   public boolean isRaised() {
     // returns true if the left motor turned past the maximum turns
     //return climbMotorBack.getEncoder().getPosition() >= ClimbMotors.maxClimbRotations;
-    if(counter == 20){
+
+    return false;
+  }@Override
+  public void periodic(){
+    if(counter == 200){
       System.out.println(climbMotorBack.getEncoder().getPosition());
     }
     counter++;
-    return false;
   }
 }
