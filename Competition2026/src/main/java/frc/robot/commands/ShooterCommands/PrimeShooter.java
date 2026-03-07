@@ -50,6 +50,8 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
   public PrimeShooter(ShooterSubsystem shooter, double speed) {
     m_Shooter = shooter;
 
+    inputSpeed = speed;
+
     /*
      * if type is shoot
      * then inputSpeed = Shooter Speed from smartdashboard
@@ -97,9 +99,9 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
     // The command also ends if the distance supplier provides a null value.
     // -This handles casese where the distance sensor might fail or is unavailable,
     // ensuring the command terminates safely.
-    m_Shooter.StopMotor();
-    return (hasDistanceSupplier && (distanceSupplier.get() == null || distanceSupplier == null));
-    //return false;
+    //m_Shooter.StopMotor();
+    // (hasDistanceSupplier && (distanceSupplier.get() == null || distanceSupplier == null));
+    return false;
   }
 
   /*
