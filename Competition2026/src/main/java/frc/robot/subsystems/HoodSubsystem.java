@@ -20,16 +20,19 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class HoodSubsystem extends SubsystemBase {
+  private double accumulatedAngle = 0;
   private SparkMax elevateHoodMotor;
   private SparkMaxConfig config = new SparkMaxConfig();
   private double targetAngle;
   private SparkClosedLoopController hoodPIDMotor;
   private double m_dist;
+  private DutyCycleEncoder hoodAngleEncoder;
 
   //TODO: How to throughbore?
 
@@ -51,6 +54,8 @@ public class HoodSubsystem extends SubsystemBase {
     elevateHoodMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     hoodPIDMotor = elevateHoodMotor.getClosedLoopController();
+
+    hoodAngleEncoder = new DutyCycleEncoder(0); //We'll figure this out
     
 
   }
@@ -125,18 +130,21 @@ public class HoodSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if(elevateHoodMotor.getAbsoluteEncoder().getPosition() >= Constants.HoodConstants.hoodMaxEncoderValue){
-      hoodPIDMotor.setSetpoint(Constants.HoodConstants.hoodMaxEncoderValue, ControlType.kPosition);
+    accumulatedAngle += hoodAngleEncoder.get();
+    if(accumulatedAngle >= Constants.HoodConstants.hoodMaxEncoderValue){
+      hoodPIDMotor.setSetpoint(Constants.HoodConstants.hoodMaxEncoderValue - accumulatedAngle, ControlType.kPosition);
       //elevateHoodMotor.set(0);
       //TODO: Figure out which works better later
+      //hoodAngleEncoder;
       
 
       
     }
     // This method will be called once per scheduler run
 
-    // This will make the motor move to whatever our target angle is continuously.
-    hoodPIDMotor.setSetpoint(targetAngle, ControlType.kPosition);
+    // This will make the motor move to whatever our target angle is continuously. We need the '-accumulatedAngle'
+    // because the motor has no internal encoder IIRC, and so we need to feed in the change needed
+    hoodPIDMotor.setSetpoint(targetAngle - accumulatedAngle, ControlType.kPosition);
   }
 
   public double lookupHoodAngle(double dist){
@@ -156,3 +164,4 @@ public class HoodSubsystem extends SubsystemBase {
     return (slope * (m_dist - lower.getKey()) + lower.getValue());
   }
 }
+
