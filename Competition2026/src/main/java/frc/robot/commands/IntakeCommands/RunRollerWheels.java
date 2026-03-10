@@ -2,38 +2,47 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.IntakeCommands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class IntakePivot extends Command {
-  private IntakeSubsystem m_intake;
-  private double m_speed;
-
-  public IntakePivot(IntakeSubsystem pivotIntake, double speed) {
-    m_intake = pivotIntake;
-    m_speed = speed;
+public class RunRollerWheels extends Command {
+  IntakeSubsystem m_intake;
+  IntakeDirection m_dir;
+  boolean out;
+  /** Creates a new RunRollerWheels.
+   * We shouldn't need to have an option to run the wheels the other way, but if we ever want to vomit, I suppose it's there.
+   */
+  public RunRollerWheels(IntakeSubsystem intake, IntakeDirection dir) {
+    m_intake = intake;
+    m_dir = dir;
+    addRequirements(m_intake);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    out = (m_dir == IntakeDirection.OUT);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.runPivot(m_speed);
-    //System.out.println(m_speed);
+    if(out){
+      m_intake.setRollerSpeed(Constants.intake.rollerSpeed);
+      return;
+    }
+    m_intake.setRollerSpeed(-Constants.intake.rollerSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_intake.StopMotor();
+    m_intake.setRollerSpeed(0);
   }
 
   // Returns true when the command should end.

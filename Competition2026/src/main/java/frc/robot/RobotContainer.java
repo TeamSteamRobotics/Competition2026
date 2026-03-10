@@ -7,16 +7,17 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.IntakeCommands.IntakeDirection;
+import frc.robot.commands.IntakeCommands.Pivot;
+import frc.robot.commands.IntakeCommands.RunMotorManual;
+import frc.robot.commands.IntakeCommands.RunRollerWheels;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.IntakeMotor;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
-import frc.robot.commands.IntakePivot;
-import frc.robot.commands.IntakeRollers;
-import frc.robot.commands.IntakePivotOut;
-import frc.robot.commands.IntakePivotIn;
-import frc.robot.commands.ToggleIntakePivotCommands;
+
 //import frc.robot.commands.printValue;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -39,6 +40,9 @@ public class RobotContainer {
   private final Trigger intakeRollers = m_operatorController.x();
   private final Trigger pivotIntakeDown = m_operatorController.povDown();
   private final Trigger pivotIntakeUp = m_operatorController.povUp();
+  private final Trigger pivotDebugDown = m_driverController.a();
+  private final Trigger pivotDebugUp = m_driverController.b();
+  private final Trigger rollerDebug = m_driverController.x();
   //private final Trigger toggleIntakePivotCommands = m_operatorController.y();
   
 
@@ -66,9 +70,14 @@ public class RobotContainer {
     // cancelling on release.
     //m_driverController.b().whileTrue(new printValue(m_intake));
 
-    intakeRollers.whileTrue(new IntakeRollers(m_intake, Constants.intake.rollerSpeed));
-    pivotIntakeDown.whileTrue(new IntakePivot(m_intake, Constants.intake.pivotSpeed));
-    pivotIntakeUp.whileTrue(new IntakePivot(m_intake, -Constants.intake.pivotSpeed));
+    intakeRollers.whileTrue(new RunRollerWheels(m_intake, IntakeDirection.IN));
+    pivotIntakeDown.onTrue(new Pivot(m_intake, IntakeDirection.OUT));
+    pivotIntakeUp.onTrue(new Pivot(m_intake, IntakeDirection.IN));
+
+    pivotDebugDown.whileTrue(new RunMotorManual(m_intake, 0.05, IntakeMotor.PIVOT));
+    pivotDebugUp.whileTrue(new RunMotorManual(m_intake, -0.05, IntakeMotor.PIVOT));
+    rollerDebug.whileTrue(new RunMotorManual(m_intake, 0.1, IntakeMotor.ROLLER));
+
     //toggleIntakePivotCommands.onTrue(new ToggleIntakePivotCommands(new IntakePivotIn(m_intake), new IntakePivotOut(m_intake)));
   }
 
