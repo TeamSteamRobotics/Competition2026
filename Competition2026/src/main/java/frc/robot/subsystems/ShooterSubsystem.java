@@ -8,6 +8,7 @@ import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -30,7 +31,7 @@ public class ShooterSubsystem extends SubsystemBase {
    GenericMotor shooterLeftMotor = new TalonFXMotor(Constants.shooter.shooterLeftId, "rio");
    GenericMotor shooterRightMotor = new TalonFXMotor(Constants.shooter.shooterRightId, "rio");
    SparkFlex kickMotor = new SparkFlex(Constants.shooter.feedRollersId, SparkFlex.MotorType.kBrushless);
-   GenericMotor indexerMotor = new SparkMaxMotor(Constants.shooter.indexerMotorId);
+   SparkMax indexerMotor = new SparkMax(Constants.shooter.indexerMotorId, MotorType.kBrushless);
    SparkFlexConfig kickConfig = new SparkFlexConfig();
 
    
@@ -78,15 +79,18 @@ public boolean overrideDefault;
  public void runKick(double kickSpeed) {
   //System.out.println("yullo there");
     kickMotor.set(-kickSpeed);
+    // indexerMotor.set(kickSpeed);
+
+    indexerMotor.set(Constants.shooter.speed);
  }
   
-   public void runIndexer() {
-    indexerMotor.set(Constants.shooter.speed);
-  } 
+  //  public void runIndexer() {
+  //   indexerMotor.set(Constants.shooter.speed);
+  // } 
 
-  public void reverseIndexer() {
-    indexerMotor.set(-Constants.shooter.speed);
-  } 
+   public void reverseIndexer() {
+     indexerMotor.set(-Constants.shooter.speed);
+   } 
   
   //!The motor id's and speed values need to be set in the constants file!
   public void stopIndexer() {

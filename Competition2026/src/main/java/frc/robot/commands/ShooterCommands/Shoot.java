@@ -56,7 +56,7 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
   public void execute() {
 
     //Command the shooter subsystem to run at the calculated speed.
-    m_Shooter.runIndexer();
+    //m_Shooter.runIndexer();
     m_Shooter.runKick(speed);
   }
 
