@@ -74,9 +74,9 @@ public class RobotContainer {
     pivotIntakeDown.onTrue(new Pivot(m_intake, IntakeDirection.OUT));
     pivotIntakeUp.onTrue(new Pivot(m_intake, IntakeDirection.IN));
 
-    pivotDebugDown.whileTrue(new RunMotorManual(m_intake, 0.05, IntakeMotor.PIVOT));
-    pivotDebugUp.whileTrue(new RunMotorManual(m_intake, -0.05, IntakeMotor.PIVOT));
-    rollerDebug.whileTrue(new RunMotorManual(m_intake, 0.1, IntakeMotor.ROLLER));
+    pivotDebugDown.whileTrue(new RunMotorManual(m_intake, 0.15, IntakeMotor.PIVOT));
+    pivotDebugUp.whileTrue(new RunMotorManual(m_intake, -0.15, IntakeMotor.PIVOT));
+    rollerDebug.whileTrue(new RunMotorManual(m_intake, 0.3, IntakeMotor.ROLLER));
 
     //toggleIntakePivotCommands.onTrue(new ToggleIntakePivotCommands(new IntakePivotIn(m_intake), new IntakePivotOut(m_intake)));
   }
