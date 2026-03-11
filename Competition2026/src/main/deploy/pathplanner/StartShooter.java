@@ -10,7 +10,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class StartShooter extends InstantCommand {
-  ShooterSubsystem m_shopter;
+  ShooterSubsystem m_shooter;
   double m_speed;
 
   public StartShooter(ShooterSubsystem shooter, double speed) {
