@@ -28,6 +28,8 @@ public class IntakeSubsystem extends SubsystemBase {
 
     targetAngle = Constants.intake.intakePivotMinEncoderValue;
 
+    intakePivotMotor.getEncoder().setPosition(0);
+
     pivotPID = new PIDController(
       Constants.intake.PIDValues.kP, 
       Constants.intake.PIDValues.kI, 
