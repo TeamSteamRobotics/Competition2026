@@ -6,7 +6,12 @@ package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkBaseConfig;
+import com.revrobotics.spark.config.SparkFlexConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,6 +22,8 @@ public class IntakeSubsystem extends SubsystemBase {
   SparkFlex intakeRollerMotor;
 
   PIDController pivotPID;
+
+  SparkBaseConfig pivotConfig = new SparkFlexConfig().idleMode(IdleMode.kBrake);
   /** Are the motors being run manually, or by PID? */
   boolean manualOperation;
   double targetAngle;
@@ -29,6 +36,8 @@ public class IntakeSubsystem extends SubsystemBase {
     targetAngle = Constants.intake.intakePivotMinEncoderValue;
 
     intakePivotMotor.getEncoder().setPosition(0);
+
+    intakePivotMotor.configure(pivotConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
     pivotPID = new PIDController(
       Constants.intake.PIDValues.kP, 
@@ -74,10 +83,10 @@ public class IntakeSubsystem extends SubsystemBase {
       return;
     }
     // We're running in standard mode, set roller speed
-    System.out.println("Encoder: " + intakePivotMotor.getEncoder().getPosition());
+    // System.out.println("Encoder: " + intakePivotMotor.getEncoder().getPosition());
     intakeRollerMotor.set(rollerSpeed);
     double speed = pivotPID.calculate(intakePivotMotor.getEncoder().getPosition(), targetAngle); //Tried to run wrong direction, might this fix it?
-    System.out.println("Speed: " + speed);
+    // System.out.println("Speed: " + speed);
     if(speed > 1){
       // Out of bounds
       intakePivotMotor.set(1);
