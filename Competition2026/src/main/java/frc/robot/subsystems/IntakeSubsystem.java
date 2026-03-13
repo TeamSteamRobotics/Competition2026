@@ -22,6 +22,7 @@ public class IntakeSubsystem extends SubsystemBase {
   SparkFlex intakeRollerMotor;
 
   PIDController pivotPID;
+  PIDController upPivotPID;
 
   SparkBaseConfig pivotConfig = new SparkFlexConfig().idleMode(IdleMode.kBrake);
   /** Are the motors being run manually, or by PID? */
@@ -43,6 +44,11 @@ public class IntakeSubsystem extends SubsystemBase {
       Constants.intake.PIDValues.kP, 
       Constants.intake.PIDValues.kI, 
       Constants.intake.PIDValues.kD);
+
+    upPivotPID = new PIDController(
+      Constants.intake.UpPIDValues.kP, 
+      Constants.intake.UpPIDValues.kI, 
+      Constants.intake.UpPIDValues.kD);
 
     manualOperation = false;
   }
@@ -82,10 +88,19 @@ public class IntakeSubsystem extends SubsystemBase {
       // User is running motors manually, don't even try to work with PID
       return;
     }
+    double speed = 0;
     // We're running in standard mode, set roller speed
-    // System.out.println("Encoder: " + intakePivotMotor.getEncoder().getPosition());
+    //System.out.println("Encoder: " + intakePivotMotor.getEncoder().getPosition());
     intakeRollerMotor.set(rollerSpeed);
-    double speed = pivotPID.calculate(intakePivotMotor.getEncoder().getPosition(), targetAngle); //Tried to run wrong direction, might this fix it?
+    if(targetAngle == Constants.intake.intakePivotMaxEncoderValue){
+      // We are going down
+      speed = pivotPID.calculate(intakePivotMotor.getEncoder().getPosition(), targetAngle);
+    }
+    else if(targetAngle == Constants.intake.intakePivotMinEncoderValue){
+      // We are going up
+      speed = upPivotPID.calculate(intakePivotMotor.getEncoder().getPosition(), targetAngle);
+    }
+    
     // System.out.println("Speed: " + speed);
     if(speed > 1){
       // Out of bounds
@@ -95,6 +110,11 @@ public class IntakeSubsystem extends SubsystemBase {
     if(speed < -1){
       // Out of bounds
       intakePivotMotor.set(-1);
+      return;
+    }
+    if(Math.abs(speed) < 0.10){
+      intakePivotMotor.set(0);
+      //System.out.println("Deadband!"); // Change to elastic dashboard later
       return;
     }
     // All checks passed
