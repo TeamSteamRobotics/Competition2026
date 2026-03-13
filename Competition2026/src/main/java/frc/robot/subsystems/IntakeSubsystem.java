@@ -74,8 +74,10 @@ public class IntakeSubsystem extends SubsystemBase {
       return;
     }
     // We're running in standard mode, set roller speed
+    System.out.println("Encoder: " + intakePivotMotor.getEncoder().getPosition());
     intakeRollerMotor.set(rollerSpeed);
-    double speed = pivotPID.calculate(intakePivotMotor.getEncoder().getPosition(), targetAngle);
+    double speed = pivotPID.calculate(intakePivotMotor.getEncoder().getPosition(), targetAngle); //Tried to run wrong direction, might this fix it?
+    System.out.println("Speed: " + speed);
     if(speed > 1){
       // Out of bounds
       intakePivotMotor.set(1);

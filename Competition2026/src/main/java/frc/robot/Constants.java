@@ -26,11 +26,11 @@ public final class Constants {
     public static final double pivotSpeed = 0.05;
 
     public static final double intakePivotMinEncoderValue = 0; //TODO: Replace with actual value
-    public static final double intakePivotMaxEncoderValue = 0.75; //3/4ths rotation should be correct with 3:1 gear ratio
+    public static final double intakePivotMaxEncoderValue = 0.5; //3/4ths rotation should be correct with 3:1 gear ratio
     public static class PIDValues {
-      public static final double kP = 0.1; //TODO: Replace with actual value
-      public static final double kI = 0.1; //TODO: Replace with actual value
-      public static final double kD = 0.1; //TODO: Replace with actual value
+      public static final double kP = 0.3; //TODO: Replace with actual value
+      public static final double kI = 0.0; //TODO: Replace with actual value
+      public static final double kD = 0.0; //TODO: Replace with actual value
     }
   }
 }
