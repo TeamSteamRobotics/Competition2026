@@ -21,8 +21,8 @@ public final class Constants {
   public class ClimbMotors {
     public static final int climbBack = 24;
     public static final int climbFront = 23;
-    public static final double maxClimbRotations = 300; //fix later
-    public static double minClimbRotations = -100; //placeholder
+    public static final double maxClimbRotations = 3; //fix later
+    public static double minClimbRotations = -1; //placeholder
     public static double climbSpeed = 0.05; //placeholder
   }
   public class drive {
@@ -60,7 +60,7 @@ public final class Constants {
     public static final double kickSpeed = 0.3; //0.1 filler speed fix to be accurate
     public static final double vomitSpeed = 0.60;
     public static final int indexerMotorId = 25;
-    public static final double speed = 0.4;
+    public static final double speed = 0.25;
 
     public class ShooterPid{
       public static final double kP = 0.08;
