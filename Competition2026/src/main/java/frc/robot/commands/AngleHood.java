@@ -58,8 +58,8 @@ public class AngleHood extends Command {
   public double findDistanceToHub(){
     Pose2d robotPose = m_drive.samplePoseAt(Utils.getSystemTimeSeconds()).get(); //TODO: Determing if correct timestamp method is used
     //Finds the x and y distances from the hub. Uses pythagorean theorem to find the distance to hub.
-    double xDistanceToHub = Math.abs(Constants.FieldPositions.hubPose.getX() - robotPose.getX());
-    double yDistanceToHub = Math.abs(Constants.FieldPositions.hubPose.getY() - robotPose.getY());
+    double xDistanceToHub = Math.abs(Constants.Vision.FieldPositions.hubPose.getX() - robotPose.getX());
+    double yDistanceToHub = Math.abs(Constants.Vision.FieldPositions.hubPose.getY() - robotPose.getY());
     return Math.sqrt(Math.pow(xDistanceToHub, 2) + Math.pow(yDistanceToHub, 2));
   }
 
@@ -78,7 +78,7 @@ public class AngleHood extends Command {
       if(didOneIntervalMove){
         return;
       }
-      System.out.println("upgoing");
+      //System.out.println("upgoing");
       m_hood.moveByIntervalTrue(m_sign);
       didOneIntervalMove = true;
       return;
