@@ -38,21 +38,30 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
+import frc.robot.Constants.OperatorConstants;
+
+import frc.robot.subsystems.HoodSubsystem;
+import frc.robot.commands.AngleHood;
+import frc.robot.commands.ChangeHoodAngleByLargeInterval;
+import frc.robot.commands.AngleHood.OperatingMode;
 
 //import frc.robot.commands.printValue;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 
-/**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, commands, and trigger mappings) should be declared here.
- */
 public class RobotContainer {
-  private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
-  private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+    private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
+    private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+
+    private final HoodSubsystem m_hood = new HoodSubsystem();
+
+    private final CommandXboxController m_driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
+    private final CommandXboxController m_operatorController = new CommandXboxController(OperatorConstants.kOperatorControllerPort);
+
+    //operator controls
+    private final Trigger angleHoodUp = m_operatorController.povUp();
+    private final Trigger angleHoodDown = m_operatorController.povDown();
 
     /* Setting up bindings for necessary control of the swerve drive platform */
   private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
@@ -92,13 +101,11 @@ public class RobotContainer {
   public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
   private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser();
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
-    //m_climbsubsystem = new ClimbSubsystem();
-    
-    // Configure the trigger bindings
-    configureBindings();
-  }
+    public RobotContainer() {
+        
+
+        configureBindings();
+    }
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -189,6 +196,9 @@ public class RobotContainer {
         joystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
 
         drivetrain.registerTelemetry(logger::telemeterize);
+
+        angleHoodUp.onTrue(new ChangeHoodAngleByLargeInterval(m_hood, 1));
+        angleHoodDown.onTrue(new ChangeHoodAngleByLargeInterval(m_hood, -1));
     }
 
     public Command getAutonomousCommand() {
