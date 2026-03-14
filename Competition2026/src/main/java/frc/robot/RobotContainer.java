@@ -20,7 +20,6 @@ import frc.robot.commands.IntakeCommands.RunMotorManual;
 import frc.robot.commands.IntakeCommands.RunRollerWheels;
 import frc.robot.commands.Climb.RaiseClimb;
 import frc.robot.commands.Climb.RetractClimb;
-import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeMotor;
 import frc.robot.commands.ShooterCommands.PrimeShooter;
@@ -43,6 +42,7 @@ import frc.robot.subsystems.CommandSwerveDrivetrain;
 //import frc.robot.commands.printValue;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -54,27 +54,23 @@ public class RobotContainer {
   //Subsystems
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
+  private final ClimbSubsystem m_climbsubsystem = new ClimbSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
   private final CommandXboxController m_operatorController = new CommandXboxController(OperatorConstants.kDriverOperatorPort);
 
   //operator controls
-  private final Trigger intakeRollers = m_operatorController.x();
-  private final Trigger pivotIntakeDown = m_operatorController.povDown();
-  private final Trigger pivotIntakeUp = m_operatorController.povUp();
-  private final Trigger pivotDebugDown = m_driverController.a();
-  private final Trigger pivotDebugUp = m_driverController.b();
-  private final Trigger rollerDebug = m_driverController.x();
-  //private final Trigger toggleIntakePivotCommands = m_operatorController.y();
-  
-  private final ClimbSubsystem m_climbsubsystem;
-  
-  // Controllers
-  private final CommandXboxController m_kOperatorController = new CommandXboxController(OperatorConstants.kOperatorControllerPort);
+  private final Trigger intakeRollers = m_operatorController.leftTrigger();
+  private final Trigger pivotIntakeDown = m_operatorController.leftBumper();
+  private final Trigger pivotIntakeUp = m_operatorController.rightBumper();
+  //private final Trigger pivotDebugDown = m_driverController.a();
+  //private final Trigger pivotDebugUp = m_driverController.b();
+  //private final Trigger rollerDebug = m_driverController.x();
 
-  private final Trigger RaiseClimb = m_kOperatorController.leftBumper();
-  private final Trigger RetractClimb = m_kOperatorController.rightBumper();
+
+  private final Trigger raiseClimb = m_driverController.rightBumper();
+  private final Trigger retractClimb = m_operatorController.leftBumper();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
