@@ -146,7 +146,7 @@ public class HoodSubsystem extends SubsystemBase {
   public void periodic() {
     double speed;
     accumulatedAngle += hoodAngleEncoder.get();
-    if(elevateHoodMotor.getEncoder().getPosition() >= Constants.HoodConstants.hoodMaxEncoderValue + 0.01
+    if(elevateHoodMotor.getEncoder().getPosition() >= Constants.HoodConstants.hoodMaxEncoderValue
     && targetAngle >= Constants.HoodConstants.hoodMaxEncoderValue){
       //speed = hoodPID.calculate(accumulatedAngle, Constants.HoodConstants.hoodMaxEncoderValue);
       //elevateHoodMotor.set(speed);

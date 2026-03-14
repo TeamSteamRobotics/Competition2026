@@ -37,7 +37,7 @@ public final class Constants {
     //public static final double defaultAngleInterval = 3; //TODO: Replace with actual value
     public static final double hoodMinEncoderValue = -3.2; // TODO: Replace with actual value
     public static class PIDValues{
-      public static final double kP = 0.25;
+      public static final double kP = 0.15;
       public static final double kI = 0.0;
       public static final double kD = 0.001;
     }
