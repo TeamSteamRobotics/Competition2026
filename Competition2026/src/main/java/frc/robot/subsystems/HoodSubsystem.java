@@ -20,6 +20,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -34,18 +35,27 @@ public class HoodSubsystem extends SubsystemBase {
   private double m_dist;
   private DutyCycleEncoder hoodAngleEncoder;
 
+  
+
+  private int counter = 0;
+
+  PIDController hoodPID;
+
   //TODO: How to throughbore?
 
   TreeMap<Double, Double> angleLookupTable = new TreeMap<Double, Double>();
 
   /** Creates a new HoodSubsystem. */
   public HoodSubsystem() {
+    elevateHoodMotor.getEncoder().setPosition(0);
     config
       .idleMode(IdleMode.kBrake)
       .closedLoop
         .p(Constants.HoodConstants.PIDValues.kP)
         .i(Constants.HoodConstants.PIDValues.kI)
         .d(Constants.HoodConstants.PIDValues.kD);
+
+    hoodPID = new PIDController(Constants.HoodConstants.PIDValues.kP, Constants.HoodConstants.PIDValues.kI, Constants.HoodConstants.PIDValues.kD);
 
     targetAngle = Constants.HoodConstants.hoodMinEncoderValue;
 
@@ -65,7 +75,7 @@ public class HoodSubsystem extends SubsystemBase {
   }
 
   public boolean hoodAtSetpoint(){
-    return hoodPIDMotor.isAtSetpoint();
+    return (Math.abs(elevateHoodMotor.getEncoder().getPosition() - targetAngle) <= 0.02);
   }
   /**
    * Sets targetAngle, clamping value if necessary.
@@ -130,21 +140,30 @@ public class HoodSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    double speed;
     accumulatedAngle += hoodAngleEncoder.get();
-    if(accumulatedAngle >= Constants.HoodConstants.hoodMaxEncoderValue){
-      hoodPIDMotor.setSetpoint(Constants.HoodConstants.hoodMaxEncoderValue - accumulatedAngle, ControlType.kPosition);
-      //elevateHoodMotor.set(0);
+    if(elevateHoodMotor.getEncoder().getPosition() >= Constants.HoodConstants.hoodMaxEncoderValue){
+      //speed = hoodPID.calculate(accumulatedAngle, Constants.HoodConstants.hoodMaxEncoderValue);
+      //elevateHoodMotor.set(speed);
+      elevateHoodMotor.set(0);
       //TODO: Figure out which works better later
       //hoodAngleEncoder;
       
 
       
     }
+    speed = hoodPID.calculate(elevateHoodMotor.getEncoder().getPosition(), targetAngle);
     // This method will be called once per scheduler run
 
-    // This will make the motor move to whatever our target angle is continuously. We need the '-accumulatedAngle'
-    // because the motor has no internal encoder IIRC, and so we need to feed in the change needed
-    hoodPIDMotor.setSetpoint(targetAngle - accumulatedAngle, ControlType.kPosition);
+    
+    elevateHoodMotor.set(speed);
+
+    counter++;
+
+    if(counter >= 20){
+      counter = 0;
+      System.out.println("Encoder: " + elevateHoodMotor.getEncoder().getPosition());
+    }
   }
 
   public double lookupHoodAngle(double dist){
