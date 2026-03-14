@@ -11,14 +11,18 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.math.geometry.Rotation2d;
-import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.IntakeCommands.IntakeDirection;
+import frc.robot.commands.IntakeCommands.Pivot;
+import frc.robot.commands.IntakeCommands.RunMotorManual;
+import frc.robot.commands.IntakeCommands.RunRollerWheels;
 import frc.robot.commands.Climb.RaiseClimb;
 import frc.robot.commands.Climb.RetractClimb;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.IntakeMotor;
 import frc.robot.commands.ShooterCommands.PrimeShooter;
 import frc.robot.commands.ShooterCommands.Shoot;
 import frc.robot.commands.ShooterCommands.VomitShooter;
@@ -35,9 +39,35 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
+
+//import frc.robot.commands.printValue;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+
+/**
+ * This class is where the bulk of the robot should be declared. Since Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * subsystems, commands, and trigger mappings) should be declared here.
+ */
 public class RobotContainer {
   //Subsystems
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final IntakeSubsystem m_intake = new IntakeSubsystem();
+
+  // Replace with CommandPS4Controller or CommandJoystick if needed
+  private final CommandXboxController m_driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  private final CommandXboxController m_operatorController = new CommandXboxController(OperatorConstants.kDriverOperatorPort);
+
+  //operator controls
+  private final Trigger intakeRollers = m_operatorController.x();
+  private final Trigger pivotIntakeDown = m_operatorController.povDown();
+  private final Trigger pivotIntakeUp = m_operatorController.povUp();
+  private final Trigger pivotDebugDown = m_driverController.a();
+  private final Trigger pivotDebugUp = m_driverController.b();
+  private final Trigger rollerDebug = m_driverController.x();
+  //private final Trigger toggleIntakePivotCommands = m_operatorController.y();
+  
   private final ClimbSubsystem m_climbsubsystem;
   
   // Controllers
@@ -53,36 +83,6 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
   }
-    
-    private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
-    private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
-
-    /* Setting up bindings for necessary control of the swerve drive platform */
-    private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
-            .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
-            .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
-    private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
-    private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
-
-    private final Telemetry logger = new Telemetry(MaxSpeed);
-
-    private final ShooterSubsystem m_shooter = new ShooterSubsystem();
-
-    private final CommandXboxController joystick = new CommandXboxController(0);
-
-    private final CommandXboxController m_driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
-    private final CommandXboxController m_operatorController = new CommandXboxController(OperatorConstants.kOperatorControllerPort);
-    //private final CommandXboxController m_bluetoothController = new CommandXboxController(OperatorConstants.kBluetoothControllerPort);
-
-    //operator controls
-    private final Trigger primeShooter = m_operatorController.rightTrigger();
-    private final Trigger Shoot = m_operatorController.b();
-    private final Trigger VomitShooter = m_operatorController.x();
-
-    public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
-    private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser();
-
-    
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -98,6 +98,24 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
+    //m_driverController.b().whileTrue(new printValue(m_intake));
+
+    intakeRollers.whileTrue(new RunRollerWheels(m_intake, IntakeDirection.IN));
+    pivotIntakeDown.onTrue(new Pivot(m_intake, IntakeDirection.OUT));
+    pivotIntakeUp.onTrue(new Pivot(m_intake, IntakeDirection.IN));
+
+    pivotDebugDown.whileTrue(new RunMotorManual(m_intake, 1, IntakeMotor.PIVOT));
+    pivotDebugUp.whileTrue(new RunMotorManual(m_intake, -1, IntakeMotor.PIVOT));
+    rollerDebug.whileTrue(new RunMotorManual(m_intake, 0.3, IntakeMotor.ROLLER));
+
+    //toggleIntakePivotCommands.onTrue(new ToggleIntakePivotCommands(new IntakePivotIn(m_intake), new IntakePivotOut(m_intake)));
+  
+
+  /**
+   * Use this to pass the autonomous command to the main {@link Robot} class.
+   *
+   * @return the command to run in autonomous
+   */
     //m_kOperatorController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
     //Raise Climb
