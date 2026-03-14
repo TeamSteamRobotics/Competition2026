@@ -18,6 +18,7 @@ import frc.robot.commands.IntakeCommands.IntakeDirection;
 import frc.robot.commands.IntakeCommands.Pivot;
 import frc.robot.commands.IntakeCommands.RunMotorManual;
 import frc.robot.commands.IntakeCommands.RunRollerWheels;
+import frc.robot.commands.Climb.ManualClimb;
 import frc.robot.commands.Climb.RaiseClimb;
 import frc.robot.commands.Climb.RetractClimb;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -89,11 +90,16 @@ public class RobotContainer {
 
 
   private final Trigger raiseClimb = m_driverController.rightBumper();
-  private final Trigger retractClimb = m_operatorController.leftBumper();
+  private final Trigger retractClimb = m_driverController.leftBumper();
 
   private final Trigger primeShooter = m_operatorController.a();
   private final Trigger Shoot = m_operatorController.rightTrigger();
   private final Trigger VomitShooter = m_operatorController.x();
+
+  private final Trigger manualBackUp = m_driverController.povUp();
+  private final Trigger manualFrontUp = m_driverController.povRight();
+  private final Trigger manualBackDown = m_driverController.povDown();
+  private final Trigger manualFrontDown = m_driverController.povLeft();
 
   public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
   private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser();
@@ -152,6 +158,12 @@ public class RobotContainer {
     primeShooter.whileTrue(new PrimeShooter(m_shooter, Constants.shooter.defaultSpeed));
     Shoot.whileTrue(new Shoot(m_shooter, Constants.shooter.kickSpeed));
     VomitShooter.whileTrue(new VomitShooter(m_shooter, Constants.shooter.vomitSpeed, null));
+
+    //Debug commands for climb
+    manualBackDown.whileTrue(new ManualClimb(m_climbsubsystem, false, true));
+    manualFrontDown.whileTrue(new ManualClimb(m_climbsubsystem, false, false));
+    manualBackUp.whileTrue(new ManualClimb(m_climbsubsystem, true, true));
+    manualFrontUp.whileTrue(new ManualClimb(m_climbsubsystem, true, false));
 
         // Build an auto chooser. This will use Commands.none() as the default option.
 

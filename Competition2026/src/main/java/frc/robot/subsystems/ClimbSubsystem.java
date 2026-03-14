@@ -20,6 +20,20 @@ public class ClimbSubsystem extends SubsystemBase {
 
   int counter;
 
+  public ClimbSubsystem(){
+    climbMotorBack.getEncoder().setPosition(0);
+    climbMotorFront.getEncoder().setPosition(0);
+  }
+
+  public void manualMotor(double speed, boolean whichMotor){
+    //System.out.println("We should be moving");
+    if(whichMotor){
+      climbMotorBack.set(speed);
+    } else {
+      climbMotorFront.set(speed);
+    }
+  }
+
   public void raiseClimb() {
     climbMotorBack.set(ClimbMotors.climbSpeed); //make sure is SLOW, don't bend metal
     climbMotorFront.set(ClimbMotors.climbSpeed); //Move with left motor
@@ -51,10 +65,14 @@ public class ClimbSubsystem extends SubsystemBase {
   public boolean isRaised() {
     // returns true if the left motor turned past the maximum turns
     //return climbMotorBack.getEncoder().getPosition() >= ClimbMotors.maxClimbRotations;
+
+    return false;
+  }
+  @Override
+  public void periodic(){
     if(counter == 20){
       System.out.println(climbMotorBack.getEncoder().getPosition());
     }
     counter++;
-    return false;
   }
 }
