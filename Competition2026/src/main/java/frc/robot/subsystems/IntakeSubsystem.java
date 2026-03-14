@@ -112,7 +112,7 @@ public class IntakeSubsystem extends SubsystemBase {
       intakePivotMotor.set(-1);
       return;
     }
-    if(Math.abs(speed) < 0.10){
+    if(Math.abs(intakePivotMotor.getEncoder().getPosition() - targetAngle) < 0.05){
       intakePivotMotor.set(0);
       //System.out.println("Deadband!"); // Change to elastic dashboard later
       return;
