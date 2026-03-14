@@ -26,14 +26,14 @@ public final class Constants {
     public static final double pivotSpeed = 0.05;
 
     public static final double intakePivotMinEncoderValue = 0;
-    public static final double intakePivotMaxEncoderValue = 1.25; //should be 2.0
+    public static final double intakePivotMaxEncoderValue = 1.1; //should be 2.0
     public static class PIDValues {
       public static final double kP = 0.3; //TODO: Replace with actual value
       public static final double kI = 0.00; //TODO: Replace with actual value
       public static final double kD = 0.0; //TODO: Replace with actual value
     }
     public static class UpPIDValues {
-      public static final double kP = 0.35; //TODO: Replace with actual value
+      public static final double kP = 0.45; //TODO: Replace with actual value
       public static final double kI = 0.0; //TODO: Replace with actual value
       public static final double kD = 0.0; //TODO: Replace with actual value
     }
