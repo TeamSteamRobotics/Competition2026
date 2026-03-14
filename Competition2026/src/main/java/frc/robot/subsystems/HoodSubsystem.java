@@ -123,14 +123,17 @@ public class HoodSubsystem extends SubsystemBase {
    * @return
    */
   public boolean moveByIntervalTrue(int sign) {
-    if (sign > 0 && !(targetAngle >= Constants.HoodConstants.hoodMaxEncoderValue)) {
+    if (sign > 0 && (targetAngle < Constants.HoodConstants.hoodMaxEncoderValue + 0.005)) {
+      System.out.println("Moving up");
       targetAngle += Constants.HoodConstants.largeAngleInterval;
       return true;
     }
-    else if (sign <= 0 && !(targetAngle <= Constants.HoodConstants.hoodMinEncoderValue)) {
+    else if (sign <= 0 && (targetAngle > Constants.HoodConstants.hoodMinEncoderValue - 0.005)) {
+      System.out.println("Moving down");
       targetAngle -= Constants.HoodConstants.largeAngleInterval;
       return true;
     }
+    //System.out.println("");
     return false;
   }
 
@@ -156,6 +159,7 @@ public class HoodSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     //System.out.println("We're doing stuff, at least");
 
+
     
     elevateHoodMotor.set(speed);
 
@@ -163,7 +167,9 @@ public class HoodSubsystem extends SubsystemBase {
 
     if(counter >= 20){
       counter = 0;
+      System.out.println("Speed: " + speed);
       System.out.println("Target Angle: " + targetAngle);
+      System.out.println("Angle: " + elevateHoodMotor.getEncoder().getPosition());
     }
   }
 
