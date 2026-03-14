@@ -24,6 +24,7 @@ import frc.robot.Constants.OperatorConstants;
 
 import frc.robot.subsystems.HoodSubsystem;
 import frc.robot.commands.AngleHood;
+import frc.robot.commands.ChangeHoodAngleByLargeInterval;
 import frc.robot.commands.AngleHood.OperatingMode;
 
 public class RobotContainer {
@@ -94,12 +95,12 @@ public class RobotContainer {
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-        angleHoodUp.onTrue(new AngleHood(m_hood, 1, OperatingMode.INTERVAL));
-        angleHoodDown.onTrue(new AngleHood(m_hood, -1, OperatingMode.INTERVAL));
+        angleHoodUp.onTrue(new ChangeHoodAngleByLargeInterval(m_hood, 1));
+        angleHoodDown.onTrue(new ChangeHoodAngleByLargeInterval(m_hood, -1));
     }
 
     public Command getAutonomousCommand() {
-        // Simple drive forward auton
+        // // Simple drive forward auton
         final var idle = new SwerveRequest.Idle();
         return Commands.sequence(
             // Reset our field centric heading to match the robot
@@ -115,5 +116,6 @@ public class RobotContainer {
             // Finally idle for the rest of auton
             drivetrain.applyRequest(() -> idle)
         );
+        //return null;
     }
 }

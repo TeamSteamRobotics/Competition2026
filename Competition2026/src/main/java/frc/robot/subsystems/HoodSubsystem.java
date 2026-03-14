@@ -47,7 +47,7 @@ public class HoodSubsystem extends SubsystemBase {
 
   /** Creates a new HoodSubsystem. */
   public HoodSubsystem() {
-    elevateHoodMotor.getEncoder().setPosition(0);
+    
     config
       .idleMode(IdleMode.kBrake)
       .closedLoop
@@ -57,7 +57,7 @@ public class HoodSubsystem extends SubsystemBase {
 
     hoodPID = new PIDController(Constants.HoodConstants.PIDValues.kP, Constants.HoodConstants.PIDValues.kI, Constants.HoodConstants.PIDValues.kD);
 
-    targetAngle = Constants.HoodConstants.hoodMinEncoderValue;
+    targetAngle = Constants.HoodConstants.hoodMaxEncoderValue;
 
     elevateHoodMotor = new SparkMax(Constants.HoodConstants.hoodElevateMotorID, MotorType.kBrushless);
     
@@ -66,6 +66,7 @@ public class HoodSubsystem extends SubsystemBase {
     hoodPIDMotor = elevateHoodMotor.getClosedLoopController();
 
     hoodAngleEncoder = new DutyCycleEncoder(0); //We'll figure this out
+    elevateHoodMotor.getEncoder().setPosition(0);
     
 
   }
@@ -142,18 +143,18 @@ public class HoodSubsystem extends SubsystemBase {
   public void periodic() {
     double speed;
     accumulatedAngle += hoodAngleEncoder.get();
-    if(elevateHoodMotor.getEncoder().getPosition() >= Constants.HoodConstants.hoodMaxEncoderValue){
+    if(elevateHoodMotor.getEncoder().getPosition() >= Constants.HoodConstants.hoodMaxEncoderValue + 0.01
+    && targetAngle >= Constants.HoodConstants.hoodMaxEncoderValue){
       //speed = hoodPID.calculate(accumulatedAngle, Constants.HoodConstants.hoodMaxEncoderValue);
       //elevateHoodMotor.set(speed);
       elevateHoodMotor.set(0);
       //TODO: Figure out which works better later
       //hoodAngleEncoder;
-      
-
-      
+      return;
     }
     speed = hoodPID.calculate(elevateHoodMotor.getEncoder().getPosition(), targetAngle);
     // This method will be called once per scheduler run
+    //System.out.println("We're doing stuff, at least");
 
     
     elevateHoodMotor.set(speed);
@@ -162,7 +163,7 @@ public class HoodSubsystem extends SubsystemBase {
 
     if(counter >= 20){
       counter = 0;
-      System.out.println("Encoder: " + elevateHoodMotor.getEncoder().getPosition());
+      System.out.println("Target Angle: " + targetAngle);
     }
   }
 

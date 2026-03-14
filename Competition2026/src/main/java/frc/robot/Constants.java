@@ -31,15 +31,15 @@ public final class Constants {
     /**
      * SAFE maximum/minimum encoder value
      */
-    public static final double hoodMaxEncoderValue = 2.0;  //TODO: Replace with actual value
+    public static final double hoodMaxEncoderValue = 0;  //TODO: Replace with actual value
     public static final double angleInterval = 0.1; //TODO: Replace with actual value
-    public static final double largeAngleInterval = 0.5; //TODO: Replace with actual value
+    public static final double largeAngleInterval = -0.2; //TODO: Replace with actual value
     //public static final double defaultAngleInterval = 3; //TODO: Replace with actual value
-    public static final double hoodMinEncoderValue = 0; // TODO: Replace with actual value
+    public static final double hoodMinEncoderValue = -3.4; // TODO: Replace with actual value
     public static class PIDValues{
-      public static final double kP = 0.1;
-      public static final double kI = 0.1;
-      public static final double kD = 0.1;
+      public static final double kP = 0.05;
+      public static final double kI = 0.0;
+      public static final double kD = 0.0;
     }
     public static class HoodAngles {
       

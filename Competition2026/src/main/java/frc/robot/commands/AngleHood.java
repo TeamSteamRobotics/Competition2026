@@ -78,6 +78,7 @@ public class AngleHood extends Command {
       if(didOneIntervalMove){
         return;
       }
+      System.out.println("upgoing");
       m_hood.moveByIntervalTrue(m_sign);
       didOneIntervalMove = true;
       return;
