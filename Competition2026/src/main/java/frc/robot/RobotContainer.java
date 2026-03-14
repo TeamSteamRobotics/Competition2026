@@ -79,9 +79,6 @@ public class RobotContainer {
   private final ShooterSubsystem m_shooter = new ShooterSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
-  private final CommandXboxController m_operatorController = new CommandXboxController(OperatorConstants.kOperatorControllerPort);
-
   //operator controls
   private final Trigger intakeRollers = m_operatorController.leftTrigger();
   private final Trigger pivotIntakeDown = m_operatorController.leftBumper();
