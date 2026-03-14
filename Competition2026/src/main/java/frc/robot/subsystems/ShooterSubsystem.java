@@ -69,11 +69,6 @@ public boolean overrideDefault;
     shooterLeftMotor.set(-speed);
     shooterRightMotor.set(speed);
  }
-
- public void stopShooter() {
-    shooterLeftMotor.set(0);
-    shooterRightMotor.set(0);
- }
  
  public void runKick(double kickSpeed) {
   //System.out.println("yullo there");

@@ -51,30 +51,50 @@ import frc.robot.subsystems.ClimbSubsystem;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+  private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
+  private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+
+    /* Setting up bindings for necessary control of the swerve drive platform */
+  private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
+    .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
+    .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
+  private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
+  private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
+
+  private final Telemetry logger = new Telemetry(MaxSpeed);
+  private final CommandXboxController joystick = new CommandXboxController(0);
   //Subsystems
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
   private final ClimbSubsystem m_climbsubsystem = new ClimbSubsystem();
+  private final ShooterSubsystem m_shooter = new ShooterSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
-  private final CommandXboxController m_operatorController = new CommandXboxController(OperatorConstants.kDriverOperatorPort);
+  private final CommandXboxController m_operatorController = new CommandXboxController(OperatorConstants.kOperatorControllerPort);
 
   //operator controls
   private final Trigger intakeRollers = m_operatorController.leftTrigger();
   private final Trigger pivotIntakeDown = m_operatorController.leftBumper();
   private final Trigger pivotIntakeUp = m_operatorController.rightBumper();
-  //private final Trigger pivotDebugDown = m_driverController.a();
-  //private final Trigger pivotDebugUp = m_driverController.b();
-  //private final Trigger rollerDebug = m_driverController.x();
+  private final Trigger pivotDebugDown = m_driverController.a();
+  private final Trigger pivotDebugUp = m_driverController.b();
+  private final Trigger rollerDebug = m_driverController.x();
 
 
   private final Trigger raiseClimb = m_driverController.rightBumper();
   private final Trigger retractClimb = m_operatorController.leftBumper();
 
+  private final Trigger primeShooter = m_operatorController.a();
+  private final Trigger Shoot = m_operatorController.rightTrigger();
+  private final Trigger VomitShooter = m_operatorController.x();
+
+  public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+  private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser();
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    m_climbsubsystem = new ClimbSubsystem();
+    //m_climbsubsystem = new ClimbSubsystem();
     
     // Configure the trigger bindings
     configureBindings();
@@ -100,9 +120,15 @@ public class RobotContainer {
     pivotIntakeDown.onTrue(new Pivot(m_intake, IntakeDirection.OUT));
     pivotIntakeUp.onTrue(new Pivot(m_intake, IntakeDirection.IN));
 
+
     pivotDebugDown.whileTrue(new RunMotorManual(m_intake, 1, IntakeMotor.PIVOT));
     pivotDebugUp.whileTrue(new RunMotorManual(m_intake, -1, IntakeMotor.PIVOT));
     rollerDebug.whileTrue(new RunMotorManual(m_intake, 0.3, IntakeMotor.ROLLER));
+
+    
+    primeShooter.whileTrue(new PrimeShooter(m_shooter, Constants.shooter.defaultSpeed));
+    Shoot.whileTrue(new Shoot(m_shooter, Constants.shooter.kickSpeed));
+    VomitShooter.whileTrue(new VomitShooter(m_shooter, Constants.shooter.vomitSpeed, null));
 
     //toggleIntakePivotCommands.onTrue(new ToggleIntakePivotCommands(new IntakePivotIn(m_intake), new IntakePivotOut(m_intake)));
   
@@ -113,11 +139,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
     //m_kOperatorController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-
-    //Raise Climb
-    RaiseClimb.whileTrue(new RaiseClimb(m_climbsubsystem));
-    //Retract Climb
-    RetractClimb.whileTrue(new RetractClimb(m_climbsubsystem));
+    raiseClimb.whileTrue(new RaiseClimb(m_climbsubsystem));
+    retractClimb.whileTrue(new RetractClimb(m_climbsubsystem));
 
 
     //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
