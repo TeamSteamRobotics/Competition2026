@@ -51,18 +51,18 @@ public class ShooterSubsystem extends SubsystemBase {
     indexerMotor.set(0); //stop indexer motor
   }
 
-  DigitalInput BeamBreak = new DigitalInput(0);//To Do find channel for beambreak 
+//   DigitalInput BeamBreak = new DigitalInput(0);//To Do find channel for beambreak 
 
-  int BeamCounter = 0;
-public boolean overrideDefault; 
-    public boolean Breambroken(){
-    if (BeamBreak.get()){
-      BeamCounter ++;
-      return true;
-    }
-    return false;
+//   int BeamCounter = 0;
+// public boolean overrideDefault; 
+//     public boolean Breambroken(){
+//     if (BeamBreak.get()){
+//       BeamCounter ++;
+//       return true;
+//     }
+//     return false;
  //if (  > BeamCounter)
-}
+
  
 
  public void primeShooter(double speed) {

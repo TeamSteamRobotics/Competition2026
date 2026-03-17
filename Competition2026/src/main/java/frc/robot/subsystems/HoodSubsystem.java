@@ -65,7 +65,7 @@ public class HoodSubsystem extends SubsystemBase {
 
     hoodPIDMotor = elevateHoodMotor.getClosedLoopController();
 
-    hoodAngleEncoder = new DutyCycleEncoder(0); //We'll figure this out
+    //hoodAngleEncoder = new DutyCycleEncoder(0); //We'll figure this out
     elevateHoodMotor.getEncoder().setPosition(0);
     
 
@@ -142,7 +142,7 @@ public class HoodSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     double speed;
-    accumulatedAngle += hoodAngleEncoder.get();
+    //accumulatedAngle += hoodAngleEncoder.get();
     if(elevateHoodMotor.getEncoder().getPosition() >= Constants.HoodConstants.hoodMaxEncoderValue + 0.01
     && targetAngle >= Constants.HoodConstants.hoodMaxEncoderValue){
       //speed = hoodPID.calculate(accumulatedAngle, Constants.HoodConstants.hoodMaxEncoderValue);
@@ -163,7 +163,7 @@ public class HoodSubsystem extends SubsystemBase {
 
     if(counter >= 20){
       counter = 0;
-      System.out.println("Target Angle: " + targetAngle);
+      //System.out.println("Target Angle: " + targetAngle);
     }
   }
 

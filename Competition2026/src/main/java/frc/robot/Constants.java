@@ -31,7 +31,7 @@ public final class Constants {
     public static final int climbBack = 24;
     public static final int climbFront = 23;
     public static final double maxClimbRotations = 3; //fix later
-    public static double minClimbRotations = -1; //placeholder
+    public static double minClimbRotations = 0; 
     public static double climbSpeed = 0.1; //placeholder
   }
   public class drive {
@@ -65,7 +65,7 @@ public final class Constants {
     public static final int shooterLeftId = 21;
     public static final int shooterRightId = 20;
     public static final int feedRollersId = 22;
-    public static final double defaultSpeed = 0.75;
+    public static final double defaultSpeed = 0.25;
     public static final double kickSpeed = 0.3; //0.1 filler speed fix to be accurate
     public static final double vomitSpeed = 0.60;
     public static final int indexerMotorId = 25;
@@ -83,7 +83,7 @@ public final class Constants {
     public static final int intakePivotID = 19;
     public static final int rollerId = 18;
 
-    public static final double rollerSpeed = 0.25; //TODO: Replace with actual value
+    public static final double rollerSpeed = 0.30; //TODO: Replace with actual value
     public static final double pivotSpeed = 0.05;
 
     public static final double intakePivotMinEncoderValue = 0;

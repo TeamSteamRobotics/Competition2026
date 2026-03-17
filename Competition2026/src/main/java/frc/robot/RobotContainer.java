@@ -66,8 +66,7 @@ public class RobotContainer {
     private final CommandXboxController m_operatorController = new CommandXboxController(OperatorConstants.kOperatorControllerPort);
 
     //operator controls
-    private final Trigger angleHoodUp = m_operatorController.povUp();
-    private final Trigger angleHoodDown = m_operatorController.povDown();
+
 
     /* Setting up bindings for necessary control of the swerve drive platform */
   private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
@@ -89,17 +88,20 @@ public class RobotContainer {
   private final Trigger intakeRollers = m_operatorController.leftTrigger();
   private final Trigger pivotIntakeDown = m_operatorController.leftBumper();
   private final Trigger pivotIntakeUp = m_operatorController.rightBumper();
-  private final Trigger pivotDebugDown = m_driverController.a();
-  private final Trigger pivotDebugUp = m_driverController.b();
-  private final Trigger rollerDebug = m_driverController.x();
+  //private final Trigger pivotDebugDown = m_operatorController.povRight();
+  private final Trigger pivotDebugUp = m_operatorController.povLeft();
+//   private final Trigger rollerDebug = m_driverController.x();
 
 
-  private final Trigger raiseClimb = m_driverController.rightBumper();
-  private final Trigger retractClimb = m_driverController.leftBumper();
+   private final Trigger raiseClimb = m_driverController.rightBumper();
+   private final Trigger retractClimb = m_driverController.leftBumper();
 
   private final Trigger primeShooter = m_operatorController.a();
   private final Trigger Shoot = m_operatorController.rightTrigger();
-  private final Trigger VomitShooter = m_operatorController.x();
+
+  private final Trigger angleHoodUp = m_operatorController.povUp();
+  private final Trigger angleHoodDown = m_operatorController.povDown();
+  //private final Trigger VomitShooter = m_operatorController.x();
 
   private final Trigger manualBackUp = m_driverController.povUp();
   private final Trigger manualFrontUp = m_driverController.povRight();
@@ -135,15 +137,15 @@ public class RobotContainer {
     pivotIntakeDown.onTrue(new Pivot(m_intake, IntakeDirection.OUT));
     pivotIntakeUp.onTrue(new Pivot(m_intake, IntakeDirection.IN));
 
-
-    pivotDebugDown.whileTrue(new RunMotorManual(m_intake, 1, IntakeMotor.PIVOT));
+    //pivotDebugDown.whileTrue(new RunMotorManual(m_intake, 1, IntakeMotor.PIVOT));
     pivotDebugUp.whileTrue(new RunMotorManual(m_intake, -1, IntakeMotor.PIVOT));
-    rollerDebug.whileTrue(new RunMotorManual(m_intake, 0.3, IntakeMotor.ROLLER));
+    
+    // rollerDebug.whileTrue(new RunMotorManual(m_intake, 0.3, IntakeMotor.ROLLER));
 
     
-    primeShooter.whileTrue(new PrimeShooter(m_shooter, Constants.shooter.defaultSpeed));
-    Shoot.whileTrue(new Shoot(m_shooter, Constants.shooter.kickSpeed));
-    VomitShooter.whileTrue(new VomitShooter(m_shooter, Constants.shooter.vomitSpeed, null));
+    // primeShooter.whileTrue(new PrimeShooter(m_shooter, Constants.shooter.defaultSpeed));
+    // Shoot.whileTrue(new Shoot(m_shooter, Constants.shooter.kickSpeed));
+    //VomitShooter.whileTrue(new VomitShooter(m_shooter, Constants.shooter.vomitSpeed, null));
 
     //toggleIntakePivotCommands.onTrue(new ToggleIntakePivotCommands(new IntakePivotIn(m_intake), new IntakePivotOut(m_intake)));
   
@@ -153,16 +155,16 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-    //m_kOperatorController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-    raiseClimb.whileTrue(new RaiseClimb(m_climbsubsystem));
-    retractClimb.whileTrue(new RetractClimb(m_climbsubsystem));
+   
+     raiseClimb.whileTrue(new RaiseClimb(m_climbsubsystem));
+     retractClimb.whileTrue(new RetractClimb(m_climbsubsystem));
 
 
     //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
     primeShooter.whileTrue(new PrimeShooter(m_shooter, Constants.shooter.defaultSpeed));
     Shoot.whileTrue(new Shoot(m_shooter, Constants.shooter.kickSpeed));
-    VomitShooter.whileTrue(new VomitShooter(m_shooter, Constants.shooter.vomitSpeed, null));
+    //VomitShooter.whileTrue(new VomitShooter(m_shooter, Constants.shooter.vomitSpeed, null));
 
     //Debug commands for climb
     manualBackDown.whileTrue(new ManualClimb(m_climbsubsystem, false, true));
@@ -194,10 +196,12 @@ public class RobotContainer {
             drivetrain.applyRequest(() -> idle).ignoringDisable(true)
         );
 
-        joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
+        joystick.x().whileTrue(drivetrain.applyRequest(() -> brake));
         joystick.b().whileTrue(drivetrain.applyRequest(() ->
             point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
         ));
+
+        
 
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
@@ -207,7 +211,7 @@ public class RobotContainer {
         joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
         // Reset the field-centric heading on left bumper press.
-        joystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+        joystick.a().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
