@@ -2,27 +2,29 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package StartKick;
+package StartShooterAuto;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.Constants;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class StartKick extends InstantCommand {
+public class StartShooterAuto extends InstantCommand {
   ShooterSubsystem m_shooter;
   double m_speed;
-  public StartKick(ShooterSubsystem shooter, double speed) {
+
+  public StartShooterAuto(ShooterSubsystem shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_shooter = shooter;
-    m_speed = speed;
-    
+    m_speed = Constants.shooter.kickSpeed;
+
     addRequirements(shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_shooter.RunKick(m_speed);
+    m_shooter.PrimeShooter(0.75); //runshooter needs to be fixed later
   }
 }

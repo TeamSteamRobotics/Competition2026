@@ -2,26 +2,28 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package StopIntake;
+package RunKickAuto;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.IntakeSubsytem;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.Constants;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class StopIntake extends InstantCommand {
-  IntakeSubsytem m_intake;
-
-  public StopIntake(IntakeSubsytem intake) {
-    m_intake = intake;
-
-    addRequirements(intake); 
+public class RunKickAuto extends InstantCommand {
+  ShooterSubsystem m_shooter;
+  double m_speed;
+  public RunKickAuto(ShooterSubsystem shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_shooter = shooter;
+    m_speed = Constants.shooter.defaultSpeed;
+    
+    addRequirements(shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_intake.roller(0.0);
+    m_shooter.RunKick(0.75);
   }
 }

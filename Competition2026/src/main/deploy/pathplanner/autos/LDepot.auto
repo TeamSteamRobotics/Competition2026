@@ -17,7 +17,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "DeployIntake"
+                  "name": "RunIntake@auto"
                 }
               }
             ]
@@ -32,7 +32,7 @@
         {
           "type": "named",
           "data": {
-            "name": "StopIntake"
+            "name": "StopIntakeAuto"
           }
         },
         {
@@ -48,13 +48,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "RetractIntake"
+                  "name": "RetractClimbAuto"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "StartShooter"
+                  "name": "StartShooterAuto"
                 }
               }
             ]
@@ -63,7 +63,7 @@
         {
           "type": "named",
           "data": {
-            "name": "RunKick"
+            "name": "RunKickAuto"
           }
         },
         {
@@ -75,13 +75,13 @@
         {
           "type": "named",
           "data": {
-            "name": "StopKick"
+            "name": "StopKickAuto"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "StopShooter"
+            "name": "StopShooterAuto"
           }
         },
         {
@@ -97,7 +97,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "RaiseClimb"
+                  "name": "RaiseClimbAuto"
                 }
               }
             ]
@@ -112,7 +112,7 @@
         {
           "type": "named",
           "data": {
-            "name": "LowerClimb"
+            "name": "RetractClimbAuto"
           }
         }
       ]
