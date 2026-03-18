@@ -63,7 +63,6 @@ private boolean hasDistanceSupplier; //Indicates whether distance-based speed ca
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_Shooter.stopIndexer();
     m_Shooter.StopMotor();
   }
 
