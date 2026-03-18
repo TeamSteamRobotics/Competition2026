@@ -69,12 +69,18 @@ public class RobotContainer {
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
+    private double SlowMaxSpeed = 0.2 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); //Can increase from 20% if need be
+    private double SlowMaxAngularRate = RotationsPerSecond.of(0.75 * 0.2).in(RadiansPerSecond); // The multiplier of 0.2 is our percent there
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
             .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
     private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
+
+    private final SwerveRequest.FieldCentric slow drive = new SwerveRequest.FieldCentric()
+            .withDeadband(SlowMaxSpeed * 0.1).withRotationalDeadband(SlowMaxAngularRate * 0.1) // Add a 10% deadband
+            .withDriveRequestType(DriveRequestType.OpenLoopVoltage); 
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
@@ -152,6 +158,14 @@ public class RobotContainer {
         joystick.b().whileTrue(drivetrain.applyRequest(() ->
             point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
         ));
+
+        joystick.rightTrigger().whileTrue(
+          drivetrain.applyRequest(() ->
+                slowDrive.withVelocityX(-joystick.getLeftY() * SlowMaxSpeed) // Drive forward with negative Y (forward)
+                    .withVelocityY(-joystick.getLeftX() * SlowMaxSpeed) // Drive left with negative X (left)
+                    .withRotationalRate(-joystick.getRightX() * SlowMaxAngularRate) // Drive counterclockwise with negative X (left)
+            )
+        );
 
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
