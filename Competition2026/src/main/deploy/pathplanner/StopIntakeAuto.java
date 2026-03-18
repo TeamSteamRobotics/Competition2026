@@ -2,36 +2,26 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package RetractClimb;
+package StopIntakeAuto;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.Constants.ClimbMotors;
-import frc.robot.subsystems.ClimbSubsystem;
-
+import frc.robot.subsystems.IntakeSubsytem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class RetractClimb extends InstantCommand {
-  ClimbSubsystem m_climb;
-  double m_speed;
+public class StopIntakeAuto extends InstantCommand {
+  IntakeSubsytem m_intake;
 
-  public RetractClimb (ClimbSubsystem climb, double speed) {
-    m_climb = climb;
-    m_speed = speed;
+  public StopIntakeAuto(IntakeSubsytem intake) {
+    m_intake = intake;
 
-    addRequirements(climb);
+    addRequirements(intake); 
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(!m_climb.isRetracted()) {
-      m_climb.retractClimb(m_speed);
-    }
-    else{
-      m_climb.stopClimb();
-    }
+    m_intake.setRollerSpeed(0.0);
   }
-
 }

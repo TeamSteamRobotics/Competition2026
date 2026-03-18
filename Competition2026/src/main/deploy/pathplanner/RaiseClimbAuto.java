@@ -2,27 +2,36 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package RunIntake;
+package RaiseClimbAuto;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.Constants.ClimbMotors;
+import frc.robot.subsystems.ClimbSubsystem;
+
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class RunIntake extends InstantCommand {
-  IntakeSubsystem m_intake;
+public class RaiseClimbAuto extends InstantCommand {
+  ClimbSubsystem m_climb;
   double m_speed;
-  public RunIntake(IntakeSubsystem intake, double speed) { //might need to change intake name
-   m_intake = intake;
-   m_speed = speed;
 
-   addRequirements(intake);
+  public RaiseClimbAuto (ClimbSubsystem climb, double speed) {
+    m_climb = climb;
+    m_speed = speed;
+
+    addRequirements(climb);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_intake.setRollerSpeed(m_speed);
+    if(!m_climb.isRaised()) {
+      m_climb.raiseClimb(m_speed);
+    }
+    else{
+      m_climb.stopClimb();
+    }
   }
+
 }

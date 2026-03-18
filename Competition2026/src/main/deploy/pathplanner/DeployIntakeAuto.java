@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package DeployIntake;
+package DeployIntakeAuto;
 
 import com.revrobotics.spark.SparkMax;
 
@@ -13,12 +13,12 @@ import frc.robot.subsystems.IntakeSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class DeployIntake extends InstantCommand {
+public class DeployIntakeAuto extends InstantCommand {
   IntakeSubsystem m_intake;
   double m_speed;
   sparkMax m_intakePivotMotor;
 
-  public DeployIntake(IntakeSubsystem intake, double speed, SparkMax intakePivotMotor) {
+  public DeployIntakeAuto(IntakeSubsystem intake, double speed, SparkMax intakePivotMotor) {
     m_intake = intake;
     m_speed = speed;
     m_intakePivotMotor = intakePivotMotor;
