@@ -84,7 +84,7 @@ public class ShooterSubsystem extends SubsystemBase {
   } 
   
   //!The motor id's and speed values need to be set in the constants file!
-  public void stopSpindexer() {
+  public void stopIndexer() {
     indexerMotor.set(0.0);
   }
 
