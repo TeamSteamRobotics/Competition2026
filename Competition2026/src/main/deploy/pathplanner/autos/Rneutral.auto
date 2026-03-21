@@ -93,12 +93,6 @@
                 "data": {
                   "pathName": "Rshoot-Rclimb"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "RaiseClimbAuto"
-                }
               }
             ]
           }
@@ -107,12 +101,6 @@
           "type": "wait",
           "data": {
             "waitTime": 1.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "RetractClimbAuto"
           }
         }
       ]

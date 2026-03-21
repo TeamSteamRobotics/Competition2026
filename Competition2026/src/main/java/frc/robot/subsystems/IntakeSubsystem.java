@@ -23,6 +23,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   PIDController pivotPID;
   PIDController upPivotPID;
+  PIDController midPivotPID;
 
   SparkBaseConfig pivotConfig = new SparkFlexConfig().idleMode(IdleMode.kBrake);
   /** Are the motors being run manually, or by PID? */
@@ -50,6 +51,11 @@ public class IntakeSubsystem extends SubsystemBase {
       Constants.intake.UpPIDValues.kI, 
       Constants.intake.UpPIDValues.kD);
 
+    midPivotPID = new PIDController(
+      Constants.intake.PIDValuesMidAngle.kP, 
+      Constants.intake.PIDValuesMidAngle.kI, 
+      Constants.intake.PIDValuesMidAngle.kD);
+
     manualOperation = false;
   }
 
@@ -62,6 +68,9 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void intakeIn(){
     targetAngle = Constants.intake.intakePivotMinEncoderValue;
+  }
+  public void intakeMid(){
+    targetAngle = Constants.intake.intakePivotMidEncoderValue;
   }
   public void runMotorManual(double speed, IntakeMotor motor){
     manualOperation = true;
@@ -99,6 +108,9 @@ public class IntakeSubsystem extends SubsystemBase {
     else if(targetAngle == Constants.intake.intakePivotMinEncoderValue){
       // We are going up
       speed = upPivotPID.calculate(intakePivotMotor.getEncoder().getPosition(), targetAngle);
+    } else if(targetAngle == Constants.intake.intakePivotMidEncoderValue){
+      // You know what else is mid?
+      speed = midPivotPID.calculate(intakePivotMotor.getEncoder().getPosition(), targetAngle);
     }
     
     // System.out.println("Speed: " + speed);

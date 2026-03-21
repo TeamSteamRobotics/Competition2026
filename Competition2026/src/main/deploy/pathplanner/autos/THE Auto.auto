@@ -5,62 +5,6 @@
     "data": {
       "commands": [
         {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "MStart-LDepot"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "DeployIntakeAuto"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "RunIntakeAuto"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "StopIntakeAuto"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "LDepot-LShoot"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "RetractIntakeAuto"
-                }
-              }
-            ]
-          }
-        },
-        {
           "type": "race",
           "data": {
             "commands": [
@@ -77,7 +21,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.0
+                        "waitTime": 1.5
                       }
                     },
                     {
@@ -122,6 +66,12 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "MoveBackStraight"
           }
         }
       ]

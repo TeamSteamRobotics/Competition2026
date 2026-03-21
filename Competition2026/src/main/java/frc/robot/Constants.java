@@ -65,9 +65,9 @@ public final class Constants {
     public static final int shooterLeftId = 21;
     public static final int shooterRightId = 20;
     public static final int feedRollersId = 22;
-    public static final double defaultSpeed = 0.25;
-    public static final double kickSpeed = 0.3; //0.1 filler speed fix to be accurate
-    public static final double vomitSpeed = 0.60;
+    public static final double defaultSpeed = 0.50;
+    public static final double kickSpeed = 0.15; //0.1 filler speed fix to be accurate
+    public static final double vomitSpeed = 0.40;
     public static final int indexerMotorId = 25;
     public static final double speed = 0.25;
 
@@ -83,18 +83,25 @@ public final class Constants {
     public static final int intakePivotID = 19;
     public static final int rollerId = 18;
 
-    public static final double rollerSpeed = 0.30; //TODO: Replace with actual value
+    public static final double rollerSpeed = 0.25; //TODO: Replace with actual value
     public static final double pivotSpeed = 0.05;
 
-    public static final double intakePivotMinEncoderValue = 0;
-    public static final double intakePivotMaxEncoderValue = 1.1; //should be 2.0
+    public static final double intakePivotMinEncoderValue = -0.9;
+    public static final double intakePivotMaxEncoderValue = 1.75; //Who knows, it was 1.3 before gear change
+    public static final double intakePivotMidEncoderValue = 0.26; //TODO: Tune to make slam not at all
+
     public static class PIDValues {
-      public static final double kP = 0.3; //TODO: Replace with actual value
+      public static final double kP = 0.25; //Most recent value that worked was 3, bit angry though
+      public static final double kI = 0.00; //TODO: Replace with actual value
+      public static final double kD = 0.0; //TODO: Replace with actual value
+    }
+    public static class PIDValuesMidAngle {
+      public static final double kP = 0.2; //Still tuning
       public static final double kI = 0.00; //TODO: Replace with actual value
       public static final double kD = 0.0; //TODO: Replace with actual value
     }
     public static class UpPIDValues {
-      public static final double kP = 0.45; //TODO: Replace with actual value
+      public static final double kP = 0.3; //Most recent that worked was 0.45, bit angry though
       public static final double kI = 0.0; //TODO: Replace with actual value
       public static final double kD = 0.0; //TODO: Replace with actual value
     }
@@ -144,13 +151,13 @@ public final class Constants {
      */
     public static final double hoodMaxEncoderValue = 0;  //TODO: Replace with actual value
     public static final double angleInterval = 0.1; //TODO: Replace with actual value
-    public static final double largeAngleInterval = -0.2; //TODO: Replace with actual value
+    public static final double largeAngleInterval = -0.4; //TODO: Replace with actual value
     //public static final double defaultAngleInterval = 3; //TODO: Replace with actual value
-    public static final double hoodMinEncoderValue = -3.4; // TODO: Replace with actual value
+    public static final double hoodMinEncoderValue = -3.2; // TODO: Replace with actual value
     public static class PIDValues{
-      public static final double kP = 0.05;
+      public static final double kP = 0.17;
       public static final double kI = 0.0;
-      public static final double kD = 0.0;
+      public static final double kD = 0.001;
     }
     public static class HoodAngles {
       
@@ -160,7 +167,7 @@ public final class Constants {
     /**
      * Transformation from robot space to camera space, or from center of robot oriented forward to camera forward
      */
-    public static final Transform3d robotToCam = new Transform3d(new Translation3d(0.5, 0.0, 0.5), new Rotation3d(0, 0, 0)); //TODO: do later :3
+    public static final Transform3d robotToCam = new Transform3d(new Translation3d(0.0, 0.0, 0.0), new Rotation3d(0, 55, 0)); //TODO: do later :3
     /**
      * List of standard deviations, 0 is x in meters, 1 is y in meters, 2 is heading in radians
      */
@@ -175,7 +182,8 @@ public final class Constants {
       public static final double fieldLength = 16.541;
       public static final double fieldWidth = 8.069;
 
-      public static final Translation2d hubPose = new Translation2d(0, 0);
+      public static final Pose2d hubPose2d = new Pose2d(null, null);
+      public static final Translation2d hubTranslation = new Translation2d(11.9, 4.0346376);
       /**
        * TODO: Update for actual field positions
        */

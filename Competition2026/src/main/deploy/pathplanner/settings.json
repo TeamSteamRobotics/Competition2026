@@ -3,6 +3,7 @@
   "robotLength": 0.837,
   "holonomicMode": true,
   "pathFolders": [
+    "New Folder",
     "Shoot-Depot-Shoot-Climb"
   ],
   "autoFolders": [],

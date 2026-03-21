@@ -61,12 +61,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "RunKick"
-          }
-        },
-        {
           "type": "wait",
           "data": {
             "waitTime": 1.0
@@ -93,12 +87,6 @@
                 "data": {
                   "pathName": "LShoot-LClimb"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "RaiseClimbAuto"
-                }
               }
             ]
           }
@@ -107,12 +95,6 @@
           "type": "wait",
           "data": {
             "waitTime": 1.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "RetractClimbAuto"
           }
         }
       ]

@@ -74,9 +74,6 @@ public class ClimbSubsystem extends SubsystemBase {
 
   @Override
   public void periodic(){
-    if(counter == 20){
-      System.out.println(climbMotorBack.getEncoder().getPosition());
-    }
-    counter++;
+    SmartDashboard.putNumber("Climb Back Encoder Value", climbMotorBack.getEncoder().getPosition());
   }
 }

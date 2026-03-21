@@ -8,9 +8,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.Matrix;
@@ -40,8 +42,10 @@ public class EstimatorSubsystem extends SubsystemBase{
   public static final Matrix<N3, N1> robotPoseStdDev = new Matrix<N3, N1>(Nat.N3(), Nat.N1());
   AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
   Optional<PhotonPipelineResult> latestResult;
+  int counter;
   //public EstimatorSubsystem(Function<Pose2d, Function<Double, Consumer<Matrix<N3, N1>>>> addVisionMeasurement, VisionSubsystem vision) {}
   public EstimatorSubsystem(CommandSwerveDrivetrain drive, VisionSubsystem vision) {
+    counter = 0;
     //m_addVisionMeasurement = addVisionMeasurement;
     m_drive = drive;
     //aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2026RebuiltWelded); // See if this works, and if it doesn't, fill in the data in Constants
@@ -95,6 +99,17 @@ public class EstimatorSubsystem extends SubsystemBase{
       m_drive.addVisionMeasurement(robotPose, Timer.getFPGATimestamp(), robotPoseStdDev);
       }
     }
+    Translation2d position = m_drive.getState().Pose.getTranslation();
+
+    SmartDashboard.putNumber("X position", position.getX());
+    SmartDashboard.putNumber("Y position", position.getY());
+
+    // if(counter >= 20){
+    //   counter = 0;
+    //   System.out.println("X: " + position.getX() + "\n");
+    //   System.out.println("Y: " + position.getY() + "\n");
+    // }
+    // counter++;
     //m_addVisionMeasurement.apply(new Pose2d()).apply(Timer.getFPGATimestamp()).accept(robotPoseStdDev);
     
     //System.out.println("x Standard Deviation: " + Double.toString(findStandardDeviation(xValues)));

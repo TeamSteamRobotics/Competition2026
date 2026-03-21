@@ -47,6 +47,14 @@ public class HoodSubsystem extends SubsystemBase {
 
   /** Creates a new HoodSubsystem. */
   public HoodSubsystem() {
+
+    SmartDashboard.putNumber("Sim Distance", 0);
+
+  angleLookupTable.put(1.524, -0.4285);
+  angleLookupTable.put(1.828, -0.4285);
+  angleLookupTable.put(2.1336, -0.9047);
+  angleLookupTable.put(2.4384, -1.2619);
+  angleLookupTable.put(2.819, -1.666);
     
     config
       .idleMode(IdleMode.kBrake)
@@ -65,7 +73,7 @@ public class HoodSubsystem extends SubsystemBase {
 
     hoodPIDMotor = elevateHoodMotor.getClosedLoopController();
 
-    //hoodAngleEncoder = new DutyCycleEncoder(0); //We'll figure this out
+    //hoodAngleEncoder = new DutyCycleEncoder(1); //We'll figure this out
     elevateHoodMotor.getEncoder().setPosition(0);
     
 
@@ -85,16 +93,23 @@ public class HoodSubsystem extends SubsystemBase {
    * @return
    * true if the value is within range, false if the value is out of range
    */
+
   public boolean setTargetAngle(double value){
-    if(value <= Constants.HoodConstants.hoodMinEncoderValue){
-      targetAngle = Constants.HoodConstants.hoodMinEncoderValue;
-      return false;
-    }
-    if(value >= Constants.HoodConstants.hoodMaxEncoderValue){
-      targetAngle = Constants.HoodConstants.hoodMaxEncoderValue;
-      return false;
-    }
+    // if(value <= Constants.HoodConstants.hoodMinEncoderValue){
+    //   targetAngle = Constants.HoodConstants.hoodMinEncoderValue;
+    //   return false;
+    // }
+    // if(value >= Constants.HoodConstants.hoodMaxEncoderValue){
+    //   targetAngle = Constants.HoodConstants.hoodMaxEncoderValue;
+    //   return false;
+    // }
+    
+    // We shouldn't need the above
+    // System.out.println(value);
+    // System.out.println(targetAngle);
     targetAngle = value;
+    // System.out.println(targetAngle);
+    // System.out.println("Step 2 done");
     return true;
   }
 
@@ -123,15 +138,20 @@ public class HoodSubsystem extends SubsystemBase {
    * @return
    */
   public boolean moveByIntervalTrue(int sign) {
-    if (sign > 0 && !(targetAngle >= Constants.HoodConstants.hoodMaxEncoderValue)) {
+    
+    if (sign > 0 && (targetAngle <= Constants.HoodConstants.hoodMaxEncoderValue + 0.01)) {
       targetAngle += Constants.HoodConstants.largeAngleInterval;
       return true;
     }
-    else if (sign <= 0 && !(targetAngle <= Constants.HoodConstants.hoodMinEncoderValue)) {
+    else if (sign <= 0 && (targetAngle >= Constants.HoodConstants.hoodMinEncoderValue - 0.01)) {
       targetAngle -= Constants.HoodConstants.largeAngleInterval;
       return true;
     }
     return false;
+  }
+
+  public void moveUp(){
+    targetAngle += Constants.HoodConstants.largeAngleInterval;
   }
 
     //Moves motor position to angle given in the function
@@ -152,19 +172,17 @@ public class HoodSubsystem extends SubsystemBase {
       //hoodAngleEncoder;
       return;
     }
+    if(targetAngle > 0){
+      targetAngle = 0;
+    }
     speed = hoodPID.calculate(elevateHoodMotor.getEncoder().getPosition(), targetAngle);
     // This method will be called once per scheduler run
     //System.out.println("We're doing stuff, at least");
 
     
     elevateHoodMotor.set(speed);
-
-    counter++;
-
-    if(counter >= 20){
-      counter = 0;
-      //System.out.println("Target Angle: " + targetAngle);
-    }
+    SmartDashboard.putNumber("Hood Target Encoder", targetAngle);
+    SmartDashboard.putNumber("Hood Actual Value", elevateHoodMotor.getEncoder().getPosition());
   }
 
   public double lookupHoodAngle(double dist){
