@@ -12,13 +12,16 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class RunRollerWheels extends Command {
   IntakeSubsystem m_intake;
   IntakeDirection m_dir;
+  double m_speed;
   boolean out;
   /** Creates a new RunRollerWheels.
    * We shouldn't need to have an option to run the wheels the other way, but if we ever want to vomit, I suppose it's there.
    */
-  public RunRollerWheels(IntakeSubsystem intake, IntakeDirection dir) {
+  public RunRollerWheels(IntakeSubsystem intake, IntakeDirection dir, double speed) {
     m_intake = intake;
     m_dir = dir;
+    m_speed = speed;
+
     addRequirements(m_intake);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -33,10 +36,10 @@ public class RunRollerWheels extends Command {
   @Override
   public void execute() {
     if(out){
-      m_intake.setRollerSpeed(Constants.intake.rollerSpeed);
+      m_intake.setRollerSpeed(m_speed);
       return;
     }
-    m_intake.setRollerSpeed(-Constants.intake.rollerSpeed);
+    m_intake.setRollerSpeed(-m_speed);
   }
 
   // Called once the command ends or is interrupted.

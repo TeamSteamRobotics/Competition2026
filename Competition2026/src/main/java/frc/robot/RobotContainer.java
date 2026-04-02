@@ -103,10 +103,11 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   //operator controls
   private final Trigger intakeRollers = m_operatorController.leftTrigger();
+  private final Trigger strongIntake = m_operatorController.povLeft();
   private final Trigger pivotIntakeDown = m_operatorController.leftBumper();
   private final Trigger pivotIntakeUp = m_operatorController.rightBumper();
   //private final Trigger pivotDebugDown = m_operatorController.povRight();
-  private final Trigger pivotIntakeMid = m_operatorController.povLeft();
+  //private final Trigger pivotIntakeMid = m_operatorController.povLeft();
 //   private final Trigger rollerDebug = m_driverController.x();
 
 
@@ -179,12 +180,13 @@ public class RobotContainer {
     // cancelling on release.
     //m_driverController.b().whileTrue(new printValue(m_intake));
 
-    intakeRollers.whileTrue(new RunRollerWheels(m_intake, IntakeDirection.IN));
+    intakeRollers.whileTrue(new RunRollerWheels(m_intake, IntakeDirection.IN, Constants.intake.rollerSpeed));
+    strongIntake.whileTrue(new RunRollerWheels(m_intake, IntakeDirection.IN, Constants.intake.fastRollerSpeed));
     pivotIntakeDown.onTrue(new Pivot(m_intake, IntakeDirection.OUT));
     pivotIntakeUp.onTrue(new Pivot(m_intake, IntakeDirection.IN));
 
     // pivotDebugDown.whileTrue(new RunMotorManual(m_intake, 1, IntakeMotor.PIVOT));
-    pivotIntakeMid.whileTrue(new PivotMid(m_intake));
+    //pivotIntakeMid.whileTrue(new PivotMid(m_intake));
     
     // rollerDebug.whileTrue(new RunMotorManual(m_intake, 0.3, IntakeMotor.ROLLER));
 

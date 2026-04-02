@@ -84,10 +84,11 @@ public final class Constants {
     public static final int rollerId = 18;
 
     public static final double rollerSpeed = 0.25; //TODO: Replace with actual value
+    public static final double fastRollerSpeed = 0.45;
     public static final double pivotSpeed = 0.05;
 
     public static final double intakePivotMinEncoderValue = -0.9;
-    public static final double intakePivotMaxEncoderValue = 1.75; //Who knows, it was 1.3 before gear change
+    public static final double intakePivotMaxEncoderValue = 1.9; //Who knows, it was 1.3 before gear change
     public static final double intakePivotMidEncoderValue = 0.26; //TODO: Tune to make slam not at all
 
     public static class PIDValues {
