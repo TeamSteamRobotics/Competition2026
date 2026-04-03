@@ -25,7 +25,7 @@ public class StartShooterAuto extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooter.primeShooter(Constants.shooter.defaultSpeed);
+    m_shooter.primeShooter(Constants.shooter.shootSpeed);
   }
 
   // Called once the command ends or is interrupted.
