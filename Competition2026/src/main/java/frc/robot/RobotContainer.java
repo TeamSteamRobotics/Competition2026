@@ -212,7 +212,7 @@ public class RobotContainer {
 
     //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
-    primeShooter.whileTrue(new PrimeShooter(m_shooter, Constants.shooter.defaultSpeed));
+    primeShooter.whileTrue(new PrimeShooter(m_shooter, Constants.shooter.shootSpeed));
     Shoot.whileTrue(new Shoot(m_shooter, Constants.shooter.kickSpeed));
     //VomitShooter.whileTrue(new VomitShooter(m_shooter, Constants.shooter.vomitSpeed, null));
 

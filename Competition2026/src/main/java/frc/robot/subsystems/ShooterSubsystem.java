@@ -76,11 +76,11 @@ public class ShooterSubsystem extends SubsystemBase {
  }
   
    public void runIndexer() {
-    indexerMotor.set(Constants.shooter.speed);
+    indexerMotor.set(Constants.shooter.indexerSpeed);
   } 
 
   public void reverseIndexer() {
-    indexerMotor.set(-Constants.shooter.speed);
+    indexerMotor.set(-Constants.shooter.indexerSpeed);
   } 
   
   //!The motor id's and speed values need to be set in the constants file!
@@ -117,7 +117,7 @@ public class ShooterSubsystem extends SubsystemBase {
     if(m_dist < 0.3048 || m_dist > 1.778){
       // System.out.println("Distance exceeds bounds. Returning default speed");
       // System.out.println(dist);
-      return Constants.shooter.defaultSpeed;
+      return Constants.shooter.shootSpeed;
     }
     Entry<Double, Double> lower = speedLookupTable.floorEntry(m_dist); // just copy-pasted from Zach's code
     Entry<Double, Double> upper = speedLookupTable.ceilingEntry(m_dist);

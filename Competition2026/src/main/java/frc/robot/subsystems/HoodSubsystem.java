@@ -73,7 +73,7 @@ public class HoodSubsystem extends SubsystemBase {
 
     hoodPIDMotor = elevateHoodMotor.getClosedLoopController();
 
-    //hoodAngleEncoder = new DutyCycleEncoder(1); //We'll figure this out
+    hoodAngleEncoder = new DutyCycleEncoder(1); //We'll figure this out
     elevateHoodMotor.getEncoder().setPosition(0);
     
 
