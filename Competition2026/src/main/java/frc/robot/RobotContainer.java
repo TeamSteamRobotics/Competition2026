@@ -71,7 +71,7 @@ public class RobotContainer {
     private double SlowMaxSpeed = 0.2 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double SlowMaxAngularRate = RotationsPerSecond.of(0.75 * 0.2).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
-    private final HoodSubsystem m_hood = new HoodSubsystem();
+    // private final HoodSubsystem m_hood = new HoodSubsystem();
 
     private final CommandXboxController m_driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
     private final CommandXboxController m_operatorController = new CommandXboxController(OperatorConstants.kOperatorControllerPort);
@@ -95,7 +95,7 @@ public class RobotContainer {
   //Subsystems
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
-  private final ClimbSubsystem m_climbsubsystem = new ClimbSubsystem();
+  // private final ClimbSubsystem m_climbsubsystem = new ClimbSubsystem();
   private final ShooterSubsystem m_shooter = new ShooterSubsystem();
 
 
@@ -104,8 +104,8 @@ public class RobotContainer {
   //operator controls
   private final Trigger intakeRollers = m_driverController.leftTrigger();
   //private final Trigger strongIntake = m_operatorController.povLeft();
-  private final Trigger pivotIntakeDown = m_operatorController.leftBumper();
-  private final Trigger pivotIntakeUp = m_operatorController.rightBumper();
+  private final Trigger pivotIntakeDown = m_driverController.leftBumper();
+  private final Trigger pivotIntakeUp = m_driverController.rightBumper();
   //private final Trigger pivotDebugDown = m_operatorController.povRight();
   //private final Trigger pivotIntakeMid = m_operatorController.povLeft();
 //   private final Trigger rollerDebug = m_driverController.x();
