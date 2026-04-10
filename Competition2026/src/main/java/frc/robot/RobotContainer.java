@@ -104,8 +104,8 @@ public class RobotContainer {
   //operator controls
   private final Trigger intakeRollers = m_driverController.leftTrigger();
   //private final Trigger strongIntake = m_operatorController.povLeft();
-  private final Trigger pivotIntakeDown = m_driverController.leftBumper();
-  private final Trigger pivotIntakeUp = m_driverController.rightBumper();
+  private final Trigger pivotIntakeDown = m_operatorController.leftBumper();
+  private final Trigger pivotIntakeUp = m_operatorController.rightBumper();
   //private final Trigger pivotDebugDown = m_operatorController.povRight();
   //private final Trigger pivotIntakeMid = m_operatorController.povLeft();
 //   private final Trigger rollerDebug = m_driverController.x();
@@ -114,7 +114,7 @@ public class RobotContainer {
   // private final Trigger raiseClimb = m_driverController.rightBumper();
   // private final Trigger retractClimb = m_driverController.leftBumper();
 
-  private final Trigger setTargetAngle = m_driverController.leftTrigger();
+  //private final Trigger setTargetAngle = m_driverController.leftTrigger();
 
   private final Trigger primeShooter = m_driverController.a();
   private final Trigger Shoot = m_driverController.rightTrigger();
@@ -209,7 +209,7 @@ public class RobotContainer {
     //  raiseClimb.whileTrue(new RaiseClimb(m_climbsubsystem));
     //  retractClimb.whileTrue(new RetractClimb(m_climbsubsystem));
 
-    setTargetAngle.onTrue(new SetTargetAngle(m_hood, drivetrain));
+    //setTargetAngle.onTrue(new SetTargetAngle(m_hood, drivetrain));
 
 
     //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
