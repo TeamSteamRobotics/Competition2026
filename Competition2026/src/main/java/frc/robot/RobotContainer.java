@@ -65,8 +65,8 @@ import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 
 public class RobotContainer {
-    private double MaxSpeed = 0.2 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
-    private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+    private double MaxSpeed = 0.15 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
+    private double MaxAngularRate = RotationsPerSecond.of(0.75 * 0.45).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
     private double SlowMaxSpeed = 0.2 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double SlowMaxAngularRate = RotationsPerSecond.of(0.75 * 0.2).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
@@ -118,8 +118,6 @@ public class RobotContainer {
 
   private final Trigger primeShooter = m_driverController.a();
   private final Trigger Shoot = m_driverController.rightTrigger();
-
-  private final Trigger override = m_operatorController.a();
 
   //private final Trigger angleHoodUp = m_operatorController.povUp();
   //private final Trigger angleHoodDown = m_operatorController.povDown();
@@ -187,6 +185,7 @@ public class RobotContainer {
     pivotIntakeDown.onTrue(new Pivot(m_intake, IntakeDirection.OUT));
     pivotIntakeUp.onTrue(new Pivot(m_intake, IntakeDirection.IN));
 
+    
     // pivotDebugDown.whileTrue(new RunMotorManual(m_intake, 1, IntakeMotor.PIVOT));
     //pivotIntakeMid.whileTrue(new PivotMid(m_intake));
     

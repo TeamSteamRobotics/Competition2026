@@ -65,7 +65,7 @@ public final class Constants {
     public static final int shooterLeftId = 21;
     public static final int shooterRightId = 20;
     public static final int feedRollersId = 22;
-    public static final double shootSpeed = 0.15; //.75 is default
+    public static final double shootSpeed = 0.14; //.75 is default
     public static final double kickSpeed = 0.3; //0.1 filler speed fix to be accurate
     public static final double vomitSpeed = 0.60;
     public static final int indexerMotorId = 25;
@@ -92,7 +92,7 @@ public final class Constants {
     public static final double intakePivotMidEncoderValue = 0.26; //TODO: Tune to make slam not at all
 
     public static class PIDValues {
-      public static final double kP = 0.25; //Most recent value that worked was 3, bit angry though
+      public static final double kP = 0.15; //Most recent value that worked was 3, bit angry though
       public static final double kI = 0.00; //TODO: Replace with actual value
       public static final double kD = 0.0; //TODO: Replace with actual value
     }
@@ -102,7 +102,7 @@ public final class Constants {
       public static final double kD = 0.0; //TODO: Replace with actual value
     }
     public static class UpPIDValues {
-      public static final double kP = 0.3; //Most recent that worked was 0.45, bit angry though
+      public static final double kP = 0.15; //Most recent that worked was 0.45, bit angry though
       public static final double kI = 0.0; //TODO: Replace with actual value
       public static final double kD = 0.0; //TODO: Replace with actual value
     }
