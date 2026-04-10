@@ -119,6 +119,8 @@ public class RobotContainer {
   private final Trigger primeShooter = m_driverController.a();
   private final Trigger Shoot = m_driverController.rightTrigger();
 
+  private final Trigger override = m_operatorController.a();
+
   //private final Trigger angleHoodUp = m_operatorController.povUp();
   //private final Trigger angleHoodDown = m_operatorController.povDown();
   //private final Trigger VomitShooter = m_operatorController.x();
@@ -207,7 +209,7 @@ public class RobotContainer {
     //  raiseClimb.whileTrue(new RaiseClimb(m_climbsubsystem));
     //  retractClimb.whileTrue(new RetractClimb(m_climbsubsystem));
 
-     setTargetAngle.onTrue(new SetTargetAngle(m_hood, drivetrain));
+    setTargetAngle.onTrue(new SetTargetAngle(m_hood, drivetrain));
 
 
     //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
