@@ -102,31 +102,31 @@ public class RobotContainer {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   //operator controls
-  private final Trigger intakeRollers = m_operatorController.leftTrigger();
-  private final Trigger strongIntake = m_operatorController.povLeft();
-  private final Trigger pivotIntakeDown = m_operatorController.leftBumper();
-  private final Trigger pivotIntakeUp = m_operatorController.rightBumper();
+  private final Trigger intakeRollers = m_driverController.leftTrigger();
+  //private final Trigger strongIntake = m_operatorController.povLeft();
+  private final Trigger pivotIntakeDown = m_driverController.leftBumper();
+  private final Trigger pivotIntakeUp = m_driverController.rightBumper();
   //private final Trigger pivotDebugDown = m_operatorController.povRight();
   //private final Trigger pivotIntakeMid = m_operatorController.povLeft();
 //   private final Trigger rollerDebug = m_driverController.x();
 
 
-  private final Trigger raiseClimb = m_driverController.rightBumper();
-  private final Trigger retractClimb = m_driverController.leftBumper();
+  // private final Trigger raiseClimb = m_driverController.rightBumper();
+  // private final Trigger retractClimb = m_driverController.leftBumper();
 
   private final Trigger setTargetAngle = m_driverController.leftTrigger();
 
-  private final Trigger primeShooter = m_operatorController.a();
-  private final Trigger Shoot = m_operatorController.rightTrigger();
+  private final Trigger primeShooter = m_driverController.a();
+  private final Trigger Shoot = m_driverController.rightTrigger();
 
-  private final Trigger angleHoodUp = m_operatorController.povUp();
-  private final Trigger angleHoodDown = m_operatorController.povDown();
+  //private final Trigger angleHoodUp = m_operatorController.povUp();
+  //private final Trigger angleHoodDown = m_operatorController.povDown();
   //private final Trigger VomitShooter = m_operatorController.x();
 
-  private final Trigger manualBackUp = m_driverController.povUp();
-  private final Trigger manualFrontUp = m_driverController.povRight();
-  private final Trigger manualBackDown = m_driverController.povDown();
-  private final Trigger manualFrontDown = m_driverController.povLeft();
+  // private final Trigger manualBackUp = m_driverController.povUp();
+  // private final Trigger manualFrontUp = m_driverController.povRight();
+  // private final Trigger manualBackDown = m_driverController.povDown();
+  // private final Trigger manualFrontDown = m_driverController.povLeft();
 
   public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
@@ -181,7 +181,7 @@ public class RobotContainer {
     //m_driverController.b().whileTrue(new printValue(m_intake));
 
     intakeRollers.whileTrue(new RunRollerWheels(m_intake, IntakeDirection.IN, Constants.intake.rollerSpeed));
-    strongIntake.whileTrue(new RunRollerWheels(m_intake, IntakeDirection.IN, Constants.intake.fastRollerSpeed));
+    //strongIntake.whileTrue(new RunRollerWheels(m_intake, IntakeDirection.IN, Constants.intake.fastRollerSpeed));
     pivotIntakeDown.onTrue(new Pivot(m_intake, IntakeDirection.OUT));
     pivotIntakeUp.onTrue(new Pivot(m_intake, IntakeDirection.IN));
 
@@ -204,8 +204,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
    
-     raiseClimb.whileTrue(new RaiseClimb(m_climbsubsystem));
-     retractClimb.whileTrue(new RetractClimb(m_climbsubsystem));
+    //  raiseClimb.whileTrue(new RaiseClimb(m_climbsubsystem));
+    //  retractClimb.whileTrue(new RetractClimb(m_climbsubsystem));
 
      setTargetAngle.onTrue(new SetTargetAngle(m_hood, drivetrain));
 
@@ -217,10 +217,10 @@ public class RobotContainer {
     //VomitShooter.whileTrue(new VomitShooter(m_shooter, Constants.shooter.vomitSpeed, null));
 
     //Debug commands for climb
-    manualBackDown.whileTrue(new ManualClimb(m_climbsubsystem, false, true));
-    manualFrontDown.whileTrue(new ManualClimb(m_climbsubsystem, false, false));
-    manualBackUp.whileTrue(new ManualClimb(m_climbsubsystem, true, true));
-    manualFrontUp.whileTrue(new ManualClimb(m_climbsubsystem, true, false));
+    // manualBackDown.whileTrue(new ManualClimb(m_climbsubsystem, false, true));
+    // manualFrontDown.whileTrue(new ManualClimb(m_climbsubsystem, false, false));
+    // manualBackUp.whileTrue(new ManualClimb(m_climbsubsystem, true, true));
+    // manualFrontUp.whileTrue(new ManualClimb(m_climbsubsystem, true, false));
 
         // Build an auto chooser. This will use Commands.none() as the default option.
 
@@ -273,8 +273,8 @@ public class RobotContainer {
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-        angleHoodUp.onTrue(new ChangeHoodAngleByLargeInterval(m_hood, 1));
-        angleHoodDown.onTrue(new ChangeHoodAngleByLargeInterval(m_hood, -1));
+        // angleHoodUp.onTrue(new ChangeHoodAngleByLargeInterval(m_hood, 1));
+        // angleHoodDown.onTrue(new ChangeHoodAngleByLargeInterval(m_hood, -1));
     }
 
     public Command getAutonomousCommand() {
