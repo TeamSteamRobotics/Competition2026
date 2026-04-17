@@ -65,7 +65,7 @@ public final class Constants {
     public static final int shooterLeftId = 21;
     public static final int shooterRightId = 20;
     public static final int feedRollersId = 22;
-    public static final double shootSpeed = 0.14; //.75 is default
+    public static final double shootSpeed = 0.35; //.75 is default
     public static final double kickSpeed = 0.3; //0.1 filler speed fix to be accurate
     public static final double vomitSpeed = 0.60;
     public static final int indexerMotorId = 25;
@@ -83,7 +83,7 @@ public final class Constants {
     public static final int intakePivotID = 19;
     public static final int rollerId = 18;
 
-    public static final double rollerSpeed = 0.15; //TODO: Replace with actual value; .25 default
+    public static final double rollerSpeed = 0.2; //TODO: Replace with actual value; .25 default
     public static final double fastRollerSpeed = 0.25; //.45 default
     public static final double pivotSpeed = 0.02; //.05 default
 

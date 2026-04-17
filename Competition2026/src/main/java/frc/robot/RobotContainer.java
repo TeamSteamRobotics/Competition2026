@@ -62,7 +62,7 @@ import frc.robot.commands.PathPlanner.*;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
-import frc.robot.subsystems.ClimbSubsystem;
+// import frc.robot.subsystems.ClimbSubsystem;
 
 public class RobotContainer {
     private double MaxSpeed = 0.15 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -102,10 +102,10 @@ public class RobotContainer {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   //operator controls
-  private final Trigger intakeRollers = m_driverController.leftTrigger();
+  // private final Trigger intakeRollers = m_driverController.leftTrigger();
   //private final Trigger strongIntake = m_operatorController.povLeft();
-  private final Trigger pivotIntakeDown = m_driverController.leftBumper();
-  private final Trigger pivotIntakeUp = m_driverController.rightBumper();
+  private final Trigger pivotIntakeDown = m_operatorController.leftBumper();
+  private final Trigger pivotIntakeUp = m_operatorController.rightBumper();
   //private final Trigger pivotDebugDown = m_operatorController.povRight();
   //private final Trigger pivotIntakeMid = m_operatorController.povLeft();
 //   private final Trigger rollerDebug = m_driverController.x();
@@ -180,7 +180,7 @@ public class RobotContainer {
     // cancelling on release.
     //m_driverController.b().whileTrue(new printValue(m_intake));
 
-    intakeRollers.whileTrue(new RunRollerWheels(m_intake, IntakeDirection.IN, Constants.intake.rollerSpeed));
+    // intakeRollers.whileTrue(new RunRollerWheels(m_intake, IntakeDirection.IN, Constants.intake.rollerSpeed));
     //strongIntake.whileTrue(new RunRollerWheels(m_intake, IntakeDirection.IN, Constants.intake.fastRollerSpeed));
     pivotIntakeDown.onTrue(new Pivot(m_intake, IntakeDirection.OUT));
     pivotIntakeUp.onTrue(new Pivot(m_intake, IntakeDirection.IN));
@@ -270,7 +270,7 @@ public class RobotContainer {
         joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
         // Reset the field-centric heading on left bumper press.
-        joystick.a().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+        joystick.povUp().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
