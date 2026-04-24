@@ -25,7 +25,7 @@ import yams.motorcontrollers.local.SparkWrapper;
 
 public class ElevatorTestSubsystem extends SubsystemBase {
 
-  public enum Mode{
+  public static enum Mode{
     PID,
     SET_HEIGHT,
     IDLE
@@ -66,10 +66,16 @@ public class ElevatorTestSubsystem extends SubsystemBase {
     mode = Mode.IDLE;
   }
 
-  public void setTargetHeight(Distance height, Mode setMode){
+  private void setTargetHeight(Distance height, Mode setMode){
     targetHeight = height;
     mode = setMode;
   }
+  public Command setHeight(Distance height, Mode setMode) {
+    return runOnce(
+      () -> setTargetHeight(height, setMode)
+    );
+  }
+
   @Override
   public void periodic() {
     switch(mode){
