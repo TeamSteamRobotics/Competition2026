@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import static edu.wpi.first.units.Units.*;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -15,5 +17,34 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+  }
+
+  public static class ElevatorConstants {
+    /** Inches that the elevator travels per rotation of the output shaft/wheel */
+    public static final double inchesPerRotation = 0.25;
+    /** The gear reduction from the motor shaft to the output */
+    public static final double gearReduction = 12;
+    /** The maximum current that can go to the stator */
+    public static final double statorCurrentLimit = 40;
+
+    /** Mass in kilograms */
+    public static final double mass = 10;
+    public static class Heights {
+      public static final double startingHeight = 0.0;
+      public static final double minHeight = 0;
+      public static final double maxHeight = Inches.of(27.383).in(Meters);
+    }
+    public static final int elevatorMotorID = 1;
+    public static final class PIDConstants {
+      public static final double kP = 4;
+      public static final double kI = 0;
+      public static final double kD = 0;
+      /** How long it should take for the PID to go from nothing to full power */
+      public static final double closedLoopRampRate = 0.25;
+    }
+    public static final class TrapezoidalProfile {
+      public static final double maxSpeed = 1;
+      public static final double maxAccel = 2;
+    }
   }
 }
