@@ -87,16 +87,16 @@ public class EstimatorSubsystem extends SubsystemBase{
     estimatePose = estimator.estimateCoprocMultiTagPose(m_vision.latestResult().get());
     if(estimatePose.isPresent()){
       robotPose = estimatePose.get().estimatedPose.toPose2d();
-      xValues.add(robotPose.getX());
-      yValues.add(robotPose.getY());
-      thetaValues.add(robotPose.getRotation().getRadians());
+      // xValues.add(robotPose.getX());
+      // yValues.add(robotPose.getY());
+      // thetaValues.add(robotPose.getRotation().getRadians());
       //m_addVisionMeasurement.apply(estimatePose.get().estimatedPose.toPose2d()).apply(Timer.getFPGATimestamp()).accept(robotPoseStdDev);
       m_drive.addVisionMeasurement(robotPose, Timer.getFPGATimestamp(), robotPoseStdDev);
     } else {
       estimatePose = estimator.estimateLowestAmbiguityPose(m_vision.latestResult().get());
       if(estimatePose.isPresent()){
         robotPose = estimatePose.get().estimatedPose.toPose2d();
-      m_drive.addVisionMeasurement(robotPose, Timer.getFPGATimestamp(), robotPoseStdDev);
+        m_drive.addVisionMeasurement(robotPose, Timer.getFPGATimestamp(), robotPoseStdDev);
       }
     }
     Translation2d position = m_drive.getState().Pose.getTranslation();
