@@ -107,7 +107,7 @@ public class RobotContainer {
   private final Trigger pivotIntakeDown = m_operatorController.leftBumper();
   private final Trigger pivotIntakeUp = m_operatorController.rightBumper();
   //private final Trigger pivotDebugDown = m_operatorController.povRight();
-  //private final Trigger pivotIntakeMid = m_operatorController.povLeft();
+  private final Trigger pivotIntakeMid = m_operatorController.povLeft();
 //   private final Trigger rollerDebug = m_driverController.x();
 
 
@@ -186,7 +186,7 @@ public class RobotContainer {
     pivotIntakeUp.onTrue(new Pivot(m_intake, IntakeDirection.IN));
 
     // pivotDebugDown.whileTrue(new RunMotorManual(m_intake, 1, IntakeMotor.PIVOT));
-    //pivotIntakeMid.whileTrue(new PivotMid(m_intake));
+    pivotIntakeMid.whileTrue(new PivotMid(m_intake));
     
     // rollerDebug.whileTrue(new RunMotorManual(m_intake, 0.3, IntakeMotor.ROLLER));
 
