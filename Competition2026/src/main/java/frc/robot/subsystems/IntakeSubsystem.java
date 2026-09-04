@@ -99,7 +99,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
     double speed = 0;
     // We're running in standard mode, set roller speed
-    //System.out.println("Encoder: " + intakePivotMotor.getEncoder().getPosition());
+    // System.out.println("Encoder: " + intakePivotMotor.getEncoder().getPosition()); TODO: Make work w/ ElasticDashboard
     intakeRollerMotor.set(rollerSpeed);
     if(targetAngle == Constants.intake.intakePivotMaxEncoderValue){
       // We are going down

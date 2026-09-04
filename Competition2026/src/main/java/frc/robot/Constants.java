@@ -92,7 +92,7 @@ public final class Constants {
     public static final double intakePivotMidEncoderValue = 0.26; //TODO: Tune to make slam not at all
 
     public static class PIDValues {
-      public static final double kP = 0.25; //Most recent value that worked was .3, bit angry though
+      public static final double kP = 0.5; //Most recent value that worked was .3, bit angry though TODO: Why has God forsaken me? Terrifying noise out intake
       public static final double kI = 0.00; //TODO: Replace with actual value
       public static final double kD = 0.0; //TODO: Replace with actual value
     }
@@ -102,7 +102,7 @@ public final class Constants {
       public static final double kD = 0.0; //TODO: Replace with actual value
     }
     public static class UpPIDValues {
-      public static final double kP = 0.3; //Most recent that worked was 0.45, bit angry though
+      public static final double kP = 0.85; //Most recent that worked was 0.45, bit angry though
       public static final double kI = 0.0; //TODO: Replace with actual value
       public static final double kD = 0.0; //TODO: Replace with actual value
     }
