@@ -168,6 +168,7 @@ public class HoodSubsystem extends SubsystemBase {
       //speed = hoodPID.calculate(accumulatedAngle, Constants.HoodConstants.hoodMaxEncoderValue);
       //elevateHoodMotor.set(speed);
       elevateHoodMotor.set(0);
+      SmartDashboard.putNumber("HoodSpeed", 0);
       //TODO: Figure out which works better later
       //hoodAngleEncoder;
       return;
@@ -176,6 +177,7 @@ public class HoodSubsystem extends SubsystemBase {
       targetAngle = 0;
     }
     speed = hoodPID.calculate(elevateHoodMotor.getEncoder().getPosition(), targetAngle);
+    SmartDashboard.putNumber("HoodSpeed", speed);
     // This method will be called once per scheduler run
     //System.out.println("We're doing stuff, at least");
 

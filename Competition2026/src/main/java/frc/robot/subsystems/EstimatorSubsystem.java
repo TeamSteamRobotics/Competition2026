@@ -81,21 +81,28 @@ public class EstimatorSubsystem extends SubsystemBase{
   public void periodic() {
     latestResult = m_vision.latestResult();
     if(latestResult.isEmpty()){
+      SmartDashboard.putBoolean("Seeing Apriltag", false);
       return;
     }
+    SmartDashboard.putBoolean("Seeing Apriltag", true);
     // This method will be called once per scheduler run
-    estimatePose = estimator.estimateCoprocMultiTagPose(m_vision.latestResult().get());
+    estimatePose = estimator.estimateCoprocMultiTagPose(latestResult.get());
+    //latestResult.get().getMultiTagResult().get().estimatedPose.best;
     if(estimatePose.isPresent()){
       robotPose = estimatePose.get().estimatedPose.toPose2d();
+      SmartDashboard.putNumber("EstX position", robotPose.getX());
+      SmartDashboard.putNumber("EstY position", robotPose.getY());
       // xValues.add(robotPose.getX());
       // yValues.add(robotPose.getY());
       // thetaValues.add(robotPose.getRotation().getRadians());
       //m_addVisionMeasurement.apply(estimatePose.get().estimatedPose.toPose2d()).apply(Timer.getFPGATimestamp()).accept(robotPoseStdDev);
       m_drive.addVisionMeasurement(robotPose, Timer.getFPGATimestamp(), robotPoseStdDev);
     } else {
-      estimatePose = estimator.estimateLowestAmbiguityPose(m_vision.latestResult().get());
+      estimatePose = estimator.estimateLowestAmbiguityPose(latestResult.get());
       if(estimatePose.isPresent()){
         robotPose = estimatePose.get().estimatedPose.toPose2d();
+        SmartDashboard.putNumber("EstX position", robotPose.getX());
+        SmartDashboard.putNumber("EstY position", robotPose.getY());
         m_drive.addVisionMeasurement(robotPose, Timer.getFPGATimestamp(), robotPoseStdDev);
       }
     }

@@ -93,6 +93,9 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    intakePivotMotor.set(0);
+    return; // This completely stops the intake from being active
+    /* 
     if(manualOperation){
       // User is running motors manually, don't even try to work with PID
       return;
@@ -131,6 +134,6 @@ public class IntakeSubsystem extends SubsystemBase {
     }
     // All checks passed
     intakePivotMotor.set(speed);
-    
+    */
   }
 }

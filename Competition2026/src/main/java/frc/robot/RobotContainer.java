@@ -182,11 +182,11 @@ public class RobotContainer {
 
     intakeRollers.whileTrue(new RunRollerWheels(m_intake, IntakeDirection.IN, Constants.intake.rollerSpeed));
     strongIntake.whileTrue(new RunRollerWheels(m_intake, IntakeDirection.IN, Constants.intake.fastRollerSpeed));
-    pivotIntakeDown.onTrue(new Pivot(m_intake, IntakeDirection.OUT));
-    pivotIntakeUp.onTrue(new Pivot(m_intake, IntakeDirection.IN));
+    //pivotIntakeDown.onTrue(new Pivot(m_intake, IntakeDirection.OUT));
+    //pivotIntakeUp.onTrue(new Pivot(m_intake, IntakeDirection.IN));
 
     // pivotDebugDown.whileTrue(new RunMotorManual(m_intake, 1, IntakeMotor.PIVOT));
-    pivotIntakeMid.whileTrue(new PivotMid(m_intake));
+    //pivotIntakeMid.whileTrue(new PivotMid(m_intake));
     
     // rollerDebug.whileTrue(new RunMotorManual(m_intake, 0.3, IntakeMotor.ROLLER));
 
