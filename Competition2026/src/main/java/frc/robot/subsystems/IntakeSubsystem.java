@@ -14,6 +14,7 @@ import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -26,6 +27,7 @@ public class IntakeSubsystem extends SubsystemBase {
   PIDController midPivotPID;
 
   SparkBaseConfig pivotConfig = new SparkFlexConfig().idleMode(IdleMode.kBrake);
+
   /** Are the motors being run manually, or by PID? */
   boolean manualOperation;
   double targetAngle;
@@ -78,6 +80,7 @@ public class IntakeSubsystem extends SubsystemBase {
       intakeRollerMotor.set(speed);
       return;
     }
+    SmartDashboard.putNumber("IntakeSpeed", speed);
     intakePivotMotor.set(speed);
   }
 
@@ -93,9 +96,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    intakePivotMotor.set(0);
-    return; // This completely stops the intake from being active
-    /* 
+    
     if(manualOperation){
       // User is running motors manually, don't even try to work with PID
       return;
@@ -115,7 +116,7 @@ public class IntakeSubsystem extends SubsystemBase {
       // You know what else is mid?
       speed = midPivotPID.calculate(intakePivotMotor.getEncoder().getPosition(), targetAngle);
     }
-    
+    SmartDashboard.putNumber("IntakeSpeed", speed);
     // System.out.println("Speed: " + speed);
     if(speed > 1){
       // Out of bounds
@@ -134,6 +135,6 @@ public class IntakeSubsystem extends SubsystemBase {
     }
     // All checks passed
     intakePivotMotor.set(speed);
-    */
+    
   }
 }

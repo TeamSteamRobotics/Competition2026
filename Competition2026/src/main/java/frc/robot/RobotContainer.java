@@ -36,8 +36,10 @@ import frc.robot.commands.ShooterCommands.Shoot;
 import frc.robot.commands.ShooterCommands.VomitShooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -106,7 +108,7 @@ public class RobotContainer {
   private final Trigger strongIntake = m_operatorController.povLeft();
   private final Trigger pivotIntakeDown = m_operatorController.leftBumper();
   private final Trigger pivotIntakeUp = m_operatorController.rightBumper();
-  //private final Trigger pivotDebugDown = m_operatorController.povRight();
+  private final Trigger pivotDebugDown = m_operatorController.povRight();
   private final Trigger pivotIntakeMid = m_operatorController.povLeft();
 //   private final Trigger rollerDebug = m_driverController.x();
 
@@ -182,11 +184,14 @@ public class RobotContainer {
 
     intakeRollers.whileTrue(new RunRollerWheels(m_intake, IntakeDirection.IN, Constants.intake.rollerSpeed));
     strongIntake.whileTrue(new RunRollerWheels(m_intake, IntakeDirection.IN, Constants.intake.fastRollerSpeed));
-    //pivotIntakeDown.onTrue(new Pivot(m_intake, IntakeDirection.OUT));
-    //pivotIntakeUp.onTrue(new Pivot(m_intake, IntakeDirection.IN));
+    pivotIntakeDown.onTrue(new Pivot(m_intake, IntakeDirection.OUT));
+    pivotIntakeUp.onTrue(new Pivot(m_intake, IntakeDirection.IN));
 
-    // pivotDebugDown.whileTrue(new RunMotorManual(m_intake, 1, IntakeMotor.PIVOT));
-    //pivotIntakeMid.whileTrue(new PivotMid(m_intake));
+    m_operatorController.rightBumper().onTrue(new InstantCommand(() -> System.out.println("Right Bumper Pressed"), m_climbsubsystem));
+    
+
+    pivotDebugDown.whileTrue(new RunMotorManual(m_intake, 0.3, IntakeMotor.PIVOT));
+    pivotIntakeMid.whileTrue(new PivotMid(m_intake));
     
     // rollerDebug.whileTrue(new RunMotorManual(m_intake, 0.3, IntakeMotor.ROLLER));
 
