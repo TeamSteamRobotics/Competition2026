@@ -156,6 +156,22 @@ public final class Constants {
       
     }
   }
+
+
+  public class experimentalConstant{
+    public static final double experimentalValue = 0.5;
+  
+  }
+
+
+
+
+
+
+
+
+
+
     public class Vision{
     /**
      * Transformation from robot space to camera space, or from center of robot oriented forward to camera forward
