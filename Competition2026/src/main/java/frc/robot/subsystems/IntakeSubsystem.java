@@ -26,7 +26,7 @@ public class IntakeSubsystem extends SubsystemBase {
   PIDController upPivotPID;
   PIDController midPivotPID;
 
-  SparkBaseConfig pivotConfig = new SparkFlexConfig().idleMode(IdleMode.kBrake).smartCurrentLimit(40);
+  SparkBaseConfig pivotConfig = new SparkFlexConfig().idleMode(IdleMode.kBrake);//.smartCurrentLimit(40);
   
 
   /** Are the motors being run manually, or by PID? */
