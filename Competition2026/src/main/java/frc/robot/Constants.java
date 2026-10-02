@@ -87,12 +87,12 @@ public final class Constants {
     public static final double fastRollerSpeed = 0.45;
     public static final double pivotSpeed = 0.05;
 
-    public static final double intakePivotMinEncoderValue = -0.9;
-    public static final double intakePivotMaxEncoderValue = 1; //Who knows, it was 1.9 before chain change
+    public static final double intakePivotMinEncoderValue = 0;
+    public static final double intakePivotMaxEncoderValue = 3.3; // Actual target is 3.9: We have this lower to make it stay at 3.9
     public static final double intakePivotMidEncoderValue = 0.26; //TODO: Tune to make slam not at all
 
     public static class PIDValues {
-      public static final double kP = 0.4; //
+      public static final double kP = 0.2; //
       public static final double kI = 0.00; //TODO: Replace with actual value
       public static final double kD = 0.0; //TODO: Replace with actual value
     }
@@ -102,7 +102,7 @@ public final class Constants {
       public static final double kD = 0.0; //TODO: Replace with actual value
     }
     public static class UpPIDValues {
-      public static final double kP = 0.5; //Most recent that worked was 0.45, bit angry though
+      public static final double kP = 1; //Most recent that worked was 0.45, bit angry though
       public static final double kI = 0.0; //TODO: Replace with actual value
       public static final double kD = 0.0; //TODO: Replace with actual value
     }
@@ -154,11 +154,11 @@ public final class Constants {
     public static final double angleInterval = 0.1; //TODO: Replace with actual value
     public static final double largeAngleInterval = -0.4; //TODO: Replace with actual value
     //public static final double defaultAngleInterval = 3; //TODO: Replace with actual value
-    public static final double hoodMinEncoderValue = -3.2; // TODO: Replace with actual value
+    public static final double hoodMinEncoderValue = -3.6; // TODO: Replace with actual value
     public static class PIDValues{
-      public static final double kP = 0.35; //TODO: Needs tuning
-      public static final double kI = 0.0;
-      public static final double kD = 0.001;
+      public static final double kP = 0.125; //TODO: Needs tuning
+      public static final double kI = 0.00;
+      public static final double kD = 0.0005;
     }
     public static class HoodAngles {
       

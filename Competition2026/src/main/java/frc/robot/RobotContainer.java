@@ -190,7 +190,8 @@ public class RobotContainer {
     m_operatorController.rightBumper().onTrue(new InstantCommand(() -> System.out.println("Right Bumper Pressed"), m_climbsubsystem));
     
 
-    pivotDebugDown.whileTrue(new RunMotorManual(m_intake, 0.3, IntakeMotor.PIVOT));
+    //pivotDebugDown.whileTrue(new RunMotorManual(m_intake, 0.3, IntakeMotor.PIVOT));
+    pivotDebugDown.whileTrue(new RunCommand(() -> m_intake.runMotorManual(0.5, IntakeMotor.PIVOT), m_intake));
     pivotIntakeMid.whileTrue(new PivotMid(m_intake));
     
     // rollerDebug.whileTrue(new RunMotorManual(m_intake, 0.3, IntakeMotor.ROLLER));
@@ -209,7 +210,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
    
-     raiseClimb.whileTrue(new RaiseClimb(m_climbsubsystem));
+     raiseClimb.whileTrue(new RunCommand(() -> m_hood.hoodManualSpeed(0.3), m_hood)); // god please work
      retractClimb.whileTrue(new RetractClimb(m_climbsubsystem));
 
      setTargetAngle.onTrue(new SetTargetAngle(m_hood, drivetrain));

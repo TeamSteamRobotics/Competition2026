@@ -44,6 +44,7 @@ public class HoodSubsystem extends SubsystemBase {
   //TODO: How to throughbore?
 
   TreeMap<Double, Double> angleLookupTable = new TreeMap<Double, Double>();
+  boolean manualOp;
 
   /** Creates a new HoodSubsystem. */
   public HoodSubsystem() {
@@ -159,8 +160,17 @@ public class HoodSubsystem extends SubsystemBase {
       targetAngle = angle;
     }
 
+    public void hoodManualSpeed(double speed){
+      elevateHoodMotor.set(speed);
+      manualOp = true;
+      return;
+    }
   @Override
   public void periodic() {
+    if(manualOp == true){
+      manualOp = false;
+      return;
+    }
     double speed;
     //accumulatedAngle += hoodAngleEncoder.get();
     if(elevateHoodMotor.getEncoder().getPosition() >= Constants.HoodConstants.hoodMaxEncoderValue + 0.01
