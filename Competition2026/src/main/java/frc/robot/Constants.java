@@ -83,12 +83,12 @@ public final class Constants {
     public static final int intakePivotID = 19;
     public static final int rollerId = 18;
 
-    public static final double rollerSpeed = 0.23; //TODO: Replace with actual value
-    public static final double fastRollerSpeed = 0.45;
+    public static final double rollerSpeed = 0.25; //TODO: Replace with actual value
+    public static final double fastRollerSpeed = 0.55;
     public static final double pivotSpeed = 0.05;
 
-    public static final double intakePivotMinEncoderValue = 0;
-    public static final double intakePivotMaxEncoderValue = 3.3; // Actual target is 3.9: We have this lower to make it stay at 3.9
+    public static final double intakePivotMinEncoderValue = -0.1; // See below for reasoning
+    public static final double intakePivotMaxEncoderValue = 2.3; // Actual target is 3.9: We have this lower to make it stay at 3.9
     public static final double intakePivotMidEncoderValue = 0.26; //TODO: Tune to make slam not at all
 
     public static class PIDValues {
@@ -102,7 +102,7 @@ public final class Constants {
       public static final double kD = 0.0; //TODO: Replace with actual value
     }
     public static class UpPIDValues {
-      public static final double kP = 1; //Most recent that worked was 0.45, bit angry though
+      public static final double kP = 0.45; //Most recent that worked was 0.45, bit angry though
       public static final double kI = 0.0; //TODO: Replace with actual value
       public static final double kD = 0.0; //TODO: Replace with actual value
     }
