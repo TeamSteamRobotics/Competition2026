@@ -65,7 +65,7 @@ public final class Constants {
     public static final int shooterLeftId = 21;
     public static final int shooterRightId = 20;
     public static final int feedRollersId = 22;
-    public static final double shootSpeed = 0.6; //was 0.75 comp
+    public static final double shootSpeed = 0.45; //was 0.75 comp
     public static final double kickSpeed = 0.3; //0.1 filler speed fix to be accurate
     public static final double vomitSpeed = 0.60;
     public static final int indexerMotorId = 25;
@@ -87,7 +87,7 @@ public final class Constants {
     public static final double fastRollerSpeed = 0.55;
     public static final double pivotSpeed = 0.05;
 
-    public static final double intakePivotMinEncoderValue = -0.1; // See below for reasoning
+    public static final double intakePivotMinEncoderValue = 0; // See below for reasoning
     public static final double intakePivotMaxEncoderValue = 2.3; // Actual target is 3.9: We have this lower to make it stay at 3.9
     public static final double intakePivotMidEncoderValue = 0.26; //TODO: Tune to make slam not at all
 
@@ -156,8 +156,8 @@ public final class Constants {
     //public static final double defaultAngleInterval = 3; //TODO: Replace with actual value
     public static final double hoodMinEncoderValue = -3.6; // TODO: Replace with actual value
     public static class PIDValues{
-      public static final double kP = 0.125; //TODO: Needs tuning
-      public static final double kI = 0.00;
+      public static final double kP = 0.115; //TODO: Needs tuning
+      public static final double kI = 0.055;
       public static final double kD = 0.0005;
     }
     public static class HoodAngles {
@@ -184,7 +184,8 @@ public final class Constants {
       public static final double fieldWidth = 8.069;
 
       public static final Pose2d hubPose2d = new Pose2d(null, null);
-      public static final Translation2d hubTranslation = new Translation2d(11.9, 4.0346376);
+      public static final Translation2d hubTranslationRed = new Translation2d(11.9, 4.034536);
+      public static final Translation2d hubTranslationBlue = new Translation2d(4.625594, 4.034536);
       /**
        * TODO: Update for actual field positions
        */

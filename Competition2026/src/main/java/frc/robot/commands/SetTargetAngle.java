@@ -41,19 +41,19 @@ public class SetTargetAngle extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_value = m_HoodSubsystem.lookupHoodAngle(findDistanceToHub());
+    m_value = m_HoodSubsystem.lookupHoodAngle(AngleHood.findDistanceToHub(m_drive));
     // System.out.println(SmartDashboard.getNumber("Sim Distance", 1));
     // System.out.println(m_value);
     m_HoodSubsystem.setTargetAngle(m_value);
     // System.out.println("Step 1 done");
   }
   
-  public double findDistanceToHub(){
-    Pose2d robotPose = m_drive.samplePoseAt(Utils.getSystemTimeSeconds()).get(); //TODO: Determing if correct timestamp method is used
-    //Finds the x and y distances from the hub. Uses pythagorean theorem to find the distance to hub.
-    double xDistanceToHub = Math.abs(Constants.Vision.FieldPositions.hubTranslation.getX() - robotPose.getX());
-    double yDistanceToHub = Math.abs(Constants.Vision.FieldPositions.hubTranslation.getY() - robotPose.getY());
-    return Math.sqrt(Math.pow(xDistanceToHub, 2) + Math.pow(yDistanceToHub, 2));
-  }
+  // public double findDistanceToHub(){
+  //   Pose2d robotPose = m_drive.samplePoseAt(Utils.getSystemTimeSeconds()).get(); //TODO: Determing if correct timestamp method is used
+  //   //Finds the x and y distances from the hub. Uses pythagorean theorem to find the distance to hub.
+  //   double xDistanceToHub = Math.abs(Constants.Vision.FieldPositions.hubTranslation.getX() - robotPose.getX());
+  //   double yDistanceToHub = Math.abs(Constants.Vision.FieldPositions.hubTranslation.getY() - robotPose.getY());
+  //   return Math.sqrt(Math.pow(xDistanceToHub, 2) + Math.pow(yDistanceToHub, 2));
+  // }
 
 }
