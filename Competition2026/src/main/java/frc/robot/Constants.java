@@ -156,8 +156,11 @@ public final class Constants {
     //public static final double defaultAngleInterval = 3; //TODO: Replace with actual value
     public static final double hoodMinEncoderValue = -3.6; // TODO: Replace with actual value
     public static class PIDValues{
-      public static final double kP = 0.115; //TODO: Needs tuning
-      public static final double kI = 0.055;
+      // public static final double kP = 0.115; //TODO: Needs tuning
+      // public static final double kI = 0.055; // These values known to work
+      // public static final double kD = 0.0005;b
+      public static final double kP = 0.1; //TODO: Needs tuning
+      public static final double kI = 0.05;
       public static final double kD = 0.0005;
     }
     public static class HoodAngles {
