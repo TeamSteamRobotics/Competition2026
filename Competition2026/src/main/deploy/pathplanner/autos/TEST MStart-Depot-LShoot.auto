@@ -1,0 +1,97 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "TEST MStart-Depot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "DeployIntakeAuto"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "RunIntakeAuto"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopIntakeAuto"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "RetractIntakeAuto"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "TEST Depot-LShoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StartShooterAuto"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "RunKickAuto"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 5.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopKickAuto"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopShooterAuto"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
