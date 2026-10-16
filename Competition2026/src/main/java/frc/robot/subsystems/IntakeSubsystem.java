@@ -128,9 +128,9 @@ public class IntakeSubsystem extends SubsystemBase {
       intakePivotMotor.set(0.3);
       return;
     }
-    if(speed < -0.5){
+    if(speed < -1){
       // Out of bounds
-      intakePivotMotor.set(-5);
+      intakePivotMotor.set(-1);
       return;
     }
     if(Math.abs(intakePivotMotor.getEncoder().getPosition() - targetAngle) < 0.05){
