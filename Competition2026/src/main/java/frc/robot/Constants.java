@@ -175,7 +175,7 @@ public final class Constants {
     /**
      * List of standard deviations, 0 is x in meters, 1 is y in meters, 2 is heading in radians
      */
-    public static final double[] robotPoseStdDev = {0.000508d, 0.002683d, 0.000763};
+    public static final double[] robotPoseStdDev = {0.000508d, 0.002683d, 999d};
     /*
      * x Standard Deviation: 5.080060294706316E-4
      * y Standard Deviation: 0.0026839152279527845
