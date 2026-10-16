@@ -26,7 +26,7 @@ public class IntakeSubsystem extends SubsystemBase {
   PIDController upPivotPID;
   PIDController midPivotPID;
 
-  SparkBaseConfig pivotConfig = new SparkFlexConfig().idleMode(IdleMode.kBrake).smartCurrentLimit(80);
+  SparkBaseConfig pivotConfig = new SparkFlexConfig().idleMode(IdleMode.kBrake).smartCurrentLimit(60);
   
 
   /** Are the motors being run manually, or by PID? */
@@ -123,14 +123,14 @@ public class IntakeSubsystem extends SubsystemBase {
     }
     SmartDashboard.putNumber("IntakeSpeed", speed);
     // System.out.println("Speed: " + speed);
-    if(speed > 0.1){
+    if(speed > 0.3){
       // Out of bounds
-      intakePivotMotor.set(0.1);
+      intakePivotMotor.set(0.3);
       return;
     }
-    if(speed < -1){
+    if(speed < -0.5){
       // Out of bounds
-      intakePivotMotor.set(-1);
+      intakePivotMotor.set(-5);
       return;
     }
     if(Math.abs(intakePivotMotor.getEncoder().getPosition() - targetAngle) < 0.05){
