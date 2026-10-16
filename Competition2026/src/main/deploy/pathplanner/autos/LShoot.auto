@@ -17,6 +17,12 @@
               {
                 "type": "named",
                 "data": {
+                  "name": "SetHoodAngleAuto"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
                   "name": "StartShooterAuto"
                 }
               }
