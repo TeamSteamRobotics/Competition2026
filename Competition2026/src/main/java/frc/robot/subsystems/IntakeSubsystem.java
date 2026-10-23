@@ -26,7 +26,8 @@ public class IntakeSubsystem extends SubsystemBase {
   PIDController upPivotPID;
   PIDController midPivotPID;
 
-  SparkBaseConfig pivotConfig = new SparkFlexConfig().idleMode(IdleMode.kBrake);
+  SparkBaseConfig pivotConfig = new SparkFlexConfig().idleMode(IdleMode.kBrake).smartCurrentLimit(60);
+  
 
   /** Are the motors being run manually, or by PID? */
   boolean manualOperation;
@@ -96,7 +97,8 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    
+    SmartDashboard.putNumber("AppliedOutput", intakePivotMotor.getAppliedOutput());
+    SmartDashboard.putNumber("OutputCurrent", intakePivotMotor.getOutputCurrent());
     if(manualOperation){
       // User is running motors manually, don't even try to work with PID
       return;
@@ -104,6 +106,9 @@ public class IntakeSubsystem extends SubsystemBase {
     double speed = 0;
     // We're running in standard mode, set roller speed
     // System.out.println("Encoder: " + intakePivotMotor.getEncoder().getPosition()); TODO: Make work w/ ElasticDashboard
+
+    SmartDashboard.putNumber("intakePosition", intakePivotMotor.getEncoder().getPosition());
+    
     intakeRollerMotor.set(rollerSpeed);
     if(targetAngle == Constants.intake.intakePivotMaxEncoderValue){
       // We are going down
@@ -118,9 +123,9 @@ public class IntakeSubsystem extends SubsystemBase {
     }
     SmartDashboard.putNumber("IntakeSpeed", speed);
     // System.out.println("Speed: " + speed);
-    if(speed > 1){
+    if(speed > 0.3){
       // Out of bounds
-      intakePivotMotor.set(1);
+      intakePivotMotor.set(0.3);
       return;
     }
     if(speed < -1){

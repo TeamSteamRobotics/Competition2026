@@ -44,17 +44,16 @@ public class HoodSubsystem extends SubsystemBase {
   //TODO: How to throughbore?
 
   TreeMap<Double, Double> angleLookupTable = new TreeMap<Double, Double>();
+  boolean manualOp;
 
   /** Creates a new HoodSubsystem. */
   public HoodSubsystem() {
 
     SmartDashboard.putNumber("Sim Distance", 0);
 
-  angleLookupTable.put(1.524, -0.4285);
-  angleLookupTable.put(1.828, -0.4285);
-  angleLookupTable.put(2.1336, -0.9047);
-  angleLookupTable.put(2.4384, -1.2619);
-  angleLookupTable.put(2.819, -1.666);
+  angleLookupTable.put(2.2, -0.8);
+  angleLookupTable.put(1.58, -0.0);
+  angleLookupTable.put(2.89, -1.6);
     
     config
       .idleMode(IdleMode.kBrake)
@@ -121,7 +120,12 @@ public class HoodSubsystem extends SubsystemBase {
    * If targetAngle was changed
    */
   public boolean moveByIntervalVariable(int sign) {
-    if(targetAngle >= Constants.HoodConstants.hoodMaxEncoderValue || targetAngle <= Constants.HoodConstants.hoodMinEncoderValue){
+    if(targetAngle >= Constants.HoodConstants.hoodMaxEncoderValue){
+      targetAngle = Constants.HoodConstants.hoodMaxEncoderValue;
+      return false;
+    }
+    if(targetAngle <= Constants.HoodConstants.hoodMinEncoderValue){
+      targetAngle = Constants.HoodConstants.hoodMinEncoderValue;
       return false;
     }
     if (sign > 0) {
@@ -159,8 +163,17 @@ public class HoodSubsystem extends SubsystemBase {
       targetAngle = angle;
     }
 
+    public void hoodManualSpeed(double speed){
+      elevateHoodMotor.set(speed);
+      manualOp = true;
+      return;
+    }
   @Override
   public void periodic() {
+    if(manualOp == true){
+      manualOp = false;
+      return;
+    }
     double speed;
     //accumulatedAngle += hoodAngleEncoder.get();
     if(elevateHoodMotor.getEncoder().getPosition() >= Constants.HoodConstants.hoodMaxEncoderValue + 0.01

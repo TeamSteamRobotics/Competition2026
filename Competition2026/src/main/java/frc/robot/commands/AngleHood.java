@@ -4,12 +4,16 @@
 
 package frc.robot.commands;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import com.ctre.phoenix6.Utils;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -55,12 +59,29 @@ public class AngleHood extends Command {
     didOneIntervalMove = false;
   }
 
-  public double findDistanceToHub(){
-    Pose2d robotPose = m_drive.samplePoseAt(Utils.getSystemTimeSeconds()).get(); //TODO: Determing if correct timestamp method is used
+  public static double findDistanceToHub(CommandSwerveDrivetrain drive){
+    Pose2d robotPose = drive.samplePoseAt(Utils.getSystemTimeSeconds()).get(); //TODO: Determing if correct timestamp method is used
     //Finds the x and y distances from the hub. Uses pythagorean theorem to find the distance to hub.
-    double xDistanceToHub = Math.abs(Constants.Vision.FieldPositions.hubTranslation.getX() - robotPose.getX());
-    double yDistanceToHub = Math.abs(Constants.Vision.FieldPositions.hubTranslation.getY() - robotPose.getY());
+    Optional<Alliance> ally = DriverStation.getAlliance();
+    double xDistanceToHub = 0.0;
+    double yDistanceToHub = 0.0;
+    if (ally.isPresent()) {
+      if (ally.get() == Alliance.Red) {
+        xDistanceToHub = Math.abs(Constants.Vision.FieldPositions.hubTranslationRed.getX() - robotPose.getX());
+        yDistanceToHub = Math.abs(Constants.Vision.FieldPositions.hubTranslationRed.getY() - robotPose.getY());
+      }
+      if (ally.get() == Alliance.Blue) {
+        xDistanceToHub = Math.abs(Constants.Vision.FieldPositions.hubTranslationBlue.getX() - robotPose.getX());
+        yDistanceToHub = Math.abs(Constants.Vision.FieldPositions.hubTranslationBlue.getY() - robotPose.getY());
+      }
+    } else {
+      xDistanceToHub = Math.abs(Constants.Vision.FieldPositions.hubTranslationRed.getX() - robotPose.getX());
+      yDistanceToHub = Math.abs(Constants.Vision.FieldPositions.hubTranslationRed.getY() - robotPose.getY());
+    }
+
+    SmartDashboard.putNumber("Distance to Hub", Math.sqrt(Math.pow(xDistanceToHub, 2) + Math.pow(yDistanceToHub, 2)));
     return Math.sqrt(Math.pow(xDistanceToHub, 2) + Math.pow(yDistanceToHub, 2));
+    
   }
 
   // Called when the command is initially scheduled.
@@ -88,7 +109,7 @@ public class AngleHood extends Command {
       return;
     }
     
-    m_hood.setTargetAngle(m_hood.lookupHoodAngle(findDistanceToHub()));
+    m_hood.setTargetAngle(m_hood.lookupHoodAngle(findDistanceToHub(m_drive)));
   }
 
   // Called once the command ends or is interrupted.
