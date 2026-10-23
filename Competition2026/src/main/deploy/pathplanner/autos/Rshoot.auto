@@ -5,13 +5,13 @@
     "data": {
       "commands": [
         {
-          "type": "parallel",
+          "type": "sequential",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Rstart-shoot"
+                  "pathName": "Copy of MoveBackPath"
                 }
               },
               {
@@ -24,21 +24,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "RunKickAuto"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "StopKickAuto"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunKickAuto"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.0
+                }
+              }
+            ]
           }
         },
         {

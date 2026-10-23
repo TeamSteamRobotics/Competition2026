@@ -4,6 +4,8 @@
 
 package frc.robot.commands.PathPlanner;
 
+import java.lang.reflect.Constructor;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -15,7 +17,8 @@ public class RunKickAuto extends Command {
   /** Creates a new RunKickAuto. */
   public RunKickAuto(ShooterSubsystem shooter) {
     m_shooter = shooter;
-    //addRequirements(shooter);
+    addRequirements(shooter);
+    System.out.println("this is the Constructor");
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -26,6 +29,7 @@ public class RunKickAuto extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println("this is the non constructor");
     m_shooter.runKick(Constants.shooter.kickSpeed);
     m_shooter.runIndexer();
   }
