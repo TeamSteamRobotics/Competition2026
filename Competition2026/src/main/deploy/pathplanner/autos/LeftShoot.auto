@@ -5,25 +5,56 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "DeployIntakeAuto"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Lstart-shoot"
+                  "pathName": "LShootPath"
                 }
-              },
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
               {
                 "type": "named",
                 "data": {
-                  "name": "SetHoodAngleAuto"
+                  "name": "RunKickAuto"
                 }
               },
               {
                 "type": "named",
                 "data": {
                   "name": "StartShooterAuto"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIntakeAuto"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 10.0
                 }
               }
             ]
@@ -32,13 +63,7 @@
         {
           "type": "named",
           "data": {
-            "name": "RunKickAuto"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
+            "name": "StopShooterAuto"
           }
         },
         {
@@ -50,13 +75,7 @@
         {
           "type": "named",
           "data": {
-            "name": "StopShooterAuto"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
+            "name": "StopIntakeAuto"
           }
         }
       ]

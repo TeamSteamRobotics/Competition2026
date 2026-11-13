@@ -9,11 +9,13 @@ import java.lang.reflect.Constructor;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class RunKickAuto extends Command {
 
   ShooterSubsystem m_shooter;
+  IntakeSubsystem m_intake;
   /** Creates a new RunKickAuto. */
   public RunKickAuto(ShooterSubsystem shooter) {
     m_shooter = shooter;
@@ -31,6 +33,7 @@ public class RunKickAuto extends Command {
   public void execute() {
     System.out.println("this is the non constructor");
     m_shooter.runKick(Constants.shooter.kickSpeed);
+    //m_intake.setRollerSpeed(Constants.shooter.kickSpeed);
     m_shooter.runIndexer();
   }
 

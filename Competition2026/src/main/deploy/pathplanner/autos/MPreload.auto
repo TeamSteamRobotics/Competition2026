@@ -13,12 +13,6 @@
                 "data": {
                   "pathName": "MoveBackPath"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "StartShooterAuto"
-                }
               }
             ]
           }
@@ -26,13 +20,32 @@
         {
           "type": "named",
           "data": {
-            "name": "RunKickAuto"
+            "name": "DeployIntakeAuto"
           }
         },
         {
-          "type": "wait",
+          "type": "parallel",
           "data": {
-            "waitTime": 3.0
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "StartShooterAuto"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunKickAuto"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 10.0
+                }
+              }
+            ]
           }
         },
         {
